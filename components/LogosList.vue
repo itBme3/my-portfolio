@@ -2,34 +2,27 @@
   <div class="logos-list">
       <h4
 v-if="collection.title && showTitle" key="title"
-      class="list-title whitespace-nowrap">
-        <span v-if="typedTextWidth !== '2px'" class="square-bracket mr-2 inline-block">[</span>
-        <span 
-          class="typed-text inline-block whitespace-nowrap overflow-hidden relative"
-          :class="{
-            'typing': typedTextWidth !== 'auto',
-            'pr-2': typedTextWidth.includes('ch'),
-          }"
-          :style="{width: typedTextWidth}"
-          >
+      class="list-title whitespace-nowrap"
+      :class="{[classes.title]: true}">
+        
+        <TypeSingleLine tag="span" 
+          @animationStarted="typing = true"
+          @animationDone="showItems">
+          <template #before>
+            <span v-if="typing" class="square-bracket mr-2 inline-block">[</span>
+          </template>
           <span
             v-for="(word, i) in collection.title.split(', ')"
-            :class="{
-              'opacity-0': typedTextWidth.includes('px'),
-            }"
             :key="word"><span v-if="i > 0" class="comma">, </span>
               <span
                 :class="{
                   [titleClasses[i]]: true
                 }">{{word}}</span>
           </span>
-          <span v-if="typedTextWidth !== 'auto'" :style="{left: typedTextWidth}"
-            class="cursor"
-            :class="{
-              'blinking': cursorBlinking
-            }" />
-        </span>
-        <span v-if="typedTextWidth !== '2px'" class="square-bracket ml-2 inline-block"> ]</span>
+          <template #after>
+            <span v-if="typing" class="square-bracket ml-2 inline-block"> ]</span>
+          </template>
+        </TypeSingleLine>
       </h4>
       <TransitionGroup
         tag="div"
@@ -96,92 +89,70 @@ v-if="collection.title && showTitle" key="title"
 </template>
 <script>
 import Vue from 'vue';
-import {asyncDelay} from '~/utils/funcs'
 export default Vue.extend({
-  props: {
-    category: {
-      type: String,
-      default: 'code-languages',
+    props: {
+        category: {
+            type: String,
+            default: "code-languages",
+        },
+        slugs: {
+            type: Array,
+            default: () => [],
+        },
+        showTitle: {
+            type: Boolean,
+            default: false,
+        },
+        classes: {
+          type: Object,
+          default: () => {
+            return {
+              title: ''
+            }
+          }
+        }
     },
-    slugs: {
-      type: Array,
-      default: () => [],
+    data() {
+        return {
+            specificSlugs: this.slugs || [],
+            collection: {
+                colors: [],
+                color: "",
+                title: null,
+                items: [],
+            },
+            show: [],
+            typing: false,
+            cursorBlinking: true
+        };
     },
-    showTitle: {
-      type: Boolean,
-      default: false,
+    async fetch() {
+        let call = await this.$content(this.category);
+        if (this.slugs?.length) {
+            call = call.where({ slug: { $in: this.slugs } });
+        }
+        this.collection = await call.fetch();
     },
-  },
-  data() {
-    return {
-      specificSlugs: this.slugs || [],
-      collection: {
-        colors: [],
-        color: '',
-        title: null,
-        items: [],
-      },
-      show: [],
-      typedTextWidth: '2px',
-      cursorBlinking: true
-    };
-  },
-  async fetch () {
-    let call = await this.$content(this.category);
-    if (this.slugs?.length) {
-      call = call.where({ slug: { $in: this.slugs } });
-    }
-    this.collection = await call.fetch();
-  },
-  computed: {
-    titleClasses() {
-      const colors = this.collection?.colors?.length ? this.collection.colors : [this.collection.color]
-      return colors?.map((c) => `text-${c}-400`) || []
+    computed: {
+        titleClasses() {
+            const colors = this.collection?.colors?.length ? this.collection.colors : [this.collection.color];
+            return colors?.map((c) => `text-${c}-400`) || [];
+        },
+        items() {
+            return this.collection.items || [];
+        }
     },
-    items() {
-      return this.collection.items || []
-    }
-  },
-  mounted() {
-    setTimeout(async () => {
-      await this.typeOutText()
-      for (let i = 0; i < this.items.length; i++) {
+    methods: {
+        showItems() {
           setTimeout(() => {
-            this.show.push(this.items[i].slug);
-          }, i * 25);
+            for (let i = 0; i < this.items.length; i++) {
+                setTimeout(() => {
+                    this.show.push(this.items[i].slug);
+                }, i * 25);
+            }
+          }, 200);
         }
-    }, 200)
-  },
-  methods: {
-    async typeOutText() {
-      if(!this.showTitle || !this.collection?.title?.length) {
-        this.typedTextWidth = 'auto'
-        return;
-      }
-      this.typedTextWidth = `3px`;
-      await asyncDelay(1000);
-      for (let i = 0; i < this.collection.title.length; i++) {
-        await (async() => {
-          this.cursorBlinking = false;
-          await asyncDelay(100);
-          this.typedTextWidth = `${i + 1}ch`;
-          if (this.collection.title[i] === ' ' || i === this.collection.title.length - 1) {
-            this.cursorBlinking = true;
-            await asyncDelay(600);
-          }
-          if (i === this.collection.title.length - 1) {
-            await asyncDelay(1000);
-            this.typedTextWidth = 'auto'
-          }
-          
-        })();
-        if(i === this.collection.title.length - 1) {
-          return
-        }
-      }
-
-    }
-  }
+    },
 });
 </script>
 

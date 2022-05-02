@@ -36,10 +36,22 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     'nuxt-vite',
+    // [
+    //   '@nuxtjs/google-fonts',
+    //   {
+    //     families: {
+    //       'Red+Hat+Mono': {
+    //         wght: [300, 400, 600, 700],
+    //         ital: [300, 500, 700],
+    //       },
+    //     },
+    //   },
+    // ],
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
