@@ -4,13 +4,13 @@
     <span class="type-single-line"
       :class="{
         'typing': typedTextWidth !== 'auto',
-        'pr-2': typedTextWidth.includes('ch'),
+        
         'hide-text': !typedTextWidth.includes('ch') && typedTextWidth !== 'auto'
       }"
       :style="{width: typedTextWidth}">
       <slot />
       <span
-        v-if="typedTextWidth !== 'auto'" 
+        v-if="!animationDone" 
         :style="{left: typedTextWidth}"
         class="cursor"
         :class="{
@@ -36,7 +36,8 @@ import {asyncDelay} from '~/utils/funcs'
       return {
         typedTextWidth: '2px',
         cursorBlinking: true,
-        startedTyping: false
+        startedTyping: false,
+        animationDone: false
       }
     },
     mounted() {
@@ -60,21 +61,21 @@ import {asyncDelay} from '~/utils/funcs'
         for (let i = 0; i < text.length; i++) {
           await (async() => {
             this.cursorBlinking = false;
-            await asyncDelay(100);
-            // if (i < text.length - 1) {
-              this.typedTextWidth = `${i + 1}ch`;
-            // }
+            this.typedTextWidth = `${i + (text[i] === ',' ? 2 : 1)}ch`;
+            await asyncDelay(75);
             if (text[i] === ' ' || i === text.length - 1) {
               this.cursorBlinking = true;
               await asyncDelay(300);
             }
             if (i === text.length - 1) {
-              await asyncDelay(300);
+              // this.typedTextWidth = `${i + 2}ch`
               this.typedTextWidth = 'auto'
+              await asyncDelay(500);
             }
             
           })();
           if(i === text.length - 1) {
+            this.animationDone = true
             this.$emit('animationDone', true)
             return
           }

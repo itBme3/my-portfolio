@@ -5,13 +5,13 @@
     <!-- <SiteNav /> -->
 
     <main
-      class="w-screen transform mx-auto px-2 z-1"
-      style="display: block;"
+      class="w-screen transform mx-auto px-2 z-1 bg-gray-900 relative"
+      style="display: block; margin-bottom: 50vh"
     >
       <Nuxt :key="$route.fullPath" />
     </main>
 
-    <!-- <SiteFooter /> -->
+    <SiteFooter />
       
   </div>
 </template>

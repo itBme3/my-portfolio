@@ -32,6 +32,6 @@
 
 <style lang="scss" scoped>
 .about-career-blocks {
-   @apply flex flex-col space-y-12;
+   @apply flex flex-col;
 }
 </style>
