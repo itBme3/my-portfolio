@@ -1,0 +1,9 @@
+@import './partials/_animation.scss';
+
+html,
+body {
+  font-family: 'Red Hat Mono', monospace;
+}
+body {
+  @apply bg-gray-900 text-gray-200;
+}
