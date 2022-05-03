@@ -18,7 +18,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.svg' }
     ]
   },
-  ssr: process.env === 'production',
+  ssr: process.env.NODE_ENV === 'production',
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [

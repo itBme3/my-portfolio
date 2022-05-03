@@ -92,10 +92,11 @@ module.exports = {
     './plugins/**/*.{js,ts}',
     './nuxt.config.{js,ts}',
   ],
+  // important: true,
   safelist: [
     {
       pattern: /^(bg-|text-|bg-opacity-|text-opacity-|bg-gradient-)/,
-      variants: ['sm', 'md', 'hover'],
+      variants: ['', 'sm', 'md', 'hover'],
     },
     {
       pattern: /^(border-)/,
@@ -103,9 +104,20 @@ module.exports = {
     },
   ],
   theme: {
-    
+    screens: {
+      xs: '480px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
       extend: {
-          colors
+        colors,
+        scale: {
+          97: '.97',
+          103: '1.03',
+        }
       },
   },
   plugins: [],

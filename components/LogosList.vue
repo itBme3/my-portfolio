@@ -1,15 +1,19 @@
 <template>
   <div class="logos-list">
+    
       <h4
 v-if="collection.title && showTitle" key="title"
+      ref="titleElem"
       class="list-title whitespace-nowrap"
       :class="{[classes.title]: true}">
         
-        <TypeSingleLine tag="span" 
-          @animationStarted="typing = true"
-          @animationDone="showItems">
+        <TypeSingleLine 
+          v-if="startTyping"
+          tag="span" 
+          @animationStarted="isTyping = true"
+          @animationDone="doneTyping = true">
           <template #before>
-            <span v-if="typing" class="square-bracket mr-2 inline-block">[</span>
+            <span v-if="isTyping" class="square-bracket mr-2 inline-block">[</span>
           </template>
           <span
             v-for="(word, i) in collection.title.split(', ')"
@@ -20,26 +24,22 @@ v-if="collection.title && showTitle" key="title"
                 }">{{word}}</span>
           </span>
           <template #after>
-            <span v-if="typing" class="square-bracket ml-2 inline-block"> ]</span>
+            <span v-if="isTyping" class="square-bracket ml-2 inline-block"> ]</span>
           </template>
         </TypeSingleLine>
       </h4>
-      <TransitionGroup
-        tag="div"
-        class="list-items flex flex-wrap"
-        name="up-fade"
-        @after-enter="$emit('animationDone', true)"
+      <div
+        ref="listElem"
+        class="list flex flex-wrap"
         >
-        <template
-          v-for="item in items">
           <div
-            v-if="show.includes(item.slug)"
+           v-for="item in items"
             :key="item.slug"
+            ref="listItemElems"
+            style="opacity: 0"
             class="
+              item
               flex
-              transition-all
-              ease-in-out
-              duration-300
               items-center
               content-start
               rounded-xl
@@ -83,12 +83,12 @@ v-if="collection.title && showTitle" key="title"
             </div>
             <span class="font-semibold text-sm">{{ item.title }}</span>
           </div>
-        </template>
-      </TransitionGroup>
+      </div>
   </div>
 </template>
 <script>
 import Vue from 'vue';
+import {gsap} from 'gsap'
 export default Vue.extend({
     props: {
         category: {
@@ -121,9 +121,11 @@ export default Vue.extend({
                 title: null,
                 items: [],
             },
-            show: [],
-            typing: false,
-            cursorBlinking: true
+            isTyping: false,
+            doneTyping: false,
+            startTyping: false,
+            revealItems: undefined,
+            isEntered: false
         };
     },
     async fetch() {
@@ -142,17 +144,72 @@ export default Vue.extend({
             return this.collection.items || [];
         }
     },
-    methods: {
-        showItems() {
-          setTimeout(() => {
-            for (let i = 0; i < this.items.length; i++) {
-                setTimeout(() => {
-                    this.show.push(this.items[i].slug);
-                }, i * 25);
-            }
-          }, 200);
-        }
+    watch: {
+      doneTyping(val) {
+        if(!val) { return }
+        this.$emit('doneTyping', true);
+        this.initItemsReveal();
+      }
     },
+    // mounted() {
+    //   //  this.$el.querySelectorAll('.list > div')
+    //   //   .forEach(el => {
+    //   //     console.log({el, gsap})
+    //   //     gsap.set(el, {opacity: 0})
+    //   //     });
+    // },
+    mounted() {
+      // this.typeTitle();
+      setTimeout(() => {
+        this.typeTitle();
+        gsap.utils.toArray(this.$refs.listItemElems)
+          .forEach(item => this.hide(item));
+      }, 500 )
+    },
+    methods: {
+      hide(el) {
+        gsap.set(el, { opacity: 0, y: -50, immediateRender: true, })
+      },
+      typeTitle() {
+        const onEnter = () => {
+          console.log('title entered')
+          this.startTyping = true
+        }
+        if(!this.$refs.titleElem) {return}
+        gsap.to(this.$refs.titleElem, {
+          scrollTrigger: {
+            trigger: this.$refs.titleElem,
+            start: "top bottom",
+          },
+          once: true,
+          onEnter: onEnter.bind(this)
+        })
+      },
+      initItemsReveal() {
+        // gsap.to(window, { scrollTo: window.scrollY + (this.$store.state.window.size.height * .01) })
+        const onLeave = () => {
+          this.isEntered = false
+        };
+        if(!this.$refs.listItemElems?.length) {return};
+        gsap.to(gsap.utils.toArray(this.$refs.listItemElems), {
+          scrollTrigger: {
+            trigger: this.$refs.listElem,
+            start: "top bottom",
+            end: "bottom top",
+            toggleActions: 'play reverse play reverse',
+          },
+          y: 0,
+          opacity: 1,
+          duration: .3,
+          immediateRender: true,
+          stagger: 0.05,
+          onEnter() {
+            console.log('entered')
+          },
+          onLeave: onLeave.bind(this)
+        });
+      },
+    }
 });
 </script>
 

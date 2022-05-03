@@ -2,7 +2,7 @@
 <template>
   <div class="site-container overflow-x-hidden inline">
 
-    <!-- <SiteNav /> -->
+    <SiteHeader />
 
     <main
       class="w-screen transform mx-auto px-2 z-1 bg-gray-900 relative"
@@ -11,7 +11,7 @@
       <Nuxt :key="$route.fullPath" />
     </main>
 
-    <SiteFooter />
+    <!-- <SiteFooter /> -->
       
   </div>
 </template>
@@ -33,3 +33,15 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="scss">
+
+main {
+  @apply pt-24;
+}
+
+.page-title {
+  @apply font-black text-gray-600 text-2xl sm:text-4xl md:text-5xl;
+}
+
+</style>

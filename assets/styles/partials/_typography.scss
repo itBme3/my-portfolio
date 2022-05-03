@@ -1,0 +1,11 @@
+.font-black {
+    @apply tracking-wider;
+}
+.text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl, .text-6xl, .text-7xl {
+    @apply leading-snug;
+}
+body {
+    * {
+        @apply tracking-wide leading-snug;
+    }
+}
