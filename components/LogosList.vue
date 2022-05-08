@@ -84,7 +84,7 @@
               />
               <img :src="item.image" class="max-w-full max-h-auto m-auto" />
             </div>
-            <span class="font-semibold text-sm">{{ item.title }}</span>
+            <span class="font-normal text-gray-300 text-sm">{{ item.title }}</span>
           </div>
       </div>
   </div>

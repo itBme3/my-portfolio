@@ -15,9 +15,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
   import Vue from 'vue'
-import { gsap } from 'gsap'
   export default Vue.extend({
     async asyncData({ $content, route }) {
         const project = await $content("projects", route.params.slug).fetch();
@@ -34,7 +33,7 @@ import { gsap } from 'gsap'
     methods: {
       initGsap() {
         console.log('aside', this.$el.querySelector('aside'));
-        gsap.from(this.$el.querySelector('aside'), {
+        this.$gsap.from(this.$el.querySelector('aside'), {
             scrollTrigger: {
               trigger: this.$el.querySelector('aside'),
               start: 'top top',
