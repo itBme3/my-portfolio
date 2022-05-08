@@ -2,19 +2,21 @@
   <div class="logos-list">
     
       <h4
-v-if="collection.title && showTitle" key="title"
+      v-if="collection.title && showTitle" key="title"
       ref="titleElem"
       class="list-title whitespace-nowrap"
       :class="{[classes.title]: true}">
-        
-        <TypeSingleLine 
-          v-if="startTyping"
+        <!-- <template v-if="!animateTitle">{{collection.title}}</template> -->
+        <component 
+          :is="!animateTitle ? 'span' : 'TypeSingleLine'"
+          v-if="startTyping || !animateTitle"
           tag="span" 
           @animationStarted="isTyping = true"
           @animationDone="doneTyping = true">
-          <template #before>
-            <span v-if="isTyping" class="square-bracket mr-2 inline-block">[</span>
+          <template v-if="animateTitle" #before>
+              <span v-if="isTyping" class="square-bracket mr-2 inline-block" style="top: -.37rem">[</span>
           </template>
+          <span v-if="!animateTitle" class="square-bracket mr-2 inline-block" style="top: -.08rem">[</span>
           <span
             v-for="(word, i) in collection.title.split(', ')"
             :key="word"><span v-if="i > 0" class="comma">, </span>
@@ -23,10 +25,11 @@ v-if="collection.title && showTitle" key="title"
                   [titleClasses[i]]: true
                 }">{{word}}</span>
           </span>
-          <template #after>
-            <span v-if="isTyping" class="square-bracket ml-2 inline-block"> ]</span>
+          <template v-if="animateTitle" #after>
+            <span v-if="isTyping" class="square-bracket ml-2 inline-block" style="top: -.37rem"> ]</span>
           </template>
-        </TypeSingleLine>
+          <span v-if="!animateTitle" class="square-bracket ml-2 inline-block" style="top: -.08rem"> ]</span>
+        </component>
       </h4>
       <div
         ref="listElem"
@@ -222,7 +225,7 @@ export default Vue.extend({
 
 <style lang="scss">
 .square-bracket {
-  @apply text-orange-300 inline-block relative -top-2;
+  @apply text-orange-300 inline-block relative;
   transform: scale(1, 1.25);
 }
 .comma {

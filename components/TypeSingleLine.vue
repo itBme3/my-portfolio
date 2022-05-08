@@ -30,6 +30,10 @@ import {asyncDelay} from '~/utils/funcs'
       tag: {
         type: String,
         default: 'p'
+      },
+      delay: {
+        type: Number,
+        default: 100
       }
     },
     data() {
@@ -43,7 +47,7 @@ import {asyncDelay} from '~/utils/funcs'
     mounted() {
       setTimeout(() => {
         this.typeOutText()
-      }, 100)
+      }, this.delay)
     },
     methods: {
       async typeOutText() {
@@ -62,10 +66,10 @@ import {asyncDelay} from '~/utils/funcs'
           await (async() => {
             this.cursorBlinking = false;
             this.typedTextWidth = `${i + (text[i] === ',' ? 2 : 1)}ch`;
-            await asyncDelay(75);
+            await asyncDelay(33);
             if (text[i] === ' ' || i === text.length - 1) {
               this.cursorBlinking = true;
-              await asyncDelay(300);
+              await asyncDelay(200);
             }
             if (i === text.length - 1) {
               // this.typedTextWidth = `${i + 2}ch`

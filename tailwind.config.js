@@ -117,6 +117,9 @@ module.exports = {
         scale: {
           97: '.97',
           103: '1.03',
+        },
+        fontFamily: {
+          display: `'Khula', sans-serif`
         }
       },
   },

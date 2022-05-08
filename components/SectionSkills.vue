@@ -10,6 +10,7 @@
         :classes="{title: 'text-xs leading-relaxed tracking-wider mb-6'}"
         :show-title="true"
         :category="category"
+        :animate-title="animateTitle"
         @doneTyping="() => doneTyping.push(i)" />
     </template>
 
@@ -29,6 +30,10 @@
             "libraries-frameworks",
             "apis"
         ]
+      },
+      animateTitle: {
+        type: Boolean,
+        default: true
       }
     },
     data(){

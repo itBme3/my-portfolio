@@ -2,21 +2,33 @@
   <div class="page index">
     <section class="hero narrow pb-0">
       <div class="section-content content-center !max-w-xs text-left">
-        <h1 class="text-5xl xs:text-6xl lg:text-7xl font-black text-gray-600 mb-6 mt-auto relative">
-          <span class="xs:absolute -left-6 top-0 transform -translate-x-full">👋</span>
-          Hi,<br><span class="tracking-tighter"> I'm</span> Bobby
+        <h1 class="hero-title font-display tracking-normal text-5xl xs:text-6xl lg:text-7xl text-gray-600 mb-6 mt-auto relative">
+          <span class="wave xs:absolute -left-6 top-0 transform -translate-x-full w-14 h-auto inline-block"><img class="w-full h-auto" src="/static/svgs/wave.svg" /></span>
+          <span class="text">Hi,<br>I'm Bobby</span>
         </h1>
         <TypeSingleLine 
+          v-if="show.includes('subtitle')"
           tag="h4"
           class="text-green-400 base text-left"
+          :delay="300"
           @animationDone="() => {
             continuePastHero()
           }"
           >
-          <template #before>"</template>
+          <template #before><span class="relative mr-px" style="top: -.4rem">"</span></template>
           Frontend Developer
-          <template #after>"</template>
+          <template #after><span class="relative ml-px" style="top: -.4rem">"</span></template>
         </TypeSingleLine>
+        <div class="hero-links flex space-x-2 mt-10">
+          <a class="button" href="https://github.com/itBme3" target="_blank">
+            <img src="/static/svgs/github.svg" class="mr-2 w-6 h-auto" />
+            GitHub
+          </a>
+          <a class="button" href="https://www.linkedin.com/in/bobby-moynihan-97263826" target="_blank">
+            <img src="/static/svgs/linkedin.svg" class="mr-2 w-6 h-auto" />
+            LinkedIn
+          </a>
+        </div>
       </div>
     </section>
 
@@ -45,61 +57,37 @@ export default Vue.extend({
         };
     },
     mounted() {
-      this.$gsap.to('section.skills', {
-        scrollTrigger: {
-          trigger: 'section.skills',
-          onEnter: () => this.show.push('skills')
-        }
-      })
+      this.initGsap()
     },
     methods: {
       initGsap() {
-        // this.$el.querySelectorAll('section').forEach(el => {
-        //   this.$gsap.timeline({
-        //     defaults: { // children inherit these defaults
-        //       duration: 1,
-        //       ease: "power3" 
-        //     },
-        //     // smoothChildTiming: true,
-        //     scrollTrigger: {
-        //       trigger: el, // selector or element
-        //       start: "center center",  // [trigger] [scroller] positions
-        //       end: 'center+=80% center', // [trigger] [scroller] positions
-        //       scrub: true, // or time (in seconds) to catch up
-        //       pin: true, // or selector or element to pin
-        //       markers: true, // only during development!
-        //       toggleActions: "play pause play reset",
-        //       fastScrollEnd: true, // or velocity number
-        //       anticipatePin: 1, // may help avoid jump
-        //       pinSpacing: true,
-        //       pinType: "transform", // or "fixed"
-        //       pinnedContainer: el,
-        //       preventOverlaps: true, // or arbitrary string
-        //       endTrigger: el, // selector or element
-        //       invalidateOnRefresh: true, // clears start values on refresh
-        //       refreshPriority: 1, // influence refresh order
-        //       snap: {
-        //         snapTo: 1 / 10, // progress increment
-        //         duration: 2,
-        //         directional: true,
-        //         ease: "power3",
-        //       },
-        //       onEnter: () => console.log('entered'),
-        //       onLeave: () => console.log('left')
-        //     },
-        //   })
-        //   .addLabel('start')
-        //   .fromTo(el, {
-        //     opacity: 0,
-        //     y: -20,
-        //     duration: .3
-        //   }, {
-        //     opacity: 1,
-        //     x: 0,
-        //     duration: .3
-        //   })
-        //   .addLabel('end')
-        // })
+        // this.$gsap.set('.hero-title', { opacity: 0, scaleY: 0, scaleX: .5, x: 200 });
+        this.$gsap.set('.hero-links .button', { opacity: 0, y: -30 });
+        this.$gsap.set('.hero-title img', { opacity: 0, scaleY: 0, scaleX: 0 });
+        const onComplete = () => {
+          if(this.show.includes('subtitle')){ return }
+          this.show.push('subtitle');
+          setTimeout(() => {
+            this.$gsap.to('.hero-links .button', { opacity: 1, y: 0, duration: .3, ease: 'sine.out', stagger: .1 })
+            this.$gsap.to('section.skills', {
+              scrollTrigger: {
+                trigger: 'section.skills',
+                onEnter: () => this.show.push('skills')
+              }
+            })
+          }, 2000);
+        }
+        const tl = this.$gsap.timeline({
+          onComplete: onComplete.bind(this)
+        });
+        // tl.to('.hero-title', { opacity: 1, duration: .1, scaleY: 1, scaleX: 1, delay: .2, x: 0 });
+        tl.to('.hero-title img', { opacity: 1, duration: .1, scaleY: 1, scaleX: 1, ease: 'power3.inOut', delay: .2 });
+        tl.to('.hero-title img', { keyframes: [
+          {rotation: -7},
+          {rotation: 0},
+          {rotation: 10},
+          {rotation: 0},
+        ], duration: .5, ease: 'power3.inOut', delay: .2 });
       },
       continuePastHero() {
         setTimeout(() => {
@@ -108,8 +96,8 @@ export default Vue.extend({
             if(window.scrollY < 50) {
               this.$gsap.to(window, {duration: .3, scrollTo: { y: '.hero + section', offsetY: this.$store.state.window.size.height / 2 }})
             }
-          }, 500)
-        }, 800)
+          }, 300)
+        }, 500)
       }
     }
 })
@@ -154,6 +142,11 @@ section, .page-section {
     }
     &.hero {
       @apply mb-6;
+      .hero-links {
+        .button {
+          @apply  bg-gray-800 bg-opacity-50 hover:bg-opacity-100 text-xs flex items-center content-start;
+        }
+      }
     }
 }
 </style>
