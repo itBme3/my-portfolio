@@ -1,5 +1,5 @@
 <template>
-  <div class="about page">
+  <div class="about page narrow">
     <h1 class="page-title text-4xl md:text-6xl text-gray-600">About Me:</h1>
     <SectionSkills :animate-title="false" />
   </div>

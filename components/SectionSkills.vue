@@ -2,17 +2,18 @@
 <section class="skills narrow">
   <div class="section-content flex flex-col space-y-16 mt-0 pt-10">
         
-    <template v-for="(category, i) in categories">
+    <!-- <template v-for="(category, i) in categories"> -->
       <LogosList 
-        v-if="i === 0 || doneTyping.includes(i - 1)"
+        v-for="(category, i) in categories"
         :key="category"
         class="w-full max-w-lg"
         :classes="{title: 'text-xs leading-relaxed tracking-wider mb-6'}"
         :show-title="true"
         :category="category"
         :animate-title="animateTitle"
+        :start="i === 0 ? start : doneTyping.includes(i - 1)"
         @doneTyping="() => doneTyping.push(i)" />
-    </template>
+    <!-- </template> -->
 
   </div>
 </section>
@@ -34,6 +35,10 @@
       animateTitle: {
         type: Boolean,
         default: true
+      },
+      start: {
+        type: Boolean,
+        default: false
       }
     },
     data(){
@@ -43,6 +48,14 @@
               skills: []
             }
         };
+    },
+    watch: {
+      start(val) {
+        if(!val) {return}
+        setTimeout(() => {
+          this.trackEnteredSkills()
+        }, 500)
+      }
     },
     mounted() {
       setTimeout(() => {

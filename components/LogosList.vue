@@ -110,6 +110,10 @@ export default Vue.extend({
             type: Boolean,
             default: true,
         },
+        start: {
+            type: Boolean,
+            default: false,
+        },
         classes: {
           type: Object,
           default: () => {
@@ -162,6 +166,10 @@ export default Vue.extend({
         }
     },
     watch: {
+      start(val) {
+        if(!val) {return};
+        this.typeTitle();
+      },
       doneTyping(val) {
         if(!val) { return }
         this.$emit('doneTyping', true);
@@ -171,9 +179,7 @@ export default Vue.extend({
     mounted() {
       
       setTimeout(() => {
-        if( this.showTitle && this.category && this.animateTitle) { 
-          this.typeTitle();
-        } else {
+        if( !this.showTitle || !this.category || !this.animateTitle) { 
           this.doneTyping = true
         }
         this.$gsap.utils.toArray(this.$refs.listItemElems)
