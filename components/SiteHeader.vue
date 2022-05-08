@@ -34,11 +34,10 @@ class="site-header"
   </header>
 </template>
 
-<script lang="ts">
+<script>
   import Vue from 'vue'
-import {gsap} from 'gsap';
   export default Vue.extend({
-    data(): {scrollObserver: any, resizeObserver: any, navCollapsed: boolean, mobileNavAnimation:any} {
+    data() {
       return {
         scrollObserver: undefined,
         resizeObserver: undefined,
@@ -73,17 +72,17 @@ import {gsap} from 'gsap';
       onResize() {
         this.$store.commit('window/setSizing');
         if(this.isMobile && this.navCollapsed) {
-          gsap.utils.toArray('nav.mobile .nav-link')
-            .forEach((link:any) => gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
+          this.$gsap.utils.toArray('nav.mobile .nav-link')
+            .forEach((link) => this.$gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
         }
       },
       onScroll() {
         this.$store.commit('window/setScrolling')
       },
       createMobileNavAnimation() {
-        const navLinks = gsap.utils.toArray('nav.mobile .nav-link');
+        const navLinks = this.$gsap.utils.toArray('nav.mobile .nav-link');
         const direction = this.isMobile && this.navCollapsed ? 'from' : 'to'
-        const params:any = {
+        const params = {
           stagger: { // wrap advanced options in an object
             each: 0.1,
             from: "top",
@@ -96,25 +95,25 @@ import {gsap} from 'gsap';
           x: 100
         }
         if(direction === 'to') {
-          navLinks.forEach((link:any) => gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
+          navLinks.forEach((link) => this.$gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
           params.x = 0;
           params.opacity = 1;
           params.scale = 1;
         } else{
-          navLinks.forEach((link:any) => gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
+          navLinks.forEach((link) => this.$gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
           params.stagger.from = 'end'
         }
-        gsap.to(navLinks, params);
+        this.$gsap.to(navLinks, params);
         // this.mobileNavAnimation = tl
       },
       toggleMobilNav() {
         this.navCollapsed = !this.navCollapsed
         setTimeout(() => this.createMobileNavAnimation(), 100)
-        // const navLinks = gsap.utils.toArray('nav.mobile .nav-link');
-        // // const nav = gsap.utils.toArray('nav.mobile');
+        // const navLinks = this.$gsap.utils.toArray('nav.mobile .nav-link');
+        // // const nav = this.$gsap.utils.toArray('nav.mobile');
         // const direction = this.isMobile && this.navCollapsed ? 'from' : 'to'
-        // gsap[direction]('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none", background: 'transparent' });
-        // gsap[direction](navLinks, {
+        // this.$gsap[direction]('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none", background: 'transparent' });
+        // this.$gsap[direction](navLinks, {
         //   stagger: .05,
         //   ease: 'none',
         //   duration: .3,
@@ -123,10 +122,10 @@ import {gsap} from 'gsap';
         //   scale: 1,
         // })
         // if (this.isMobile && this.navCollapsed) {
-        //   navLinks.forEach((link:any) => gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
-        //   gsap.set('nav.mobile', { y: '-110vh', x: '110vw' });
-        //   gsap.to('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none" })
-        //   gsap.to(navLinks, {
+        //   navLinks.forEach((link:any) => this.$gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
+        //   this.$gsap.set('nav.mobile', { y: '-110vh', x: '110vw' });
+        //   this.$gsap.to('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none" })
+        //   this.$gsap.to(navLinks, {
         //     stagger: .05,
         //     ease: 'none',
         //     duration: .3,
@@ -135,10 +134,10 @@ import {gsap} from 'gsap';
         //     scale: 1,
         //   })
         // } else {
-        //   navLinks.forEach((link:any) => gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
-        //   gsap.set('nav.mobile', { y: 0, x: 0})
-        //   gsap.to('nav.mobile', { y: '-110vh', x: '110vw', duration: .4, ease: "none" })
-        //   gsap.to(navLinks, {
+        //   navLinks.forEach((link:any) => this.$gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
+        //   this.$gsap.set('nav.mobile', { y: 0, x: 0})
+        //   this.$gsap.to('nav.mobile', { y: '-110vh', x: '110vw', duration: .4, ease: "none" })
+        //   this.$gsap.to(navLinks, {
         //     stagger: .05,
         //     ease: 'none',
         //     duration: .3,
@@ -148,7 +147,7 @@ import {gsap} from 'gsap';
         //     scale: .6,
         //   })
         // }
-        // console.log({ mobileNavAnimation: this.mobileNavAnimation, gsap })
+        // console.log({ mobileNavAnimation: this.mobileNavAnimation, this.$gsap })
         // if(this.navCollapsed) {
         //   this.mobileNavAnimation.play()
         // } else {

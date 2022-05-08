@@ -30,15 +30,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
-import {gsap} from 'gsap';
 export default Vue.extend({
     name: "IndexPage",
-    data(): {
-        show: string[];
-        skillCategories: string[];
-    } {
+    data() {
         return {
             show: [],
             skillCategories: [
@@ -49,7 +45,7 @@ export default Vue.extend({
         };
     },
     mounted() {
-      gsap.to('section.skills', {
+      this.$gsap.to('section.skills', {
         scrollTrigger: {
           trigger: 'section.skills',
           onEnter: () => this.show.push('skills')
@@ -59,7 +55,7 @@ export default Vue.extend({
     methods: {
       initGsap() {
         // this.$el.querySelectorAll('section').forEach(el => {
-        //   gsap.timeline({
+        //   this.$gsap.timeline({
         //     defaults: { // children inherit these defaults
         //       duration: 1,
         //       ease: "power3" 
@@ -110,7 +106,7 @@ export default Vue.extend({
           this.show.push('skills');
           setTimeout(() => {
             if(window.scrollY < 50) {
-              gsap.to(window, {duration: .3, scrollTo: { y: '.hero + section', offsetY: this.$store.state.window.size.height / 2 }})
+              this.$gsap.to(window, {duration: .3, scrollTo: { y: '.hero + section', offsetY: this.$store.state.window.size.height / 2 }})
             }
           }, 500)
         }, 800)

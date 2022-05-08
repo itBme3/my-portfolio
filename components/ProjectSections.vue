@@ -20,8 +20,7 @@
 
 <script>
   import Vue from 'vue'
-  import {gsap} from 'gsap';
-  import {ScrollTrigger} from 'gsap/ScrollTrigger'
+
     import Teleport from 'vue2-teleport';
   import {handleize} from '~/utils/funcs'
 
@@ -52,13 +51,13 @@
     },
     methods: {
       initGsap() {
-        const sections = gsap.utils.toArray(this.$el.querySelectorAll('section'));
+        const sections = this.$gsap.utils.toArray(this.$el.querySelectorAll('section'));
         ScrollTrigger.defaults({
           toggleActions: "play reverse play reverse",
         })
         
         sections.forEach((section) => {
-          gsap.from(section, {
+          this.$gsap.from(section, {
             scale: .4,
             opacity: 0,
             scrollTrigger: {

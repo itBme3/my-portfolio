@@ -17,10 +17,9 @@
 </section>
 </template>
 
-<script lang="ts">
+<script>
   import Vue from 'vue'
 
-import {gsap} from 'gsap'
   export default Vue.extend({
     props: {
       categories: {
@@ -32,10 +31,7 @@ import {gsap} from 'gsap'
         ]
       }
     },
-    data(): {
-        doneTyping: number[];
-        entered: {[key:string]: number[]};
-    } {
+    data(){
         return {
             doneTyping: [],
             entered: {
@@ -50,12 +46,12 @@ import {gsap} from 'gsap'
     },
     methods: {
       trackEnteredSkills() {
-        const elems:any = gsap.utils.toArray(this.$el.querySelectorAll('.logos-list'));
-        let onEnter = (i:number) => {
+        const elems = this.$gsap.utils.toArray(this.$el.querySelectorAll('.logos-list'));
+        let onEnter = (i) => {
           this.entered.skills.push(i)
         }
         onEnter = onEnter.bind(this)
-        elems.forEach((elem:any, i: number) => gsap.to(elem, {
+        elems.forEach((elem, i) => this.$gsap.to(elem, {
           scrollTrigger: {
             trigger: elem,
             start: 'top bottom',
