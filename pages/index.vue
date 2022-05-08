@@ -20,7 +20,7 @@
       </div>
     </section>
 
-  <SectionSkills v-if="show.includes('skills')" />
+  <SectionSkills v-if="show.includes('skills')" :categories="['code-languages', 'libraries-frameworks']" />
 
     <section class="about narrow">
       <AboutCareerBlocks class="section-content" />
@@ -58,7 +58,6 @@ export default Vue.extend({
     },
     methods: {
       initGsap() {
-        console.log(this.$el.querySelectorAll('section'));
         // this.$el.querySelectorAll('section').forEach(el => {
         //   gsap.timeline({
         //     defaults: { // children inherit these defaults
@@ -111,7 +110,7 @@ export default Vue.extend({
           this.show.push('skills');
           setTimeout(() => {
             if(window.scrollY < 50) {
-              gsap.to(window, {duration: .3, scrollTo: { y: '.hero + section', offsetY: 200 }})
+              gsap.to(window, {duration: .3, scrollTo: { y: '.hero + section', offsetY: this.$store.state.window.size.height / 2 }})
             }
           }, 500)
         }, 800)

@@ -1,5 +1,6 @@
 <template>
-  <header class="site-header"
+  <header
+class="site-header"
     :class="{
       'nav-collapsed': isMobile && navCollapsed,
       'is-mobile': isMobile
@@ -9,18 +10,23 @@
       <img class="w-10 m-auto ml-0 h-auto" src="/favicon.svg" />
     </button>
 
-    <nav class="navigation">
-      <button class="nav-link button" @click="$router.push('/about')">about me</button>
-      <button class="nav-link button" @click="$router.push('/projects')">projects</button>
-      <button class="nav-link button" @click="$router.push('/resume')">resume</button>
-      <button class="nav-link button" @click="$router.push('/contact')">get in touch</button>
-    </nav>
+     <template v-for="width in ['desktop','mobile']" >
+      <nav
+        v-if="isMobile && width === 'mobile' || !isMobile && width === 'desktop'"
+        :key="width" class="navigation"
+        :class="{ [width]: true }">
+        <button class="nav-link button transition-none" @click="$router.push('/about')">about me</button>
+        <button class="nav-link button transition-none" @click="$router.push('/projects')">projects</button>
+        <button class="nav-link button transition-none" @click="$router.push('/resume')">resume</button>
+        <button class="nav-link button transition-none" @click="$router.push('/contact')">get in touch</button>
+      </nav>
+    </template>
 
     <button
       v-if="isMobile"
       class="mobile-nav-toggle"
       :style="{marginLeft: 'calc('+ $store.state.window.size.scrollBar +' + .5rem)'}"
-      @click="navCollapsed = !navCollapsed">
+      @click="toggleMobilNav">
       <div class="bar" />
       <div class="bar" />
       <div v-if="navCollapsed" class="bar" />
@@ -30,13 +36,14 @@
 
 <script lang="ts">
   import Vue from 'vue'
-
+import {gsap} from 'gsap';
   export default Vue.extend({
-    data(): {scrollObserver: any, resizeObserver: any, navCollapsed: boolean} {
+    data(): {scrollObserver: any, resizeObserver: any, navCollapsed: boolean, mobileNavAnimation:any} {
       return {
         scrollObserver: undefined,
         resizeObserver: undefined,
-        navCollapsed: true
+        navCollapsed: true,
+        mobileNavAnimation: undefined
       }
     },
     computed: {
@@ -47,13 +54,16 @@
     watch: {
       '$route.path'() {
         this.navCollapsed = true
-      }
+      },
+      // navCollapsed() {
+      //   this.toggleMobilNav()
+      // }
     },
     mounted() {
       window.addEventListener('scroll', this.onScroll, {passive: true});
       window.addEventListener('resize', this.onResize, {passive: true});
-      this.$store.commit('window/setSizing')
-      this.$store.commit('window/setScrolling')
+      this.onResize();
+      this.onScroll()
     },
     destroyed() {
       window.removeEventListener('scroll', this.onScroll);
@@ -61,11 +71,91 @@
     },
     methods: {
       onResize() {
-        this.$store.commit('window/setSizing')
+        this.$store.commit('window/setSizing');
+        if(this.isMobile && this.navCollapsed) {
+          gsap.utils.toArray('nav.mobile .nav-link')
+            .forEach((link:any) => gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
+        }
       },
       onScroll() {
         this.$store.commit('window/setScrolling')
       },
+      createMobileNavAnimation() {
+        const navLinks = gsap.utils.toArray('nav.mobile .nav-link');
+        const direction = this.isMobile && this.navCollapsed ? 'from' : 'to'
+        const params:any = {
+          stagger: { // wrap advanced options in an object
+            each: 0.1,
+            from: "top",
+            ease: 'none',
+          },
+          ease: 'expo',
+          duration: .3,
+          opacity: 0,
+          scale: .6,
+          x: 100
+        }
+        if(direction === 'to') {
+          navLinks.forEach((link:any) => gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
+          params.x = 0;
+          params.opacity = 1;
+          params.scale = 1;
+        } else{
+          navLinks.forEach((link:any) => gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
+          params.stagger.from = 'end'
+        }
+        gsap.to(navLinks, params);
+        // this.mobileNavAnimation = tl
+      },
+      toggleMobilNav() {
+        this.navCollapsed = !this.navCollapsed
+        setTimeout(() => this.createMobileNavAnimation(), 100)
+        // const navLinks = gsap.utils.toArray('nav.mobile .nav-link');
+        // // const nav = gsap.utils.toArray('nav.mobile');
+        // const direction = this.isMobile && this.navCollapsed ? 'from' : 'to'
+        // gsap[direction]('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none", background: 'transparent' });
+        // gsap[direction](navLinks, {
+        //   stagger: .05,
+        //   ease: 'none',
+        //   duration: .3,
+        //   opacity: 1, 
+        //   x: 0,
+        //   scale: 1,
+        // })
+        // if (this.isMobile && this.navCollapsed) {
+        //   navLinks.forEach((link:any) => gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
+        //   gsap.set('nav.mobile', { y: '-110vh', x: '110vw' });
+        //   gsap.to('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none" })
+        //   gsap.to(navLinks, {
+        //     stagger: .05,
+        //     ease: 'none',
+        //     duration: .3,
+        //     opacity: 1, 
+        //     x: 0,
+        //     scale: 1,
+        //   })
+        // } else {
+        //   navLinks.forEach((link:any) => gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
+        //   gsap.set('nav.mobile', { y: 0, x: 0})
+        //   gsap.to('nav.mobile', { y: '-110vh', x: '110vw', duration: .4, ease: "none" })
+        //   gsap.to(navLinks, {
+        //     stagger: .05,
+        //     ease: 'none',
+        //     duration: .3,
+        //     delay: .4,
+        //     opacity: 0, 
+        //     x: 100,
+        //     scale: .6,
+        //   })
+        // }
+        // console.log({ mobileNavAnimation: this.mobileNavAnimation, gsap })
+        // if(this.navCollapsed) {
+        //   this.mobileNavAnimation.play()
+        // } else {
+        //   this.mobileNavAnimation.reverse()
+        // }
+        // this.mobileNavAnimation.play();
+      }
     }
   })
 </script>
@@ -92,23 +182,17 @@ nav {
   }
 }
 .site-header {
-
+  @apply h-12 transition-all;
+  transition-delay: 0s;
   &.is-mobile {
     @apply items-start bottom-0 h-screen;
     nav {
-      @apply relative left-0 top-0 bottom-0 content-center mx-auto;
+      @apply relative left-0 top-0 bottom-0 content-center mx-auto max-w-xs;
       width: calc(100% - 4rem);
+      margin-top: 10vh;
     }
     .nav-link {
       @apply text-left text-3xl capitalize;
-    }
-    &.nav-collapsed {
-      @apply h-12 bg-opacity-95;
-      nav {
-        left: 110vw;
-        bottom: 110vh;
-        @apply h-0 w-0;
-      }
     }
     &:not(.nav-collapsed) {
       @apply pt-10;
@@ -116,19 +200,29 @@ nav {
     nav {
       @apply flex-col space-y-4 space-x-0;
     }
-  }
-  &.nav-collapsed {
-    .mobile-nav-toggle {
-        .bar {
-          @apply transform rotate-0 w-full -translate-x-1/2;
-          &:nth-child(1) {
-            @apply -translate-y-2;
+    &.nav-collapsed {
+      @apply h-12;
+      transition-delay: .8s;
+      nav {
+        transition-delay: .8s;
+        opacity: 0;
+        z-index: 0;
+        height: 0;
+        overflow: hidden;
+      }
+      .mobile-nav-toggle {
+          .bar {
+            @apply transform rotate-0 w-full -translate-x-1/2;
+            &:nth-child(1) {
+              @apply -translate-y-2;
+            }
+            &:nth-last-child(1) {
+              @apply translate-y-2;
+            }
           }
-          &:nth-last-child(1) {
-            @apply translate-y-2;
-          }
-        }
+      }
     }
   }
+  
 }
 </style>

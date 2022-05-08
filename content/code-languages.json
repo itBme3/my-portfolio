@@ -15,6 +15,12 @@
     "color": "#F7DF38"
   },
   {
+    "title": "Graphql",
+    "slug": "graphql",
+    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/graphql_ker4yh.png",
+    "color": "#E535AB"
+  },
+  {
     "title": "SCSS",
     "slug": "scss",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/scss_ed4gus.png",
@@ -31,18 +37,6 @@
     "slug": "html",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/html_tcfoym.png",
     "color": "#EF652A"
-  },
-  {
-    "title": "Graphql",
-    "slug": "graphql",
-    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/graphql_ker4yh.png",
-    "color": "#E535AB"
-  },
-  {
-    "title": "jQuery",
-    "slug": "jquery",
-    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/jquery_ibaxve.png",
-    "color": "#21609B"
   }
 ]
 }

@@ -40,7 +40,6 @@ export const state = (): State => (INITIAL_STATE);
 
 export const mutations = {
       setSizing(state: any) {
-            console.log({state, document})
             if (document === undefined) {
                   state = INITIAL_STATE
                   return
@@ -59,8 +58,6 @@ export const mutations = {
             const scrollbar = (outer.offsetWidth - inner.offsetWidth);
 
             outer.parentNode.removeChild(outer);
-
-            console.log({ width, height, isMobile, scrollbar })
             state.size = Object.assign({}, state.size, { width, height, isMobile, scrollbar })
       },
       setScrolling(state: any) {

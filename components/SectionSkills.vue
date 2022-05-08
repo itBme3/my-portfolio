@@ -2,7 +2,7 @@
 <section class="skills narrow">
   <div class="section-content flex flex-col space-y-16 mt-0 pt-10">
         
-    <template v-for="(category, i) in skillCategories">
+    <template v-for="(category, i) in categories">
       <LogosList 
         v-if="i === 0 || doneTyping.includes(i - 1)"
         :key="category"
@@ -22,17 +22,21 @@
 
 import {gsap} from 'gsap'
   export default Vue.extend({
+    props: {
+      categories: {
+        type: Array,
+        default: () => [
+            "code-languages",
+            "libraries-frameworks",
+            "apis"
+        ]
+      }
+    },
     data(): {
-        skillCategories: string[];
         doneTyping: number[];
         entered: {[key:string]: number[]};
     } {
         return {
-            skillCategories: [
-                "code-languages",
-                "libraries-frameworks",
-                "apis"
-            ],
             doneTyping: [],
             entered: {
               skills: []
@@ -48,7 +52,6 @@ import {gsap} from 'gsap'
       trackEnteredSkills() {
         const elems:any = gsap.utils.toArray(this.$el.querySelectorAll('.logos-list'));
         let onEnter = (i:number) => {
-          console.log('skills entered')
           this.entered.skills.push(i)
         }
         onEnter = onEnter.bind(this)

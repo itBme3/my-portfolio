@@ -88,7 +88,7 @@ v-if="collection.title && showTitle" key="title"
 </template>
 <script>
 import Vue from 'vue';
-import {gsap} from 'gsap'
+
 export default Vue.extend({
     props: {
         category: {
@@ -102,6 +102,10 @@ export default Vue.extend({
         showTitle: {
             type: Boolean,
             default: false,
+        },
+        animateTitle: {
+            type: Boolean,
+            default: true,
         },
         classes: {
           type: Object,
@@ -129,11 +133,21 @@ export default Vue.extend({
         };
     },
     async fetch() {
-        let call = await this.$content(this.category);
-        if (this.slugs?.length) {
-            call = call.where({ slug: { $in: this.slugs } });
-        }
-        this.collection = await call.fetch();
+        this.collection = this.slugs.length 
+          ? await Promise.all(['code-languages', 'libraries-frameworks', 'apis']
+            .map(async category => await this.$content(category).fetch().then(res => {
+              return res
+            })))
+            .then(categories => {
+              const allItems = categories.reduce((acc, category) => { return [...acc, ...category.items] }, [])
+              return {
+                items: this.slugs.reduce((acc, slug) => {
+                  return [...acc, allItems.filter(item => item.slug === slug)[0]]
+                }, [])
+              }
+            })
+          : await this.$content(this.category).fetch();
+          return this.collection
     },
     computed: {
         titleClasses() {
@@ -151,32 +165,28 @@ export default Vue.extend({
         this.initItemsReveal();
       }
     },
-    // mounted() {
-    //   //  this.$el.querySelectorAll('.list > div')
-    //   //   .forEach(el => {
-    //   //     console.log({el, gsap})
-    //   //     gsap.set(el, {opacity: 0})
-    //   //     });
-    // },
     mounted() {
-      // this.typeTitle();
+      
       setTimeout(() => {
-        this.typeTitle();
-        gsap.utils.toArray(this.$refs.listItemElems)
+        if( this.showTitle && this.category && this.animateTitle) { 
+          this.typeTitle();
+        } else {
+          this.doneTyping = true
+        }
+        this.$gsap.utils.toArray(this.$refs.listItemElems)
           .forEach(item => this.hide(item));
-      }, 500 )
+      }, 500 );
     },
     methods: {
       hide(el) {
-        gsap.set(el, { opacity: 0, y: -50, immediateRender: true, })
+        this.$gsap.set(el, { opacity: 0, y: -50, immediateRender: true, })
       },
       typeTitle() {
         const onEnter = () => {
-          console.log('title entered')
           this.startTyping = true
         }
         if(!this.$refs.titleElem) {return}
-        gsap.to(this.$refs.titleElem, {
+        this.$gsap.to(this.$refs.titleElem, {
           scrollTrigger: {
             trigger: this.$refs.titleElem,
             start: "top bottom",
@@ -186,12 +196,12 @@ export default Vue.extend({
         })
       },
       initItemsReveal() {
-        // gsap.to(window, { scrollTo: window.scrollY + (this.$store.state.window.size.height * .01) })
+        // this.$gsap.to(window, { scrollTo: window.scrollY + (this.$store.state.window.size.height * .01) })
         const onLeave = () => {
           this.isEntered = false
         };
         if(!this.$refs.listItemElems?.length) {return};
-        gsap.to(gsap.utils.toArray(this.$refs.listItemElems), {
+        this.$gsap.to(this.$gsap.utils.toArray(this.$refs.listItemElems), {
           scrollTrigger: {
             trigger: this.$refs.listElem,
             start: "top bottom",
@@ -203,9 +213,6 @@ export default Vue.extend({
           duration: .3,
           immediateRender: true,
           stagger: 0.05,
-          onEnter() {
-            console.log('entered')
-          },
           onLeave: onLeave.bind(this)
         });
       },

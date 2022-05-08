@@ -16,22 +16,28 @@
     "color": "#41B883"
   },
   {
-    "title": "Angular",
-    "slug": "angular",
-    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/angular_lyqzhs.png",
-    "color": "#DD0331"
-  },
-  {
     "title": "Svelte",
     "slug": "svelte",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/svelte_jftapl.png",
     "color": "#FF3E1E"
   },
   {
+    "title": "Angular",
+    "slug": "angular",
+    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/angular_lyqzhs.png",
+    "color": "#DD0331"
+  },
+  {
     "title": "Tailwind",
     "slug": "tailwind",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/tailwind_gmbahf.png",
     "color": "#07B6D5"
+  },
+  {
+    "title": "jQuery",
+    "slug": "jquery",
+    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/jquery_ibaxve.png",
+    "color": "#21609B"
   }
 ]
 }

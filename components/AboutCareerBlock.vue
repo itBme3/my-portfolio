@@ -1,16 +1,19 @@
 <template>
   <div class="about-career-block opacity-100">
     <div class="block-content relative pl-11 xs:pl-14 sm:pl-16 md:pl-24 lg:pl-18">
-      <h2 ref="dateElem"
+      <h2
+          ref="dateElem"
         class="career-date text-pink-500 tracking-widest top-0 whitespace-nowrap left-0 absolute text-3xl sm:text-4xl md:text-5xl font-black">
         {{ block.date }}
       </h2>
       <div class="max-w-xs">
-        <h2 ref="titleElem"
+        <h2
+          ref="titleElem"
           class="career-title text-gray-600 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
           {{ block.title }}
         </h2>
-        <p ref="descriptionElem"
+        <p
+          ref="descriptionElem"
           class="career-description text-sm sm:text-base lg:text-md">
           {{ block.description }}
         </p>
@@ -19,9 +22,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
   import Vue from 'vue'
-  import { gsap } from "gsap";
+
   export default Vue.extend({
     props: {
       block: {
@@ -35,7 +38,7 @@
         }
       }
     },
-    data():{tl: any } {
+    data() {
       return {
         tl: undefined
       }
@@ -47,7 +50,7 @@
     methods: {
       initGsapTimeline() {
         
-        gsap.timeline({
+        this.$gsap.timeline({
           defaults: { // children inherit these defaults
             duration: 1,
             ease: "power3" 
@@ -59,7 +62,7 @@
             end: "top center", // [trigger] [scroller] positions
             scrub: 1, // or time (in seconds) to catch up
             pin: true, // or selector or element to pin
-            markers: true, // only during development!
+            // markers: true, // only during development!
             toggleActions: "play reverse play reverse",
             fastScrollEnd: true, // or velocity number
             pinSpacing: true,
