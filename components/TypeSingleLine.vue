@@ -1,7 +1,8 @@
 <template>
   <component :is="tag">
     <slot v-if="startedTyping" name="before" />
-    <span class="type-single-line"
+    <span
+      class="type-single-line"
       :class="{
         'typing': typedTextWidth !== 'auto',
         
@@ -34,6 +35,10 @@ import {asyncDelay} from '~/utils/funcs'
       delay: {
         type: Number,
         default: 100
+      },
+      start: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -44,9 +49,20 @@ import {asyncDelay} from '~/utils/funcs'
         animationDone: false
       }
     },
+    watch: {
+      start(val) {
+        if(val) {
+          setTimeout(() => {
+            this.typeOutText();
+          }, this.delay)
+        }
+      }
+    },
     mounted() {
       setTimeout(() => {
-        this.typeOutText()
+        if(this.start) {
+          this.typeOutText();
+        }
       }, this.delay)
     },
     methods: {
@@ -78,12 +94,9 @@ import {asyncDelay} from '~/utils/funcs'
             }
             
           })();
-          if(i === text.length - 1) {
-            this.animationDone = true
-            this.$emit('animationDone', true)
-            return
-          }
         }
+        this.animationDone = true
+        this.$emit('animationDone', true)
 
       }
     }

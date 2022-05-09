@@ -1,6 +1,7 @@
 import {gsap} from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default ({ app }, inject) => {
       inject('gsap', gsap)

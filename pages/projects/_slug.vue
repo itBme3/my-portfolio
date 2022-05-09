@@ -1,23 +1,25 @@
 <template>
-  <div class="project page flex">
-    <div class="max-w-md mx-auto">
-      
+  <div class="project page max-w-2xl mx-auto">
+
         <h1 class="page-title mb-3">{{project.title}}</h1>
         <h4 class="page-description">{{project.description}}</h4>
+    <div class="mx-0 flex sm:items-start flex-col sm:flex-row">
+      
+        <ProjectAside 
+          :project="project"
+          class="sm:order-last"
+        />
 
-        <nuxt-content :document="project" />
+        <nuxt-content :document="project" class="sm:mr-8" />
 
     </div>
-    <ProjectAside 
-      :project="project"
-      :style="{ top: $store.state.window.scroll.y > 100 && !$store.state.window.size.isMobile ? '' : 'auto' }"
-    />
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
   export default Vue.extend({
+    pageTransition: 'page',
     async asyncData({ $content, route }) {
         const project = await $content("projects", route.params.slug).fetch();
         return { project };
@@ -26,24 +28,6 @@
         return {
             test: { body: "some test" }
         };
-    },
-    mounted() {
-      setTimeout(() => this.initGsap(), 600)
-    },
-    methods: {
-      initGsap() {
-        console.log('aside', this.$el.querySelector('aside'));
-        this.$gsap.from(this.$el.querySelector('aside'), {
-            scrollTrigger: {
-              trigger: this.$el.querySelector('aside'),
-              start: 'top top',
-              pin: true,
-              pinSpacing: false,
-              // pinType: 'transform',
-              anticipatePin: 1,
-            }
-          })
-      }
     }
 })
 </script>

@@ -19,10 +19,10 @@ export const baseColors:BaseColors = {
       brighten: .95,
       darken: 7
       },
-      blue: {base: '#4d85ff', saturate: { dark:0, light: 1 }},
+      blue: {base: '#3481ff', saturate: { dark:0, light: 1 }},
       green: {base: '#24ffbd', brighten: .93, darken: 10},
-      purple: {base: '#a857ff', saturate: { light: .5 }},
-      pink: {base: '#ff6be4'},
+      purple: {base: '#b371fa', saturate: { light: .5 }},
+      pink: {base: '#ff7ae7'},
       red: {base: '#ff4772'},
       orange: {base: '#ffa970'},
       yellow: {base: '#fff58a', brighten: .95},

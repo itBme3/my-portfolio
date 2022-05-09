@@ -1,7 +1,7 @@
 <template>
   <div class="page index">
     <section class="hero narrow pb-0">
-      <div class="section-content content-center !max-w-xs text-left">
+      <div class="section-content content-center !max-w-xs text-left !pb-4">
         <h1 class="hero-title font-display tracking-normal text-5xl xs:text-6xl lg:text-7xl text-gray-600 mb-6 mt-auto relative">
           <span class="wave xs:absolute -left-6 top-0 transform -translate-x-full w-14 h-auto inline-block"><img class="w-full h-auto" src="/static/svgs/wave.svg" /></span>
           <span class="text">Hi,<br>I'm Bobby</span>
@@ -9,8 +9,9 @@
         <TypeSingleLine 
           :start="show.includes('subtitle')"
           tag="h4"
-          class="text-green-400 base text-left"
+          class="hero-subtitle text-green-400 base text-left"
           :delay="300"
+          @animationDone="revealHeroLinks"
           >
           <template #before><span class="relative mr-px" style="top: -.4rem">"</span></template>
           Frontend Developer
@@ -52,7 +53,7 @@ export default Vue.extend({
                 "apis"
             ]
         };
-    },
+  },
     mounted() {
       this.initGsap()
     },
@@ -60,46 +61,55 @@ export default Vue.extend({
       initGsap() {
         // this.$gsap.set('.hero-title', { opacity: 0, scaleY: 0, scaleX: .5, x: 200 });
         // this.$gsap.set('.hero-links', { opacity: 0, y: -60 });
-        this.$gsap.set('.hero-links .button', { opacity: 0, y: -30, x: -10, scaleY: .6, scaleX: .6 });
+        this.$gsap.set('.hero-links .button', { opacity: 0, marginTop: '-20px' });
         this.$gsap.set('.hero-title img', { opacity: 0, scaleY: 0, scaleX: 0 });
         const onComplete = () => {
           if(this.show.includes('subtitle')){ return }
           this.show.push('subtitle');
-          setTimeout(() => {
-            // this.$gsap.to('.hero-links', { opacity: 1, y: 0, duration: .1, ease: 'none' })
-            this.$gsap.to('.hero-links .button', { opacity: 1, y: 0, duration: .2, x: 0, scaleY: 1, scaleX: 1, ease: 'none', stagger: .1, delay: .1 })
-            this.$gsap.to('section.skills', {
-              scrollTrigger: {
-                trigger: 'section.skills',
-                onEnter: () => {
-                  setTimeout(() => this.show.push('skills'), 500)
-                }
-              }
-            });
-            this.continuePastHero()
-          }, 1500);
         }
         const tl = this.$gsap.timeline({
           onComplete: onComplete.bind(this)
         });
-        // tl.to('.hero-title', { opacity: 1, duration: .1, scaleY: 1, scaleX: 1, delay: .2, x: 0 });
         tl.to('.hero-title img', { opacity: 1, duration: .1, scaleY: 1, scaleX: 1, ease: 'power3.inOut', delay: .2 });
         tl.to('.hero-title img', { keyframes: [
           {rotation: -7},
           {rotation: 0},
           {rotation: 10},
           {rotation: 0},
-        ], duration: .5, ease: 'power3.inOut', delay: .2 });
+          {rotation: -7},
+          {rotation: 0},
+        ], duration: .75, ease: 'power3.inOut', delay: .2 });
+      },
+      revealHeroLinks() {
+        this.$gsap.to('.hero-links .button', { opacity: 1, marginTop: '0', duration: .2, ease: 'none', stagger: .1, delay: .05 })
+        this.$gsap.to('section.skills', {
+          scrollTrigger: {
+            trigger: 'section.skills',
+            onEnter: () => {
+              setTimeout(() => {
+                this.show.push('skills')
+              }, 800);
+            }
+          }
+        });
+        this.continuePastHero()
       },
       continuePastHero() {
         setTimeout(() => {
             // this.show.push('skills');
             if(window.scrollY < 50) {
-              this.$gsap.to(window, {duration: .3, scrollTo: { y: '.hero + section', offsetY: this.$store.state.window.size.height / 2 }})
+              this.$gsap.to(window, {duration: .3, scrollTo: { y: '.hero-subtitle', offsetY: 150 }})
             }
-        }, 1000)
+        }, 1500)
       }
     }
 })
 </script>
+<style lang="scss" scoped>
+.hero {
+  .section-content {
+    @apply pb-4 #{!important};
+  }
+}
+</style>
 

@@ -42,7 +42,7 @@
       @apply font-display text-xl;
     }
     .card-description {
-      @apply text-gray-500 text-sm;
+      @apply text-gray-400 text-sm;
     }
   }
 }

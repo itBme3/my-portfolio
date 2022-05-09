@@ -3,22 +3,22 @@
     <div class="block-content relative pl-11 xs:pl-14 sm:pl-16 md:pl-24 lg:pl-18">
       <h4
           ref="dateElem"
-        class="career-date font-display text-pink-500 tracking-widest top-0 whitespace-nowrap left-0 absolute text-xl sm:text-2xl md:text-3xl font-black">
+        class="career-date font-display text-pink-400 tracking-widest top-0 whitespace-nowrap left-4 absolute text-xl sm:text-2xl md:text-3xl font-black">
         {{ block.date }}
       </h4>
       <div class="max-w-xs">
         <h2
           ref="titleElem"
-          class="career-title font-display text-gray-600 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
+          class="career-title font-display text-gray-200 text-3xl sm:text-4xl font-bold">
           {{ block.title }}
         </h2>
-        <a :href="block.companyLink" target="_blank" class="career-company flex items-center my-4 text-yellow-500 w-auto">
+        <a :href="block.companyLink" target="_blank" class="career-company flex items-center my-4 text-cyan-300 w-auto">
           <span class="border border-transparent border-t-0 border-l-0 border-r-0 mr-2 hover:border-yellow-600">{{ block.company }}</span>
           <SvgIcon name="link" class="my-auto w-4 text-gray-600" />
         </a>
         <p
           ref="descriptionElem"
-          class="career-description text-sm sm:text-base lg:text-md">
+          class="career-description text-sm sm:text-base lg:text-md text-gray-300">
           {{ block.description }}
         </p>
       </div>
@@ -103,7 +103,7 @@
                 duration: 0.4,
             }, '-=.3');
             // tl.to(elms.date, { y: 30, opacity: 1, duration: .3 }, '-=.5');
-            this.tl.to(elms.date, { y: -50, opacity: 1, duration: 1 }, '1');
+            this.tl.to(elms.date, { y: -20, opacity: 1, duration: 1 }, '1');
             
         }
     }
@@ -111,9 +111,7 @@
 </script>
 
 <style lang="scss" scoped>
-.about-career-block {
-  min-height: 60vh;
-}
+
 .career-date {
   transform: translateX(-50%) translateY(150%) rotate(90deg);
 }

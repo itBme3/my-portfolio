@@ -1,10 +1,10 @@
 <template>
-  <div class="project-sections">
+  <div class="project-sections space-y-24 pt-24">
     
     <section
       v-for="section in projectSections"
       :key="section.id"
-      class="pt-32 block p-8 rounded space-y-4">
+      class="block rounded space-y-4 h-auto">
       <h3 class="section-title text-2xl text-gray-500 font-bold">{{ section.title }}</h3>
       <template v-if="section.media">
         <Media 
@@ -47,7 +47,7 @@
       },
     },
     mounted() {
-      this.initGsap()
+      // this.initGsap()
     },
     methods: {
       initGsap() {
@@ -61,11 +61,11 @@
               trigger:section,
               toggleActions: "play reverse play reverse",
               // start: 'center center',
-              end: 'bottom top',
+              end: 'top 100%',
               // pin: true,
               // pinSpacing: false,
-              pinType: 'transform',
-              anticipatePin: 1,
+              // pinType: 'transform',
+              // anticipatePin: 1,
             }
           })
         })

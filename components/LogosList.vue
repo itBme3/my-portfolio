@@ -114,6 +114,10 @@ export default Vue.extend({
             type: Boolean,
             default: false,
         },
+        toggleActions: {
+          type: String,
+          default: 'play reverse play reverse'
+        },
         classes: {
           type: Object,
           default: () => {
@@ -215,7 +219,7 @@ export default Vue.extend({
             trigger: this.$refs.listElem,
             start: "top bottom",
             end: "bottom top",
-            toggleActions: 'play reverse play reverse',
+            toggleActions: this.toggleActions,
           },
           y: 0,
           opacity: 1,

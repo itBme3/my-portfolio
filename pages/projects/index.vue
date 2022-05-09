@@ -15,6 +15,7 @@
   import Vue from 'vue'
 
   export default Vue.extend({
+    transition: 'page',
     async asyncData({$content}) {
       const projects = await $content('projects').fetch();
       return { projects }

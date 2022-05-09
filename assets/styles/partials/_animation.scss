@@ -1,3 +1,16 @@
+.page {
+  transition: all 0.2s;
+}
+// .page-enter, .page-leave-active {
+//   // transition: all 0.3s;
+//   filter: blur(100px);
+// }
+// .page-enter,
+// .page-leave-to {
+//   filter: blur(100px);
+// }
+
+
 .scale-enter-active {
   animation: scale 0.3s;
 }

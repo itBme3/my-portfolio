@@ -6,19 +6,22 @@ class="site-header"
       'is-mobile': isMobile
     }">
 
-    <button class="nav-link button shadow-none absolute left-0 top-0" @click="$router.push('/')">
+    <nuxt-link
+      to="/"
+      class="nav-link shadow-none absolute left-0 top-0 !hover:bg-transparent !hover:shadow-none" 
+      >
       <img class="w-10 m-auto ml-0 h-auto" src="/favicon.svg" />
-    </button>
+    </nuxt-link>
 
      <template v-for="width in ['desktop','mobile']" >
       <nav
         v-if="isMobile && width === 'mobile' || !isMobile && width === 'desktop'"
         :key="width" class="navigation"
         :class="{ [width]: true }">
-        <button class="nav-link button transition-none" @click="$router.push('/about')">about me</button>
-        <button class="nav-link button transition-none" @click="$router.push('/projects')">projects</button>
-        <button class="nav-link button transition-none" @click="$router.push('/resume')">resume</button>
-        <button class="nav-link button transition-none" @click="$router.push('/contact')">get in touch</button>
+        <nuxt-link class="nav-link button transition-none" to="/about">about me</nuxt-link>
+        <nuxt-link class="nav-link button transition-none" to="/projects">projects</nuxt-link>
+        <nuxt-link class="nav-link button transition-none" to="/resume">resume</nuxt-link>
+        <nuxt-link class="nav-link button transition-none" to="/contact">get in touch</nuxt-link>
       </nav>
     </template>
 
@@ -159,7 +162,7 @@ class="site-header"
   })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .site-header {
   @apply fixed top-0 left-0 right-0 h-14 w-screen bg-gray-900 flex items-center content-start;
   z-index: 9;
@@ -183,6 +186,14 @@ nav {
 .site-header {
   @apply h-12 transition-all;
   transition-delay: 0s;
+  .nav-link {
+    &.nuxt-link-exact-active {
+        @apply text-white hover:bg-transparent cursor-pointer hover:scale-100 hover:shadow-none font-semibold;
+      }
+      &.nuxt-link-active {
+        @apply text-white font-semibold;
+      }
+  }
   &.is-mobile {
     @apply items-start bottom-0 h-screen;
     nav {
@@ -191,8 +202,10 @@ nav {
       margin-top: 10vh;
     }
     .nav-link {
-      @apply text-left text-3xl capitalize;
+      @apply text-left text-3xl capitalize font-normal;
     }
+
+
     &:not(.nav-collapsed) {
       @apply pt-10;
     }

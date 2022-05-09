@@ -76,18 +76,23 @@ export default {
       },
     },
   },
-  vite: {
-    // optimizeDeps: {
-    //   exclude: [
-    //     'html'
-    //   ]
-    // },
-    // css: {
-    //   preprocessorOptions: {
-    //     scss: {
-    //       additionalData: '@import "@/assets/styles/style.scss";',
-    //     },
-    //   },
-    // },
+  vite: {},
+  pageTransition: {
+    name: 'page',
+    mode: 'out-in',
+    beforeLeave(el) {
+      el.style.opacity = '0'
+      el.style.height = '0'
+      el.style.overflow = 'hidden'
+    },
+    afterLeave(el) {
+      el.style.filter = 'blur(0)';
+    },
+    beforeEnter(el) {
+      el.style.filter = 'blur(20px)'
+    },
+    afterEnter(el) {
+      el.style.filter = 'blur(0px)'
+    }
   }
 }

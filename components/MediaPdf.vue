@@ -44,7 +44,7 @@ export default Vue.extend({
         this.loading = 'Error loading pdf.'
         return
       };
-      const delay = 500;
+      const delay = 3000;
       setTimeout(() => {
         // console.log({ Iframe: this.$refs.iFrame });
         try {

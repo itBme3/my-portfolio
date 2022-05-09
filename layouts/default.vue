@@ -18,16 +18,18 @@
 
 <script>
 import Vue from 'vue'
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(ScrollToPlugin);
 export default Vue.extend({
   watch: {
     '$route.path'() {
       if(window !== undefined) {
+        console.log(window.scrollY)
         window.scrollTo({top: 0, left: 0})
+        setTimeout(() => {
+          console.log(window.scrollY)
+          if(window.scrollY > 0) {
+            window.scrollTo({top: 0, left: 0})
+          }
+        }, 300)
       }
     }
   }
