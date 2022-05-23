@@ -88,7 +88,7 @@
           this.shouldStart = true
         }
         onEnter = onEnter.bind(this)
-        this.$ScrollTrigger.create({
+        this.$gsap.ScrollTrigger.create({
           trigger: this.$el,
           start: 'top 100%',
           onEnter

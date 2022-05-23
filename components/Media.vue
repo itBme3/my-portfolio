@@ -66,7 +66,7 @@
           }
           video.play()
         }
-        this.$ScrollTrigger.create({
+        this.$gsap.ScrollTrigger.create({
           trigger: this.$el,
           start: 'top bottom',
           end: 'bottom top-=10%',
