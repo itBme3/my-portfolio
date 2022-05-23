@@ -162,7 +162,7 @@ export default Vue.extend({
     },
     computed: {
         titleClasses() {
-            const colors = this.collection?.colors?.length ? this.collection.colors : [this.collection.color];
+            const colors = this.collection?.colors?.length ? this.collection.colors : !this.collection ? [] : [this.collection.color];
             return colors?.map((c) => `text-${c}-300`) || [];
         },
         items() {
