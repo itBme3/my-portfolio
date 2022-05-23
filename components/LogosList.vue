@@ -153,6 +153,9 @@ export default Vue.extend({
               const allItems = categories.reduce((acc, category) => { return [...acc, ...category.items] }, [])
               return {
                 items: this.slugs.reduce((acc, slug) => {
+                  if(allItems.filter(item => item.slug === slug)[0] === undefined) {
+                    return acc
+                  }
                   return [...acc, allItems.filter(item => item.slug === slug)[0]]
                 }, [])
               }
