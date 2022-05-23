@@ -18,8 +18,8 @@
 
 <script>
 import Vue from 'vue'
-import { ScrollTrigger } from 'gsap/ScrollTrigger.js'
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin.js'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { gsap } from 'gsap'
 import { asyncDelay } from '~/utils/funcs'
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
