@@ -1,5 +1,5 @@
 ---
-title: Classic Arcade
+title: Nostalgia Arcade
 description: Recreated some classic games to learn more about Svelte's state management.
 media: https://res.cloudinary.com/bmoyni3/video/upload/v1651619380/projects/videos/snake-sequence_tol9bz.mp4
 links: {
