@@ -22,7 +22,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { gsap } from 'gsap'
 import { asyncDelay } from '~/utils/funcs'
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 export default Vue.extend({
   watch: {
     '$route.path'() {
@@ -35,6 +35,9 @@ export default Vue.extend({
         })
       }
     }
+  },
+  mounted() {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
   }
 })
 </script>
