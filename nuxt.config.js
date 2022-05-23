@@ -25,7 +25,9 @@ export default {
     '~/assets/styles/tailwind.css',
     '~/assets/styles/style.scss',
   ],
-
+  static: {
+    prefix:false
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/gsap.js'
@@ -46,7 +48,7 @@ export default {
             ital: [300, 500, 700],
           },
           'Khula': {
-            wght: [800],
+            wght: [800, 600, 300],
           }
         },
       },

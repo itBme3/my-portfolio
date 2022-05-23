@@ -1,6 +1,6 @@
 <template>
   <header
-class="site-header"
+    class="site-header"
     :class="{
       'nav-collapsed': isMobile && navCollapsed,
       'is-mobile': isMobile
@@ -9,27 +9,43 @@ class="site-header"
     <nuxt-link
       to="/"
       class="nav-link shadow-none absolute left-0 top-0 !hover:bg-transparent !hover:shadow-none" 
+      @click="navCollapsed = true"
       >
-      <img class="w-10 m-auto ml-0 h-auto" src="/favicon.svg" />
+      <img 
+      class="w-10 m-auto ml-0 h-auto"
+      src="/favicon.svg" 
+      @click="navCollapsed = true"
+      />
     </nuxt-link>
 
-     <template v-for="width in ['desktop','mobile']" >
-      <nav
+    <template v-for="width in ['desktop','mobile']" >
+      <TransitionGroup
         v-if="isMobile && width === 'mobile' || !isMobile && width === 'desktop'"
         :key="width" class="navigation"
+        name="left-fade"
+        duration="1000"
+        tag="nav"
         :class="{ [width]: true }">
-        <nuxt-link class="nav-link button transition-none" to="/about">about me</nuxt-link>
-        <nuxt-link class="nav-link button transition-none" to="/projects">projects</nuxt-link>
-        <nuxt-link class="nav-link button transition-none" to="/resume">resume</nuxt-link>
-        <nuxt-link class="nav-link button transition-none" to="/contact">get in touch</nuxt-link>
-      </nav>
+        <template v-for="(link, i) in links">
+          <nuxt-link
+            v-if="!isMobile || (!navCollapsed && showIndex >= i)"
+            :key="link.path"
+            class="nav-link button"
+            :class="{
+              'redacted-reveal': width === 'mobile' && !navCollapsed,
+            }"
+            :to="link.path">
+            {{link.label}}
+          </nuxt-link>
+        </template>
+      </TransitionGroup>
     </template>
 
     <button
       v-if="isMobile"
       class="mobile-nav-toggle"
       :style="{marginLeft: 'calc('+ $store.state.window.size.scrollBar +' + .5rem)'}"
-      @click="toggleMobilNav">
+      @click="navCollapsed = !navCollapsed">
       <div class="bar" />
       <div class="bar" />
       <div v-if="navCollapsed" class="bar" />
@@ -39,13 +55,21 @@ class="site-header"
 
 <script>
   import Vue from 'vue'
+  import { asyncDelay } from '~/utils/funcs'
   export default Vue.extend({
     data() {
       return {
         scrollObserver: undefined,
         resizeObserver: undefined,
         navCollapsed: true,
-        mobileNavAnimation: undefined
+        mobileNavAnimation: undefined,
+        links: [
+          { label: 'About Me', path: '/about' },
+          { label: 'Projects', path: '/projects' },
+          { label: 'Resume', path: '/resume' },
+          { label: 'Get In Touch', path: '/contact' },
+        ],
+        showIndex: -1
       }
     },
     computed: {
@@ -57,9 +81,15 @@ class="site-header"
       '$route.path'() {
         this.navCollapsed = true
       },
-      // navCollapsed() {
-      //   this.toggleMobilNav()
-      // }
+      navCollapsed(val) {
+        if(val) {
+          this.showIndex = -1
+          return
+        }
+        for (let i = 0; i < this.links.length; i++) {
+          asyncDelay(i * 100).then(() => {this.showIndex = i})
+        }
+      }
     },
     mounted() {
       window.addEventListener('scroll', this.onScroll, {passive: true});
@@ -74,89 +104,9 @@ class="site-header"
     methods: {
       onResize() {
         this.$store.commit('window/setSizing');
-        if(this.isMobile && this.navCollapsed) {
-          this.$gsap.utils.toArray('nav.mobile .nav-link')
-            .forEach((link) => this.$gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
-        }
       },
       onScroll() {
         this.$store.commit('window/setScrolling')
-      },
-      createMobileNavAnimation() {
-        const navLinks = this.$gsap.utils.toArray('nav.mobile .nav-link');
-        const direction = this.isMobile && this.navCollapsed ? 'from' : 'to'
-        const params = {
-          stagger: { // wrap advanced options in an object
-            each: 0.1,
-            from: "top",
-            ease: 'none',
-          },
-          ease: 'expo',
-          duration: .3,
-          opacity: 0,
-          scale: .6,
-          x: 100
-        }
-        if(direction === 'to') {
-          navLinks.forEach((link) => this.$gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
-          params.x = 0;
-          params.opacity = 1;
-          params.scale = 1;
-        } else{
-          navLinks.forEach((link) => this.$gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
-          params.stagger.from = 'end'
-        }
-        this.$gsap.to(navLinks, params);
-        // this.mobileNavAnimation = tl
-      },
-      toggleMobilNav() {
-        this.navCollapsed = !this.navCollapsed
-        setTimeout(() => this.createMobileNavAnimation(), 100)
-        // const navLinks = this.$gsap.utils.toArray('nav.mobile .nav-link');
-        // // const nav = this.$gsap.utils.toArray('nav.mobile');
-        // const direction = this.isMobile && this.navCollapsed ? 'from' : 'to'
-        // this.$gsap[direction]('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none", background: 'transparent' });
-        // this.$gsap[direction](navLinks, {
-        //   stagger: .05,
-        //   ease: 'none',
-        //   duration: .3,
-        //   opacity: 1, 
-        //   x: 0,
-        //   scale: 1,
-        // })
-        // if (this.isMobile && this.navCollapsed) {
-        //   navLinks.forEach((link:any) => this.$gsap.set(link, { x: 100, opacity: 0, scale: .6 }));
-        //   this.$gsap.set('nav.mobile', { y: '-110vh', x: '110vw' });
-        //   this.$gsap.to('nav.mobile', { y: 0, x: 0, duration: .4, ease: "none" })
-        //   this.$gsap.to(navLinks, {
-        //     stagger: .05,
-        //     ease: 'none',
-        //     duration: .3,
-        //     opacity: 1, 
-        //     x: 0,
-        //     scale: 1,
-        //   })
-        // } else {
-        //   navLinks.forEach((link:any) => this.$gsap.set(link, { x: 0, opacity: 1, scale: 1 }));
-        //   this.$gsap.set('nav.mobile', { y: 0, x: 0})
-        //   this.$gsap.to('nav.mobile', { y: '-110vh', x: '110vw', duration: .4, ease: "none" })
-        //   this.$gsap.to(navLinks, {
-        //     stagger: .05,
-        //     ease: 'none',
-        //     duration: .3,
-        //     delay: .4,
-        //     opacity: 0, 
-        //     x: 100,
-        //     scale: .6,
-        //   })
-        // }
-        // console.log({ mobileNavAnimation: this.mobileNavAnimation, this.$gsap })
-        // if(this.navCollapsed) {
-        //   this.mobileNavAnimation.play()
-        // } else {
-        //   this.mobileNavAnimation.reverse()
-        // }
-        // this.mobileNavAnimation.play();
       }
     }
   })
@@ -174,7 +124,7 @@ nav {
   }
 }
 .mobile-nav-toggle {
-  @apply absolute top-4 right-4 w-6 h-6 block p-1 rounded-full;
+  @apply absolute top-4 right-4 w-6 h-6 block p-1 rounded-full hover:bg-transparent;
   .bar {
     @apply transition-all ease-in-out duration-200 bg-gray-300 absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2 w-full rounded rotate-45;
     height: .13rem;
@@ -184,9 +134,9 @@ nav {
   }
 }
 .site-header {
-  @apply h-12 transition-all;
-  transition-delay: 0s;
+  @apply h-12;
   .nav-link {
+    @apply text-gray-100;
     &.nuxt-link-exact-active {
         @apply text-white hover:bg-transparent cursor-pointer hover:scale-100 hover:shadow-none font-semibold;
       }
@@ -203,9 +153,29 @@ nav {
     }
     .nav-link {
       @apply text-left text-3xl capitalize font-normal;
+      &:not(:hover) {
+        @apply rounded-none;
+      }
+      &:after {
+        @apply bg-cyan-500 rounded-sm bottom-0 top-auto h-1 rounded;
+        animation-delay: .3s;
+      }
+      &:nth-child(2) {
+        &::after {
+          @apply bg-purple-500 translate-x-full;
+        }
+      }
+      &:nth-child(3) {
+        &::after {
+          @apply bg-pink-500;
+        }
+      }
+      &:nth-child(4) {
+        &::after {
+          @apply bg-green-500;
+        }
+      }
     }
-
-
     &:not(.nav-collapsed) {
       @apply pt-10;
     }
@@ -214,13 +184,8 @@ nav {
     }
     &.nav-collapsed {
       @apply h-12;
-      transition-delay: .8s;
       nav {
-        transition-delay: .8s;
         opacity: 0;
-        z-index: 0;
-        height: 0;
-        overflow: hidden;
       }
       .mobile-nav-toggle {
           .bar {

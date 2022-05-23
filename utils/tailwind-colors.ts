@@ -11,7 +11,7 @@ interface BaseColors {
 
 export const baseColors:BaseColors = {
       cyan: {
-      base: '#25D4DC',
+      base: '#0AE2FF',
       saturate: {
             light: 1,
             dark: 0
@@ -20,9 +20,9 @@ export const baseColors:BaseColors = {
       darken: 7
       },
       blue: {base: '#3481ff', saturate: { dark:0, light: 1 }},
-      green: {base: '#24ffbd', brighten: .93, darken: 10},
-      purple: {base: '#b371fa', saturate: { light: .5 }},
-      pink: {base: '#ff7ae7'},
+      green: {base: '#08f7bb', brighten: .93, darken: 10},
+      purple: {base: '#9029ff', saturate: { light: .5 }},
+      pink: {base: '#ff14d4'},
       red: {base: '#ff4772'},
       orange: {base: '#ffa970'},
       yellow: {base: '#fff58a', brighten: .95},

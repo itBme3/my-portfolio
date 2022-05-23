@@ -213,3 +213,32 @@
         opacity: 1;
     }
 }
+
+:root {
+	--redacted-reveal-color: cyan;
+	--redacted-reveal-duration: .70s;
+}
+.redacted-reveal {
+  @apply relative overflow-hidden;
+	&::after {
+		content: '';
+    @apply absolute left-0 top-0 w-full h-full transition-all duration-300 ease-in-out bg-gray-200;
+		background-color: var(--redacted-reveal-color);
+		animation-iteration-count: 1;
+		animation-duration: var(--redacted-reveal-duration);
+		animation-fill-mode: forwards;
+    animation-name: redacted-overlay;
+	}
+}
+
+@keyframes redacted-overlay {
+	0% {
+		transform: translateX(0);
+	}
+	60% {
+		transform: translateX(-90%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}

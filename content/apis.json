@@ -3,22 +3,16 @@
   "color": "purple",
 "items": [
   {
+    "title": "Firebasae",
+    "slug": "firebase",
+    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653292221/logos/firebase_xkacuk.png",
+    "color": "#FCCA3F"
+  },
+  {
     "title": "Algolia",
     "slug": "algolia",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/algolia_j0hpwf.png",
     "color": "#5468FA"
-  },
-  {
-    "title": "Firestore",
-    "slug": "firestore",
-    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/firestore_bxnh8e.png",
-    "color": "#FCCA3F"
-  },
-  {
-    "title": "Firebase Functions",
-    "slug": "firebase-functions",
-    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/firebase-functions_qwzqyl.png",
-    "color": "#FCCA3F"
   },
   {
     "title": "Google Cloud Storage",

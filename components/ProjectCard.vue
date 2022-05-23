@@ -39,7 +39,7 @@
   .card-content {
      @apply w-7/12;
     .card-title {
-      @apply font-display text-xl;
+      @apply font-display text-xl font-bold;
     }
     .card-description {
       @apply text-gray-400 text-sm;

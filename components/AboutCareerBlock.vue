@@ -3,7 +3,7 @@
     <div class="block-content relative pl-11 xs:pl-14 sm:pl-16 md:pl-24 lg:pl-18">
       <h4
           ref="dateElem"
-        class="career-date font-display text-pink-400 tracking-widest top-0 whitespace-nowrap left-4 absolute text-xl sm:text-2xl md:text-3xl font-black">
+        class="career-date font-display text-pink-500 tracking-widest top-0 whitespace-nowrap left-4 absolute text-xl sm:text-2xl md:text-3xl font-black">
         {{ block.date }}
       </h4>
       <div class="max-w-xs">
@@ -75,9 +75,9 @@
                 smoothChildTiming: true,
                 scrollTrigger: {
                     trigger: this.$el,
-                    start: "top 110%",
+                    start: "top 130%",
                     scrub: true,
-                    toggleActions: "play reverse play reverse",
+                    toggleActions: "play pause play reverse",
                     fastScrollEnd: true,
                 }
             });
@@ -102,7 +102,6 @@
                 opacity: 1,
                 duration: 0.4,
             }, '-=.3');
-            // tl.to(elms.date, { y: 30, opacity: 1, duration: .3 }, '-=.5');
             this.tl.to(elms.date, { y: -20, opacity: 1, duration: 1 }, '1');
             
         }

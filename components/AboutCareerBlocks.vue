@@ -8,18 +8,21 @@
           'italic text-gray-500': doneTyping,
           'text-gray-300': !doneTyping,
         }"
-        :delay="300"
+        :delay="0"
         @animationDone="() => doneTyping = true"
         >
         <template  v-if="doneTyping" #before><span class="relative text-gray-500 mr-px" style="top: -.5rem">// </span></template>
         Work Experience
-        <!-- <template v-if="doneTyping" #after><span class="relative text-gray-500 ml-px" style="top: -.5rem"> */</span></template> -->
     </TypeSingleLine>
     <AboutCareerBlock 
       v-for="block in blocks"
       :key="block.title"
       :block="block"
-      class="mb-32"
+      class="mb-32 transition-all duration-500 transform ease-in-out"
+      :class="{
+        'scale-0 translate-y-[50vh]': !doneTyping,
+        'opacity-100 scale-100': doneTyping
+      }"
     />
   </div>
 </template>
@@ -87,7 +90,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
         onEnter = onEnter.bind(this)
         ScrollTrigger.create({
           trigger: this.$el,
-          start: 'top 90%',
+          start: 'top 100%',
           onEnter
         })
       }

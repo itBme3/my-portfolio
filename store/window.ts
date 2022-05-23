@@ -34,7 +34,7 @@ const INITIAL_STATE: State = {
       }
 }
 
-const MOBILE_WIDTH = 768;
+const MOBILE_WIDTH = 640;
 
 export const state = (): State => (INITIAL_STATE);
 

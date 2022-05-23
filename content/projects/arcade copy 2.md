@@ -11,7 +11,7 @@ sections: [
         ]
     },
     { 
-        title: "Connect The Dots",
+        title: "Boxes & Dots",
         text: "This game was most intensive state mapping — pleasantly surprised w/ Svelte's store.",
         media: [
             "https://res.cloudinary.com/bmoyni3/video/upload/v1651619204/projects/videos/connect-dots-sequence_igsb96.mp4",

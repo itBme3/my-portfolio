@@ -3,7 +3,7 @@
     v-if="src.length"
     class="media"
     >
-    <video v-if="isVideo" :src="src" :controls="controls" :loop="loop" :muted="muted" :autoplay="autoplay" />
+    <video v-if="isVideo" :src="src" :controls="controls" :loop="loop" :muted="muted" :autoplay="autoplay" playsinline />
     <img v-else :src="src" />
   </div>
 </template>

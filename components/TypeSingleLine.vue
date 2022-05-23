@@ -5,13 +5,12 @@
       class="type-single-line"
       :class="{
         'typing': typedTextWidth !== 'auto',
-        
         'hide-text': !typedTextWidth.includes('ch') && typedTextWidth !== 'auto'
       }"
       :style="{width: typedTextWidth}">
       <slot />
       <span
-        v-if="!animationDone" 
+        v-if="!animationDone && !beforeTyping" 
         :style="{left: typedTextWidth}"
         class="cursor"
         :class="{
@@ -46,27 +45,27 @@ import {asyncDelay} from '~/utils/funcs'
         typedTextWidth: '2px',
         cursorBlinking: true,
         startedTyping: false,
+        beforeTyping: true,
         animationDone: false
       }
     },
     watch: {
       start(val) {
         if(val) {
-          setTimeout(() => {
             this.typeOutText();
-          }, this.delay)
         }
       }
     },
     mounted() {
-      setTimeout(() => {
-        if(this.start) {
-          this.typeOutText();
-        }
-      }, this.delay)
+      if(this.start) {
+        this.typeOutText();
+      }
     },
     methods: {
       async typeOutText() {
+        this.beforeTyping = false
+        await asyncDelay(400);
+        await asyncDelay(this.delay);
         const text:string | undefined = this.$slots.default?.map(vnode => vnode.elm?.textContent).join('').trim()
         if(!text || !text?.length) {
           this.typedTextWidth = 'auto'

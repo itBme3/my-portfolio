@@ -2,15 +2,15 @@
   <div class="page index">
     <section class="hero narrow pb-0">
       <div class="section-content content-center !max-w-xs text-left !pb-4">
-        <h1 class="hero-title font-display tracking-normal text-5xl xs:text-6xl lg:text-7xl text-gray-600 mb-6 mt-auto relative">
-          <span class="wave xs:absolute -left-6 top-0 transform -translate-x-full w-14 h-auto inline-block"><img class="w-full h-auto" src="/static/svgs/wave.svg" /></span>
-          <span class="text">Hi,<br>I'm Bobby</span>
+        <h1 class="hero-title font-display font-black tracking-normal text-5xl xs:text-6xl lg:text-7xl mb-6 mt-auto relative">
+          <span class="wave xs:absolute -left-6 top-0 transform -translate-x-full w-14 h-auto inline-block"><SvgIcon class="w-full h-auto" name="wave" /></span>
+          <span class="text text-gray-600">Hi,<br>I'm Bobby</span>
         </h1>
         <TypeSingleLine 
           :start="show.includes('subtitle')"
           tag="h4"
           class="hero-subtitle text-green-400 base text-left"
-          :delay="300"
+          :delay="150"
           @animationDone="revealHeroLinks"
           >
           <template #before><span class="relative mr-px" style="top: -.4rem">"</span></template>
@@ -19,11 +19,11 @@
         </TypeSingleLine>
         <div class="hero-links flex space-x-2 mt-10">
           <a class="button transition-none" href="https://github.com/itBme3" target="_blank" style="opacity: 0">
-            <img src="/static/svgs/github.svg" class="mr-2 w-6 h-auto" />
+            <SvgIcon name="github" class="mr-2 w-6 h-auto" />
             GitHub
           </a>
           <a class="button transition-none" href="https://www.linkedin.com/in/bobby-moynihan-97263826" target="_blank" style="opacity: 0">
-            <img src="/static/svgs/linkedin.svg" class="mr-2 w-6 h-auto" />
+            <SvgIcon name="linkedin" class="mr-2 w-6 h-auto" />
             LinkedIn
           </a>
         </div>
@@ -53,6 +53,13 @@ export default Vue.extend({
                 "apis"
             ]
         };
+  },
+  watch: {
+    '$store.state.window.scroll.y'(val) {
+      if(val > (this.$store.state.window.size.height * .5) && !this.show.includes('skills')) {
+        this.revealHeroLinks()
+      }
+    }
   },
     mounted() {
       this.initGsap()

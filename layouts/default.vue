@@ -18,18 +18,17 @@
 
 <script>
 import Vue from 'vue'
+import { asyncDelay } from '~/utils/funcs'
 export default Vue.extend({
   watch: {
     '$route.path'() {
       if(window !== undefined) {
-        console.log(window.scrollY)
         window.scrollTo({top: 0, left: 0})
-        setTimeout(() => {
-          console.log(window.scrollY)
+        asyncDelay(300).then(() => {
           if(window.scrollY > 0) {
             window.scrollTo({top: 0, left: 0})
           }
-        }, 300)
+        })
       }
     }
   }
@@ -42,8 +41,12 @@ main {
   @apply pt-24;
 }
 
-.page-title {
-  @apply font-display text-gray-600 text-2xl sm:text-4xl md:text-5xl;
+.page {
+  @apply px-4 xs:px-8;
+}
+
+.title {
+  @apply font-display font-black text-gray-600 text-3xl xs:text-4xl md:text-5xl;
 }
 
 
@@ -66,16 +69,16 @@ main {
   //   width: calc(100% - 6rem);
   // }
   &:not(.w-full) {
-    @apply max-w-5xl;
+    @apply max-w-4xl;
   }
 }
 .page {
-  @apply mx-auto;
+  @apply max-w-page mx-auto;
   &.narrow {
-      @apply max-w-md;
+      @apply max-w-3xl;
     }
     &.narrowest {
-      @apply max-w-sm;
+      @apply max-w-md;
     }
 }
 section, .page-section {

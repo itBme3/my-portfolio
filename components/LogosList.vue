@@ -6,7 +6,7 @@
       ref="titleElem"
       class="list-title whitespace-nowrap"
       :class="{[classes.title]: true}">
-        <!-- <template v-if="!animateTitle">{{collection.title}}</template> -->
+
         <component 
           :is="!animateTitle ? 'span' : 'TypeSingleLine'"
           v-if="startTyping || !animateTitle"
@@ -36,7 +36,7 @@
         class="list flex flex-wrap"
         >
           <div
-           v-for="item in items"
+           v-for="(item, i) in items"
             :key="item.slug"
             ref="listItemElems"
             style="opacity: 0"
@@ -49,7 +49,7 @@
               mr-1
               mb-1
               py-2
-              px-3
+              pr-3
               bg-opacity-50
               group
             "
@@ -163,7 +163,7 @@ export default Vue.extend({
     computed: {
         titleClasses() {
             const colors = this.collection?.colors?.length ? this.collection.colors : [this.collection.color];
-            return colors?.map((c) => `text-${c}-400`) || [];
+            return colors?.map((c) => `text-${c}-300`) || [];
         },
         items() {
             return this.collection.items || [];
