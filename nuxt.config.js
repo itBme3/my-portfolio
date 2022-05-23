@@ -77,9 +77,9 @@ export default {
         autoprefixer: {},
       },
     },
-    // transpile: [
-    //   'gsap'
-    // ]
+    transpile: [
+      'gsap'
+    ]
   },
   vite: {},
   pageTransition: {
