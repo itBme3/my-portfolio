@@ -4,7 +4,7 @@ description: Description
 media: /missing-img.svg
 links: {
     github: 'https://github.com/itBme3/my-portfolio',
-},
+}
 sections: [
     { 
         title: "",

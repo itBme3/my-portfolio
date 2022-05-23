@@ -26,11 +26,11 @@ export default {
     '~/assets/styles/style.scss',
   ],
   static: {
-    prefix:false
+    prefix: false
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/gsap.js'
+    '~/plugins/gsap.client.ts'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
