@@ -8,9 +8,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
   import Vue from 'vue'
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
   export default Vue.extend({
     props: {
       src: {
@@ -38,7 +37,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
       isVideo() {
         const videoExtensions = ['mov', 'mp4'];
         try {
-          let ext:string = `${this.src}`.split('.')[`${this.src}`.split('.').length - 1];
+          let ext = `${this.src}`.split('.')[`${this.src}`.split('.').length - 1];
           ext = ext.split('?')[0];
           if (videoExtensions.includes(ext)) {
             return true
@@ -67,7 +66,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
           }
           video.play()
         }
-        ScrollTrigger.create({
+        this.$ScrollTrigger.create({
           trigger: this.$el,
           start: 'top bottom',
           end: 'bottom top-=10%',

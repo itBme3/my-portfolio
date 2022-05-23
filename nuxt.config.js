@@ -30,7 +30,8 @@ export default {
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/gsap.client.ts'
+    '~/plugins/gsap.js',
+    '~/plugins/ScrollTrigger.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -77,6 +78,9 @@ export default {
         autoprefixer: {},
       },
     },
+    // transpile: [
+    //   'gsap'
+    // ]
   },
   vite: {},
   pageTransition: {

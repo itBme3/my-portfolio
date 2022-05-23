@@ -27,9 +27,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
   import Vue from 'vue'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
   export default Vue.extend({
     props: {
       start: {
@@ -74,7 +74,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
           }
         }
         return this.$content('about').fetch()
-        .then((res:any) => {
+        .then((res) => {
           if(!Array.isArray(res?.career)) {
             this.blocks = []
           } else {
@@ -88,7 +88,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
           this.shouldStart = true
         }
         onEnter = onEnter.bind(this)
-        ScrollTrigger.create({
+        this.$ScrollTrigger.create({
           trigger: this.$el,
           start: 'top 100%',
           onEnter

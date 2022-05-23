@@ -96,7 +96,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
               },
               marginTop: '70px'
             });
-          ScrollTrigger.refresh()
+          this.$ScrollTrigger.refresh()
         })
       },
       initSectionScrollTracking() {
@@ -113,7 +113,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
           let onEnter = () => {
             onEnterBack()
             if(this.triggerRefreshed < sections.length) {
-              ScrollTrigger.refresh()
+              this.$ScrollTrigger.refresh()
               this.triggerRefreshed = this.triggerRefreshed + 1
             }
           }
