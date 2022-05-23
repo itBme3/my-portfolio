@@ -10,6 +10,7 @@
 
 <script>
   import Vue from 'vue'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
   export default Vue.extend({
     props: {
       src: {
@@ -66,7 +67,7 @@
           }
           video.play()
         }
-        this.$gsap.ScrollTrigger.create({
+        ScrollTrigger.create({
           trigger: this.$el,
           start: 'top bottom',
           end: 'bottom top-=10%',

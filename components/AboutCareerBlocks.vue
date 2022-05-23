@@ -29,7 +29,7 @@
 
 <script>
   import Vue from 'vue'
-
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
   export default Vue.extend({
     props: {
       start: {
@@ -88,7 +88,7 @@
           this.shouldStart = true
         }
         onEnter = onEnter.bind(this)
-        this.$gsap.ScrollTrigger.create({
+        ScrollTrigger.create({
           trigger: this.$el,
           start: 'top 100%',
           onEnter

@@ -18,7 +18,11 @@
 
 <script>
 import Vue from 'vue'
+import { ScrollTrigger } from 'gsap/ScrollTrigger.js'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin.js'
+import { gsap } from 'gsap'
 import { asyncDelay } from '~/utils/funcs'
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 export default Vue.extend({
   watch: {
     '$route.path'() {
