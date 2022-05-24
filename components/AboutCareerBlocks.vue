@@ -12,7 +12,7 @@
         @animationDone="() => doneTyping = true"
         >
         <template  v-if="doneTyping" #before><span class="relative text-gray-500 mr-px" style="top: -.5rem">// </span></template>
-        Work Experience
+        <span>Work Experience</span>
     </TypeSingleLine>
     <AboutCareerBlock 
       v-for="block in blocks"

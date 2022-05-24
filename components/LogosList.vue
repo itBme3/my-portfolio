@@ -40,7 +40,6 @@
            v-for="(item) in logos"
             :key="item.slug"
             ref="listItemElems"
-            style="opacity: 0"
             class="
               item
               flex
@@ -90,9 +89,9 @@
       </div>
   </div>
 </template>
-import { isArray } from 'util';
 <script>
 import Vue from 'vue';
+import { asyncDelay } from '~/utils/funcs';
 
 export default Vue.extend({
     props: {
@@ -151,7 +150,6 @@ export default Vue.extend({
       if (this.category) {
         return await this.$content(`technologies/categories/${this.category}`).fetch()
           .then(async categoryRes => {
-            console.log({categoryRes})
             if(!categoryRes || categoryRes.slug !== this.category) { return }
             this.categoryRes = categoryRes;
             return await this.$content('technologies/logos').fetch()
@@ -171,22 +169,6 @@ export default Vue.extend({
           this.logos = res.filter(item => this.slugs.includes(item.slug));
           return this.logos
         })
-        // this.collection = this.slugs.length 
-        //   ? await Promise.all(['code-languages', 'libraries-frameworks', 'apis']
-        //     .map(async category => await this.$content(category).fetch()))
-        //     .then(categories => {
-        //       const allItems = categories.reduce((acc, category) => { return [...acc, ...category.items] }, [])
-        //       return {
-        //         items: this.slugs.reduce((acc, slug) => {
-        //           if(allItems.filter(item => item.slug === slug)[0] === undefined) {
-        //             return acc
-        //           }
-        //           return [...acc, allItems.filter(item => item.slug === slug)[0]]
-        //         }, [])
-        //       }
-        //     })
-        //   : await this.$content(this.category).fetch();
-        //   return this.collection
     },
     computed: {
         titleClasses() {
@@ -204,29 +186,26 @@ export default Vue.extend({
         this.$emit('doneTyping', true);
         this.initItemsReveal();
       },
-      logos() {
-        this.$gsap.utils.toArray(this.$refs.listItemElems)
-          .forEach(item => this.hide(item));
-      }
+      // logos() {
+      //   this.$gsap.utils.toArray(this.$refs.listItemElems)
+      //     .forEach(item => this.$gsap.set(item, { opacity: 1, y: 0, immediateRender: false, }));
+      // }
     },
     mounted() {
-      
-      setTimeout(() => {
+      this.$gsap.utils.toArray(this.$refs.listItemElems)
+        .forEach(item => this.$gsap.set(item, { opacity:0, y: '-50%' }));
+      asyncDelay(500).then(() => {
         if( !this.showTitle || !this.category || !this.animateTitle) { 
           this.doneTyping = true
         }
-        this.$gsap.utils.toArray(this.$refs.listItemElems)
-          .forEach(item => this.hide(item));
-      }, 500 );
+      })
     },
     methods: {
-      hide(el) {
-        this.$gsap.set(el, { opacity: 0, y: -50, immediateRender: true, })
-      },
       typeTitle() {
-        const onEnter = () => {
-          this.startTyping = true
+        let onEnter = () => {
+          asyncDelay(1000).then(() => (this.startTyping = true))
         }
+        onEnter = onEnter.bind(this)
         if(!this.$refs.titleElem) {return}
         this.$gsap.to(this.$refs.titleElem, {
           scrollTrigger: {
@@ -234,28 +213,31 @@ export default Vue.extend({
             start: "top bottom",
           },
           once: true,
-          onEnter: onEnter.bind(this)
+          onEnter
         })
       },
       initItemsReveal() {
         // this.$gsap.to(window, { scrollTo: window.scrollY + (this.$store.state.window.size.height * .01) })
-        const onLeave = () => {
+        let onLeave = () => {
           this.isEntered = false
         };
+        onLeave = onLeave.bind(this)
         if(!this.$refs.listItemElems?.length) {return};
-        this.$gsap.to(this.$gsap.utils.toArray(this.$refs.listItemElems), {
+        this.$gsap.utils.toArray(this.$refs.listItemElems)
+          .forEach(el => this.$gsap.set(el, {y: '-50%', opacity: 0}))
+        this.$gsap.to(this.$refs.listItemElems, {
           scrollTrigger: {
             trigger: this.$refs.listElem,
             start: "top bottom",
             end: "bottom top",
             toggleActions: this.toggleActions,
           },
-          y: 0,
+          y: '0%',
           opacity: 1,
           duration: .3,
           immediateRender: true,
           stagger: 0.05,
-          onLeave: onLeave.bind(this)
+          onLeave
         });
       },
     }
@@ -263,6 +245,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+.item {
+  &:not([style*="opacity"]) {
+    opacity: 0;
+  }
+}
 .square-bracket {
   @apply text-orange-300 inline-block relative;
   transform: scale(1, 1.25);

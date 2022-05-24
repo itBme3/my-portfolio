@@ -1,13 +1,17 @@
 <template>
   <div class="project page mx-auto narrow">
-    <div class="project-heading py-12">
+    <div class="project-heading py-12 flex flex-wrap">
       <PageTitle 
-        :classes="{subtitle: 'mt-4', title: ''}">
+        :classes="{subtitle: 'mt-4 mb-6 sm:mt-2 sm:mb-auto', title: 'sm:mt-auto'}"
+        class="flex flex-col content-center sm:pr-6 sm:w-2/3 !mt-0 sm:mt-0">
         {{project.title}}
         <template #subtitle>
           {{project.description}}
         </template>
       </PageTitle>
+      <Media 
+        class="sm:w-1/3 max-w-xs my-auto rounded-md overflow-hidden" 
+        :src="project.media" />
       <LogosList 
         v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
         :slugs="project.technologies"
