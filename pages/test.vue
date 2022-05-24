@@ -1,8 +1,8 @@
 <template>
 <div>
-  <pre v-if="category"><code>{{ category }}</code></pre>
-  <pre v-if="categories"><code>{{ categories }}</code></pre>
-  <pre v-if="logos"><code>{{ logos }}</code></pre>
+  <div style="height: 50vh"></div>
+  <AboutCareerBlocks :start="true" />
+  <div class="h-screen" />
 </div>
 <!-- <div class="w-[320px] mx-auto flex flex-col space-y-2 p-8">
   <div 
@@ -37,40 +37,15 @@
 </div> -->
 </template>
 
-<script>
-  import Vue from 'vue'
 
-  export default Vue.extend({
+<script>
+import Vue from 'vue'
+export default Vue.extend({
     data: () => ({
-      links: [
-        { label: 'About Me', path: '/about' },
-        { label: 'Projects', path: '/projects' },
-        { label: 'Resume', path: '/resume' },
-        { label: 'Get In Touch', path: '/contact' },
-      ],
-      navCollapsed: true,
-      categories: null,
-      category: undefined,
-      logos: null,
-    }),
-    mounted() {
-      this.$content('technologies/logos').fetch()
-          .then(res => {
-            console.log({ res })
-            this.logos = res.filter(item => ['vite', 'tailwind', 'nuxt'].includes(item.slug))
-          })
-        this.$content('technologies/categories').fetch()
-          .then(res => {
-            console.log({ res })
-            this.categories = res
-          })
-        this.$content('technologies/categories/apis').fetch()
-          .then(res => {
-            console.log({ res })
-            this.category = res
-          })
-    }
-  })
+        
+    })
+})
+    
 </script>
 
 <style lang="scss">
