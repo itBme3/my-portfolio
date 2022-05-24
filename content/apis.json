@@ -3,50 +3,58 @@
   "color": "purple",
 "items": [
   {
-    "title": "Firebasae",
+    "title": "Firebase",
     "slug": "firebase",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653292221/logos/firebase_xkacuk.png",
     "color": "#FCCA3F"
   },
   {
     "title": "Algolia",
     "slug": "algolia",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/algolia_j0hpwf.png",
     "color": "#5468FA"
   },
   {
     "title": "Google Cloud Storage",
     "slug": "gcs",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/google-cloud-storage_wq4oyh.png",
     "color": "#4387FA"
   },
   {
     "title": "Strapi",
     "slug": "strapi",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/strapi_p5qfsz.png",
     "color": "#8E75FA"
   },
   {
     "title": "Sendgrid",
     "slug": "sendgrid",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/sendgrid_h5serk.png",
     "color": "#00B2E3"
   },
   {
     "title": "Twilio",
     "slug": "twilio",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/twilio_jhpisa.png",
     "color": "#E31E26"
   },
   {
     "title": "Shopify",
     "slug": "shopify",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/shopify_butqbf.png",
     "color": "#95BF47"
   },
   {
     "title": "Wordpress",
     "slug": "wordpress",
+    "type": "apis",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/wordpress_b3sznv.png",
     "color": "#76706E"
   }

@@ -7,8 +7,8 @@
       <template v-if="page.description" #subtitle>{{ page.description }}</template>
     </PageTitle>
     <nuxt-content class="mt-6 mb-12" :document="page" />
-    <AboutCareerBlocks v-if="show.includes('career')" class="mt-28" :about="page" />
-    <SectionSkills v-if="show.includes('skills')" :animate-title="false" />
+    <LazyAboutCareerBlocks v-if="show.includes('career')" class="mt-28" :about="page" />
+    <LazySectionSkills v-if="show.includes('skills')" :animate-title="false" />
   </div>
 </template>
 

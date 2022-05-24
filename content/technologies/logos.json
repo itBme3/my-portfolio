@@ -1,0 +1,156 @@
+[
+    {
+        "title": "Nuxt",
+        "slug": "nuxt",
+        "category": "frameworks-libraries",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/nuxt_zapceg.png",
+        "color": "#00C58E"
+    },
+    {
+        "title": "Vue",
+        "slug": "vue",
+        "category": "frameworks-libraries",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/vue_rzvd8a.png",
+        "color": "#41B883"
+    },
+    {
+        "title": "Svelte",
+        "slug": "svelte",
+        "category": "frameworks-libraries",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/svelte_jftapl.png",
+        "color": "#FF3E1E"
+    },
+    {
+        "title": "Angular",
+        "slug": "angular",
+        "category": "frameworks-libraries",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/angular_lyqzhs.png",
+        "color": "#DD0331"
+    },
+    {
+        "title": "Tailwind",
+        "slug": "tailwind",
+        "category": "frameworks-libraries",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407962/logos/tailwind_gmbahf.png",
+        "color": "#07B6D5"
+    },
+    {
+        "title": "jQuery",
+        "slug": "jquery",
+        "category": "frameworks-libraries",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/jquery_ibaxve.png",
+        "color": "#21609B"
+    },
+    {
+        "title": "Typescript",
+        "slug": "ts",
+        "category": "languages",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/ts_ls0xok.png",
+        "color": "#3178C6"
+    },
+    {
+        "title": "Javascript",
+        "slug": "js",
+        "category": "languages",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/js_uaxkkd.png",
+        "color": "#F7DF38"
+    },
+    {
+        "title": "Graphql",
+        "slug": "graphql",
+        "category": "languages",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/graphql_ker4yh.png",
+        "color": "#E535AB"
+    },
+    {
+        "title": "Liquid",
+        "slug": "liquid",
+        "category": "languages",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653360183/logos/liquid_kx1aji.png",
+        "color": "#5468FA"
+    },
+    {
+        "title": "SCSS",
+        "slug": "scss",
+        "category": "languages",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/scss_ed4gus.png",
+        "color": "#CD6799"
+    },
+    {
+        "title": "CSS",
+        "slug": "css",
+        "category": "languages",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/css_neiccw.png",
+        "color": "#2965F1"
+    },
+    {
+        "title": "HTML",
+        "slug": "html",
+        "category": "languages",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/html_tcfoym.png",
+        "color": "#EF652A"
+    },
+    
+    {
+        "title": "Firebase",
+        "slug": "firebase",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653292221/logos/firebase_xkacuk.png",
+        "color": "#FCCA3F"
+    },
+    {
+        "title": "Algolia",
+        "slug": "algolia",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/algolia_j0hpwf.png",
+        "color": "#5468FA"
+    },
+    {
+        "title": "Google Cloud Storage",
+        "slug": "gcs",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/google-cloud-storage_wq4oyh.png",
+        "color": "#4387FA"
+    },
+    {
+        "title": "Strapi",
+        "slug": "strapi",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/strapi_p5qfsz.png",
+        "color": "#8E75FA"
+    },
+    {
+        "title": "Sendgrid",
+        "slug": "sendgrid",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/sendgrid_h5serk.png",
+        "color": "#00B2E3"
+    },
+    {
+        "title": "Twilio",
+        "slug": "twilio",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/twilio_jhpisa.png",
+        "color": "#E31E26"
+    },
+    {
+        "title": "Shopify",
+        "slug": "shopify",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/shopify_butqbf.png",
+        "color": "#95BF47"
+    },
+    {
+        "title": "Wordpress",
+        "slug": "wordpress",
+        "category": "apis",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/wordpress_b3sznv.png",
+        "color": "#76706E"
+    },
+    {
+        "title": "Vite",
+        "slug": "vite",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653360763/logos/vite_dmatsn.png",
+        "color": "#A159FF"
+    }
+]

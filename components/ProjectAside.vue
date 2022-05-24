@@ -1,6 +1,6 @@
 <template>
   <aside 
-    class="project-aside overflow-hidden"
+    class="project-aside"
     :class="{
       'desktop': !$store.state.window.size.isMobile
     }">
@@ -11,7 +11,7 @@
         <button
           v-for="(link, i) in sectionLinks"
           :key="link.id"
-          class="border text-left rounded-none border-l-0 border-r-0 hover:border-transparent border-t-0 flex flex-start p-2 -mx-2 hover:rounded border-gray-700 hover:bg-gray-800 bg-opacity-50"
+          class="border text-left rounded-none border-l-0 border-r-0 hover:border-transparent hover:rounded border-t-0 flex flex-start p-2 -mx-2 hover:rounded border-gray-700 hover:bg-gray-800 bg-opacity-50"
           :class="{
             'text-white': sectionsInView.includes(link.id),
             'text-gray-300 hover:text-white': !sectionsInView.includes(link.id),
@@ -77,7 +77,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
       }
     },
     mounted() {
-       asyncDelay(500).then(() => this.initGsap())
+      this.initGsap()
       this.initSectionScrollTracking()
       this.$gsap.set('.project-aside.desktop', { minWidth: '180px' });
     },

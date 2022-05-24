@@ -1,7 +1,8 @@
 ---
 title: Apparel Ecommerce
 description: Description
-media: /missing-img.svg
+order: 3
+media: https://res.cloudinary.com/bmoyni3/image/upload/v1653374403/projects/dd-us-featured_brkzfm.jpg
 sections: [
     { 
         title: "",

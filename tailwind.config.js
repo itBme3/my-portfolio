@@ -1,6 +1,6 @@
-const twColoring = require('./utils/tailwind-colors');
-const { createColors } = twColoring;
-const colors = createColors();
+const TwColors = require('./utils/tailwind-colors.js');
+
+const colors = TwColors.createColors();
 
 module.exports = {
   content: [
@@ -8,6 +8,7 @@ module.exports = {
     './assets/**/*.{scss}',
     './layouts/**/*.vue',
     './pages/**/*.vue',
+    './content/**/*.{md,json}',
     './plugins/**/*.{js,ts}',
     './nuxt.config.{js,ts}',
   ],

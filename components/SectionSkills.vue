@@ -27,8 +27,8 @@
       categories: {
         type: Array,
         default: () => [
-            "code-languages",
-            "libraries-frameworks",
+            "languages",
+            "frameworks-libraries",
             "apis"
         ]
       },

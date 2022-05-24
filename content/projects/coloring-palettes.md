@@ -1,6 +1,7 @@
 ---
 title: Coloring Palettes
 description: Description
+order: 0
 media: /missing-img.svg
 sections: [
     { 
@@ -9,7 +10,10 @@ sections: [
         media: []
     }]
 technologies: 
-    - svelte
+    - nuxt
+    - vue
+    - tailwind
+    - chroma
     - js
     - scss
 ---

@@ -6,7 +6,7 @@
 
     <main
       class="w-screen transform mx-auto px-2 z-1 bg-gray-900 relative"
-      style="display: block; margin-bottom: 50vh"
+      style="display: block"
     >
       <Nuxt :key="$route.fullPath" />
     </main>
@@ -46,8 +46,18 @@ export default Vue.extend({
 
 <style lang="scss">
 
+html,
+body {
+  font-family: 'Red Hat Mono', monospace;
+  background-color: rgb(19, 19, 25);
+}
+body {
+  @apply text-gray-100;
+}
+
+
 main {
-  @apply pt-24;
+  @apply pt-10 pb-32 sm:pt-20 md:pt-24 overflow-hidden h-auto min-h-screen;
 }
 
 .page {

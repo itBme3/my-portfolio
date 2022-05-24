@@ -26,7 +26,7 @@ export const baseColors:BaseColors = {
       red: {base: '#ff4772'},
       orange: {base: '#ffa970'},
       yellow: {base: '#fff58a', brighten: .95},
-      gray: {base: '#646585', darken: 2, saturate: -.55},
+      gray: {base: '#5e5e73', darken: 2, saturate: -.55},
 }
 export const createColors = (_colors:BaseColors = baseColors) => {
       const defaultColors = { black: '#000000', white: '#ffffff', transparent: 'transparent' }

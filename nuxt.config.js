@@ -38,6 +38,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/tailwindcss',
     'nuxt-vite',
     [
       '@nuxtjs/google-fonts',
@@ -53,10 +54,7 @@ export default {
         },
       },
     ],
-    // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
     
   ],
 

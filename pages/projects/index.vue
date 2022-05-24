@@ -3,16 +3,14 @@
     <PageTitle @animationDone="initProjectAnimations()">
       Projects:
     </PageTitle>
-    <!-- <transition name="up-scale-fade"> -->
-      <div 
-        class="flex flex-col space-y-10 py-8">
-        <ProjectCard 
-          v-for="project in projects"
-          :key="project.slug" 
-          :project="project"
-        />
-      </div>
-    <!-- </transition> -->
+    <div 
+      class="flex flex-col space-y-10 py-8">
+      <ProjectCard 
+        v-for="project in projects"
+        :key="project.slug" 
+        :project="project"
+      />
+    </div>
   </div>
 </template>
 
@@ -23,7 +21,7 @@ import { asyncDelay } from '~/utils/funcs';
   export default Vue.extend({
     transition: 'page',
     async asyncData({$content}) {
-      const projects = await $content('projects').fetch();
+      const projects = await $content('projects').sortBy('order', 'asc').fetch();
       return { projects }
     },
     data() {

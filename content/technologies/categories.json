@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Languages",
+        "color": "yellow",
+        "slug": "languages"
+    },
+    {
+        "title": "Frameworks, Libraries",
+        "color": [
+            "blue",
+            "pink"
+        ],
+        "slug": "frameworks-libraries"
+    },
+    {
+        "title": "APIs",
+        "color": "purple",
+        "slug": "apis"
+    }
+]

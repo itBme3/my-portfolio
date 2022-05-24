@@ -32,7 +32,7 @@
 
     <SectionSkills 
       :start="show.includes('skills')"
-      :categories="['code-languages', 'libraries-frameworks']" />
+      :categories="['languages', 'frameworks-libraries']" />
 
     <section class="about narrow">
       <AboutCareerBlocks class="section-content" />

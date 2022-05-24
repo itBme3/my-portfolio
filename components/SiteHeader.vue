@@ -1,6 +1,6 @@
 <template>
   <header
-    class="site-header"
+    class="site-header bg-gray-900"
     :class="{
       'nav-collapsed': isMobile && navCollapsed,
       'is-mobile': isMobile
@@ -114,7 +114,7 @@
 
 <style lang="scss">
 .site-header {
-  @apply fixed top-0 left-0 right-0 h-14 w-screen bg-gray-900 flex items-center content-start;
+  @apply fixed top-0 left-0 right-0 h-14 w-screen flex items-center content-start;
   z-index: 9;
 }
 nav {

@@ -5,36 +5,49 @@
   {
     "title": "Typescript",
     "slug": "ts",
+    "type": "language",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/ts_ls0xok.png",
     "color": "#3178C6"
   },
   {
     "title": "Javascript",
     "slug": "js",
+    "type": "language",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/js_uaxkkd.png",
     "color": "#F7DF38"
   },
   {
     "title": "Graphql",
     "slug": "graphql",
+    "type": "language",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/graphql_ker4yh.png",
     "color": "#E535AB"
   },
   {
+    "title": "Liquid",
+    "slug": "liquid",
+    "type": "language",
+    "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653360183/logos/liquid_kx1aji.png",
+    "color": "#5468FA"
+  },
+  {
     "title": "SCSS",
     "slug": "scss",
+    "type": "language",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/scss_ed4gus.png",
     "color": "#CD6799"
   },
   {
     "title": "CSS",
     "slug": "css",
+    "type": "language",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/css_neiccw.png",
     "color": "#2965F1"
   },
   {
     "title": "HTML",
     "slug": "html",
+    "type": "language",
     "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/html_tcfoym.png",
     "color": "#EF652A"
   }

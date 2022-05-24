@@ -26,9 +26,9 @@
 
 <style lang="scss">
 .project-card {
-  @apply flex flex-col rounded-md space-y-6 px-6 pt-6 pb-5 transform scale-100 hover:shadow-lg transition-all duration-300 ease-in-out border border-gray-800 hover:bg-gray-800 hover:border-transparent bg-opacity-50;
+  @apply flex flex-col rounded-md space-y-6 p-6 sm:p-14 md:p-20 transform scale-100 hover:shadow-lg transition-all duration-300 ease-in-out border border-gray-800 hover:bg-gray-800 hover:bg-opacity-30 hover:border-transparent;
   &:hover {
-    transform: scale(1.10) !important;
+    transform: scale(1.05) !important;
   }
   .card-inner {
     @apply flex space-x-4 w-full;

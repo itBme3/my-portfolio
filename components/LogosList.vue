@@ -2,7 +2,7 @@
   <div class="logos-list">
     
       <h4
-      v-if="collection.title && showTitle" key="title"
+      v-if="categoryRes && categoryRes.title && showTitle" key="title"
       ref="titleElem"
       class="list-title whitespace-nowrap"
       :class="{[classes.title]: true}">
@@ -18,7 +18,7 @@
           </template>
           <span v-if="!animateTitle" class="square-bracket mr-2 inline-block" style="top: -.08rem">[</span>
           <span
-            v-for="(word, i) in collection.title.split(', ')"
+            v-for="(word, i) in categoryRes.title.split(', ')"
             :key="word"><span v-if="i > 0" class="comma">, </span>
               <span
                 :class="{
@@ -32,11 +32,12 @@
         </component>
       </h4>
       <div
+        v-if="logos && logos.length"
         ref="listElem"
         class="list flex flex-wrap"
         >
           <div
-           v-for="(item, i) in items"
+           v-for="(item) in logos"
             :key="item.slug"
             ref="listItemElems"
             style="opacity: 0"
@@ -89,6 +90,7 @@
       </div>
   </div>
 </template>
+import { isArray } from 'util';
 <script>
 import Vue from 'vue';
 
@@ -96,7 +98,7 @@ export default Vue.extend({
     props: {
         category: {
             type: String,
-            default: "code-languages",
+            default: null,
         },
         slugs: {
             type: Array,
@@ -136,6 +138,8 @@ export default Vue.extend({
                 title: null,
                 items: [],
             },
+            categoryRes: null,
+            logos: null,
             isTyping: false,
             doneTyping: false,
             startTyping: false,
@@ -144,32 +148,50 @@ export default Vue.extend({
         };
     },
     async fetch() {
-        this.collection = this.slugs.length 
-          ? await Promise.all(['code-languages', 'libraries-frameworks', 'apis']
-            .map(async category => await this.$content(category).fetch().then(res => {
-              return res
-            })))
-            .then(categories => {
-              const allItems = categories.reduce((acc, category) => { return [...acc, ...category.items] }, [])
-              return {
-                items: this.slugs.reduce((acc, slug) => {
-                  if(allItems.filter(item => item.slug === slug)[0] === undefined) {
-                    return acc
-                  }
-                  return [...acc, allItems.filter(item => item.slug === slug)[0]]
-                }, [])
-              }
-            })
-          : await this.$content(this.category).fetch();
-          return this.collection
+      if (this.category) {
+        return await this.$content(`technologies/categories/${this.category}`).fetch()
+          .then(async categoryRes => {
+            console.log({categoryRes})
+            if(!categoryRes || categoryRes.slug !== this.category) { return }
+            this.categoryRes = categoryRes;
+            return await this.$content('technologies/logos').fetch()
+              .then(logos => {
+                this.logos = logos.filter(item => item.category === categoryRes.slug);
+                return this.logos
+              })
+              .catch(console.error)
+          }).catch(console.error)
+      }
+      if(!this.slugs?.length) {
+        return;
+      }
+      return await this.$content('technologies/logos').fetch()
+        .then(res => {
+          if(!Array.isArray(res)) {return};
+          this.logos = res.filter(item => this.slugs.includes(item.slug));
+          return this.logos
+        })
+        // this.collection = this.slugs.length 
+        //   ? await Promise.all(['code-languages', 'libraries-frameworks', 'apis']
+        //     .map(async category => await this.$content(category).fetch()))
+        //     .then(categories => {
+        //       const allItems = categories.reduce((acc, category) => { return [...acc, ...category.items] }, [])
+        //       return {
+        //         items: this.slugs.reduce((acc, slug) => {
+        //           if(allItems.filter(item => item.slug === slug)[0] === undefined) {
+        //             return acc
+        //           }
+        //           return [...acc, allItems.filter(item => item.slug === slug)[0]]
+        //         }, [])
+        //       }
+        //     })
+        //   : await this.$content(this.category).fetch();
+        //   return this.collection
     },
     computed: {
         titleClasses() {
-            const colors = this.collection?.colors?.length ? this.collection.colors : !this.collection ? [] : [this.collection.color];
+            const colors = !this.categoryRes ? [] : Array.isArray(this.categoryRes.color) ? this.categoryRes.color : [this.categoryRes.color];
             return colors?.map((c) => `text-${c}-300`) || [];
-        },
-        items() {
-            return this.collection.items || [];
         }
     },
     watch: {
@@ -181,6 +203,10 @@ export default Vue.extend({
         if(!val) { return }
         this.$emit('doneTyping', true);
         this.initItemsReveal();
+      },
+      logos() {
+        this.$gsap.utils.toArray(this.$refs.listItemElems)
+          .forEach(item => this.hide(item));
       }
     },
     mounted() {

@@ -1,6 +1,6 @@
 <template>
   <div class="project page mx-auto narrow">
-    <div class="project-heading pt-12">
+    <div class="project-heading py-12">
       <PageTitle 
         :classes="{subtitle: 'mt-4', title: ''}">
         {{project.title}}

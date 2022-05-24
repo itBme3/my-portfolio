@@ -50,18 +50,19 @@ export default Vue.extend({
   },
   methods: {
     initGsap () {
-      const sections = this.$gsap.utils.toArray(this.$el.querySelectorAll('section'));
-      /* set initial style before setting scrollTrigger — without, elements will flash because of async delay */
-      sections.forEach((el) => {
-        const els = {
-          title: el.querySelector('.section-title'),
-          media: el.querySelector('.media'),
-          text: el.querySelector('.section-text'),
-        }
-        this.$gsap.set([els.media], { opacity: 0, scaleX: .7, scaleY: .7 });
-        this.$gsap.set(els.title, { opacity: 0, y: -100, });
-      })
+      
       asyncDelay(300).then(() => {
+      // const sections = this.$gsap.utils.toArray(this.$el.querySelectorAll('section'));
+      // /* set initial style before setting scrollTrigger — without, elements will flash because of async delay */
+      // sections.forEach((el) => {
+      //   const els = {
+      //     title: el.querySelector('.section-title'),
+      //     media: el.querySelector('.media'),
+      //     text: el.querySelector('.section-text'),
+      //   }
+      //   this.$gsap.set([els.media], { opacity: 0, scaleX: .7, scaleY: .7 });
+      //   this.$gsap.set(els.title, { opacity: 0, y: -100, });
+      // })
 
 
         const sections = this.$gsap.utils.toArray(this.$el.querySelectorAll('section'));

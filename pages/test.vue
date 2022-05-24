@@ -1,5 +1,10 @@
 <template>
-<div class="w-[320px] mx-auto flex flex-col space-y-2 p-8">
+<div>
+  <pre v-if="category"><code>{{ category }}</code></pre>
+  <pre v-if="categories"><code>{{ categories }}</code></pre>
+  <pre v-if="logos"><code>{{ logos }}</code></pre>
+</div>
+<!-- <div class="w-[320px] mx-auto flex flex-col space-y-2 p-8">
   <div 
     class="site-header is-mobile"
     :class="{
@@ -29,10 +34,10 @@
       </nav>
     </transition>
   </div>
-</div>
+</div> -->
 </template>
 
-<script lang="ts">
+<script>
   import Vue from 'vue'
 
   export default Vue.extend({
@@ -43,8 +48,28 @@
         { label: 'Resume', path: '/resume' },
         { label: 'Get In Touch', path: '/contact' },
       ],
-      navCollapsed: true
-    })
+      navCollapsed: true,
+      categories: null,
+      category: undefined,
+      logos: null,
+    }),
+    mounted() {
+      this.$content('technologies/logos').fetch()
+          .then(res => {
+            console.log({ res })
+            this.logos = res.filter(item => ['vite', 'tailwind', 'nuxt'].includes(item.slug))
+          })
+        this.$content('technologies/categories').fetch()
+          .then(res => {
+            console.log({ res })
+            this.categories = res
+          })
+        this.$content('technologies/categories/apis').fetch()
+          .then(res => {
+            console.log({ res })
+            this.category = res
+          })
+    }
   })
 </script>
 
