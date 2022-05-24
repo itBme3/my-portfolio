@@ -52,16 +52,16 @@ body {
   background-color: rgb(19, 19, 25);
 }
 body {
-  @apply text-gray-100;
+  @apply text-gray-100 overflow-x-hidden w-screen;
 }
 
 
 main {
-  @apply pt-10 pb-32 sm:pt-20 md:pt-24 overflow-hidden h-auto min-h-screen;
+  @apply pt-10 sm:pt-20 md:pt-24 h-auto min-h-screen;
 }
 
 .page {
-  @apply px-4 xs:px-8;
+  @apply px-6 xs:px-8;
 }
 
 .title {

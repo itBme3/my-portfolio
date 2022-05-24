@@ -75,5 +75,7 @@
 </script>
 
 <style scoped>
-
+.page-title {
+  margin-top: 3rem;
+}
 </style>

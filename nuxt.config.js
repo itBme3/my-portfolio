@@ -91,11 +91,11 @@ export default {
     afterLeave(el) {
       el.style.filter = 'blur(0)';
     },
-    beforeEnter(el) {
-      el.style.filter = 'blur(20px)'
-    },
-    afterEnter(el) {
-      el.style.filter = 'blur(0px)'
-    }
+    // beforeEnter(el) {
+    //   el.style.filter = 'blur(20px)'
+    // },
+    // afterEnter(el) {
+    //   el.style.filter = 'blur(0px)'
+    // }
   }
 }

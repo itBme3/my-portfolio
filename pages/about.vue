@@ -1,7 +1,6 @@
 <template>
   <div class="about page narrow">
     <PageTitle 
-      class="mt-12"
       @animationDone="showCareer">
       About Me:
       <template v-if="page.description" #subtitle>{{ page.description }}</template>

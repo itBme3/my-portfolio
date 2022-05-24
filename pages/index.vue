@@ -3,7 +3,7 @@
     <section class="hero narrow pb-0">
       <div class="section-content content-center !max-w-xs text-left !pb-4">
         <h1 class="hero-title font-display font-black tracking-normal text-5xl xs:text-6xl lg:text-7xl mb-6 mt-auto relative">
-          <span class="wave xs:absolute -left-6 top-0 transform -translate-x-full w-14 h-auto inline-block"><SvgIcon class="w-full h-auto" name="wave" /></span>
+          <span class="wave relative xs:absolute xs:-left-6 top-0 transform -translate-x-1/4 xs:-translate-x-full w-10 xs:w-14 h-auto inline-block"><SvgIcon class="w-full h-auto" name="wave" /></span>
           <span class="text text-gray-600">Hi,<br>I'm Bobby</span>
         </h1>
         <TypeSingleLine 
