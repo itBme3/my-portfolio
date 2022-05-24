@@ -2,7 +2,7 @@
 title: SMS Campaign Builder
 description: Description
 order: 5
-media: /missing-img.svg
+media: https://res.cloudinary.com/bmoyni3/video/upload/v1653393147/projects/videos/sms-featured_vpvucw.mp4
 links: {
     github: 'https://github.com/itBme3/dd-fire',
     live: 'private'

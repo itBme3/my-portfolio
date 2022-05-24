@@ -26,7 +26,7 @@ import { asyncDelay } from '~/utils/funcs'
       return {show: []}
     },
     mounted() {
-asyncDelay(1000).then(() => this.show.push('technologies'))
+asyncDelay(400).then(() => this.show.push('technologies'))
     }
   })
 </script>

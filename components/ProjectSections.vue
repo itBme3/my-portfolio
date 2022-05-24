@@ -59,10 +59,10 @@ export default Vue.extend({
           media: el.querySelector('.media'),
           text: el.querySelector('.section-text'),
         }
-        this.$gsap.set([els.media], { opacity: 0, scaleX: .7, scaleY: .7 });
+        this.$gsap.set(els.media, { opacity: 0, scaleX: .7, scaleY: .7 });
         this.$gsap.set(els.title, { opacity: 0, y: -100, });
       })
-      
+
       asyncDelay(300).then(() => {
 
 
@@ -108,7 +108,7 @@ export default Vue.extend({
               trigger: els.text,
               start: 'top 90%',
               duration: 1,
-              toggleActions: 'play pause play pause',
+              toggleActions: 'play pause play reverse',
             },
             ...defaults,
             ease: 'power1.inOut',

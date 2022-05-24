@@ -3,20 +3,24 @@
     <div class="project-heading py-12 flex flex-wrap">
       <PageTitle 
         :classes="{subtitle: 'mt-4 mb-6 sm:mt-2 sm:mb-auto', title: 'sm:mt-auto'}"
-        class="flex flex-col content-center sm:pr-6 sm:w-2/3 !mt-0 sm:mt-0">
+        class="flex flex-col content-center !mt-0 sm:mt-0"
+        :class="{
+          'sm:w-2/3': showHeroMedia
+        }">
         {{project.title}}
         <template #subtitle>
           {{project.description}}
         </template>
       </PageTitle>
       <Media 
-        class="sm:w-1/3 max-w-xs my-auto rounded-md overflow-hidden" 
+        v-if="showHeroMedia"
+        class="sm:order-first sm:w-1/3 max-w-xs my-auto rounded-md overflow-hidden sm:mr-6" 
         :src="project.media" />
       <LogosList 
         v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
         :slugs="project.technologies"
         toggle-actions="play none none none"
-        class="mt-6"
+        class="mt-12"
       />
     </div>
       <div 
@@ -56,6 +60,14 @@ import { asyncDelay } from '~/utils/funcs';
             show: []
         };
     },
+    computed: {
+      showHeroMedia() {
+        return this.project?.media 
+          && !this.project.sections.reduce((acc, section) => {
+            return [...acc, ...section.media]
+          }, []).includes(this.project.media)
+      }
+    },
     watch: {
       '$route.hash'(val) {
         if(val.length > 0) {
@@ -64,7 +76,6 @@ import { asyncDelay } from '~/utils/funcs';
       }
     },
     mounted() {
-      
 
       asyncDelay(500).then(() => {
         this.show.push('technologies')

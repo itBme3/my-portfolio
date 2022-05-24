@@ -1,5 +1,5 @@
 <template>
-  <div class="projects page narrow">
+  <div class="projects page narrower">
     <PageTitle>
       Projects:
     </PageTitle>
@@ -30,8 +30,7 @@ import { asyncDelay } from '~/utils/funcs';
     },
     mounted() {
      this.initGsap()
-    //  asyncDelay(300).then(() => )
-    this.initProjectAnimations()
+     asyncDelay(300).then(() => this.initProjectAnimations())
     },
     methods: {
       initGsap() {

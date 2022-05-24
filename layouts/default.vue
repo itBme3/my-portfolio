@@ -58,6 +58,12 @@ body {
 
 main {
   @apply pt-10 sm:pt-20 md:pt-24 h-auto min-h-screen;
+  > div {
+    &:nth-child(1) {
+      position: relative;
+      z-index: 1;
+    }
+  }
 }
 
 .page {
@@ -95,6 +101,9 @@ main {
   @apply max-w-page mx-auto;
   &.narrow {
       @apply max-w-3xl;
+    }
+    &.narrower {
+      @apply max-w-2xl;
     }
     &.narrowest {
       @apply max-w-md;

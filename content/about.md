@@ -5,21 +5,24 @@
             title: "Frontend Developer & Consultant",
             company: "Get it Got",
             companyLink: "https://gigfirm.com",
-            description: "Worked closely with a handful of clients to create customizable experiences that delivered results. This involved UI design & development."
+            description: "Worked closely with a handful of clients to create customizable experiences that delivered results. This involved UI design & development.",
+            order: 0
         },
         {
             date: "2016-2018",
             title: "Branding & UX Consultant",
             company: "Get it Got",
             companyLink: "https://gigfirm.com",
-            description: "Get it Got LLC. Majority of our clients 10x while working with us."
+            description: "Get it Got LLC. Majority of our clients 10x while working with us.",
+            order: 1
         },
         {
             date: "2009-2016",
             title: "Chief Creative Officer",
             company: "Tiesta Tea",
             companyLink: "https://tiestatea.com",
-            description: "I was responsible for creating the brand & figuring out how to sell loose tea on the inter-webs… this was my first brush with making anything online. Tiesta Tea has grown to an an 8 digit company."
+            description: "I was responsible for creating the brand & figuring out how to sell loose tea on the inter-webs… this was my first brush with making anything online. Tiesta Tea has grown to an an 8 digit company.",
+            order: 2
         }
     ]
 ---
