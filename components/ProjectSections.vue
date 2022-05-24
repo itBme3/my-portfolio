@@ -13,7 +13,8 @@
                :src="media"
                class="rounded-md shadow-lg shadow-black/40 overflow-hidden relative z-10 mt-4 mb-8" />
       </template>
-      <p v-if="section.text && section.text.length" class="section-text font-light text-gray-300 relative z-0 mt-12">{{ section.text }}</p>
+      <div v-if="section.text && section.text.length" class="section-text font-light text-gray-300 relative z-0 mt-12" 
+        v-html="section.text" />
     </section>
   </div>
 

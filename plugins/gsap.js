@@ -1,4 +1,4 @@
-const { gsap } = require("gsap");
+import { gsap } from "gsap";
 
 
 export default ({ app }, inject) => {
