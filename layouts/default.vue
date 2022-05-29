@@ -26,6 +26,12 @@ import { asyncDelay } from '~/utils/funcs'
 //     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 // }
 export default Vue.extend({
+  // async asyncData({store}) {
+  //   return await Promise.all([
+  //     $store.dispatch('getTechLogos'),
+  //     $store.dispatch('getTechCategories'),
+  //   ])
+  // },
   watch: {
     '$route.path'() {
       if(window !== undefined) {

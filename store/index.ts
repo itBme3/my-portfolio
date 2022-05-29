@@ -37,7 +37,7 @@ export const mutations = {
             state.content.tech.categories = [...categories]
       },
       setTechLogos(state: State, logos: StateTechLogo[]) {
-            state.content.tech.categories = [...logos]
+            state.content.tech.logos = [...logos]
       }
 }
 

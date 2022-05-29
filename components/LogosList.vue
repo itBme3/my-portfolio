@@ -1,6 +1,5 @@
 <template>
   <div class="logos-list">
-    
       <h4
       v-if="categoryRes && categoryRes.title && showTitle" key="title"
       ref="titleElem"
@@ -91,6 +90,7 @@
 </template>
 <script>
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 import { asyncDelay } from '~/utils/funcs';
 
 export default Vue.extend({
@@ -137,8 +137,8 @@ export default Vue.extend({
                 title: null,
                 items: [],
             },
-            categoryRes: null,
-            logos: null,
+            // categoryRes: null,
+            // logos: null,
             isTyping: false,
             doneTyping: false,
             startTyping: false,
@@ -147,33 +147,31 @@ export default Vue.extend({
         };
     },
     async fetch() {
-      if (this.category) {
-        return await this.$content(`technologies/categories/${this.category}`).fetch()
-          .then(async categoryRes => {
-            if(!categoryRes || categoryRes.slug !== this.category) { return }
-            this.categoryRes = categoryRes;
-            return await this.$content('technologies/logos').fetch()
-              .then(logos => {
-                this.logos = logos.filter(item => item.category === categoryRes.slug);
-                return this.logos
-              })
-              .catch(console.error)
-          }).catch(console.error)
-      }
-      if(!this.slugs?.length) {
-        return;
-      }
-      return await this.$content('technologies/logos').fetch()
-        .then(res => {
-          if(!Array.isArray(res)) {return};
-          this.logos = res.filter(item => this.slugs.includes(item.slug));
-          return this.logos
-        })
+      return await Promise.all([
+        this.$store.dispatch('getTechLogos'),
+        this.$store.dispatch('getTechCategories'),
+      ])
     },
     computed: {
         titleClasses() {
             const colors = !this.categoryRes ? [] : Array.isArray(this.categoryRes.color) ? this.categoryRes.color : [this.categoryRes.color];
             return colors?.map((c) => `text-${c}-300`) || [];
+        },
+        ...mapGetters({
+          techLogos: 'techLogos',
+          techCategories: 'techCategories',
+        }),
+        categoryRes() {
+          return this.techCategories.filter(c => c.slug === this.category)[0]
+        },
+        logos() {
+          if (this.category) {
+            return this.techLogos.filter(logo => logo.category === this.category)
+          }
+          if (this.specificSlugs?.length) {
+            return this.techLogos.filter(logo => this.specificSlugs.includes(logo.slug))
+          }
+          return []
         }
     },
     watch: {
