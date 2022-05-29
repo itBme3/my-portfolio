@@ -1,6 +1,6 @@
 ---
 title: This Portfolio
-description: Description
+description: This is a statically generated Nuxt app that leverages SSR.
 order: 6
 media: /missing-img.svg
 links: {
@@ -22,4 +22,3 @@ technologies:
     - html
     - scss
 ---
-<project-sections :project="{ sections, technologies, title, description }"></project-sections>

@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="'projects/' + project.slug" class="project-card">
+  <nuxt-link :to="'/projects/' + project.slug" class="project-card">
     <div class="card-inner">
       <Media class="card-media" :src="project.media" />
       <div class="card-content overflow-hidden">

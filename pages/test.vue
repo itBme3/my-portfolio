@@ -1,5 +1,6 @@
 <template>
 <div>
+
   <div style="height: 50vh"></div>
   <AboutCareerBlocks :start="true" />
   <div class="h-screen" />

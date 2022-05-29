@@ -1,6 +1,9 @@
 <template>
   <div class="project page mx-auto narrow">
-    <div class="project-heading py-12 flex flex-wrap">
+    <div 
+      v-if="project"
+      class="project-heading py-12 flex flex-wrap md:flex-nowrap"
+      >
       <PageTitle 
         :classes="{subtitle: 'mt-4 mb-6 sm:mt-2 sm:mb-auto', title: 'sm:mt-auto'}"
         class="flex flex-col content-center !mt-0 sm:mt-0"
@@ -14,15 +17,25 @@
       </PageTitle>
       <Media 
         v-if="showHeroMedia"
-        class="sm:order-first sm:w-1/3 max-w-xs my-auto rounded-md overflow-hidden sm:mr-6" 
+        class="sm:w-1/3 max-w-xs my-auto rounded-md overflow-hidden sm:ml-6" 
         :src="project.media" />
+    </div>
+      <transition name="down-fade">
+        <nuxt-content 
+          v-if="show.includes('content')" 
+          class="w-full block"
+          :document="project"
+        />
+      </transition>
       <LogosList 
         v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
         :slugs="project.technologies"
         toggle-actions="play none none none"
         class="mt-12"
       />
-    </div>
+
+
+
       <div 
         class="project-content mx-0 flex sm:items-start flex-col sm:flex-row transition-all duration-500">
         
@@ -35,29 +48,36 @@
           />
         </transition>
 
-        <transition name="down-fade">
-          <nuxt-content 
-            v-if="show.includes('content')" 
-            :document="project" class="sm:mr-8" />
-        </transition>
-
+        <ProjectSections :project="project" />
       </div>
+      <LazyProjectsCollection v-if="show.includes('more-projects')" />
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
-import { asyncDelay } from '~/utils/funcs';
+  import { asyncDelay } from '~/utils/funcs';
   export default Vue.extend({
     pageTransition: 'page',
     async asyncData({ $content, route }) {
-        const project = await $content("projects", route.params.slug).fetch();
-        return { project };
+        const responses = await Promise.all([
+          $content(`projects`).where({slug: {$eq: route.params.slug}})
+            .limit(1).fetch()
+            .then(res => res[0]),
+          $content(`projects/${route.params.slug}/sections`)
+            .sortBy('slug', 'desc').fetch()
+              .then(sections => { return {sections} })
+        ]);
+        return {
+          project: responses.reduce((acc, res) => {
+            return {...acc, ...res}
+          }, {})
+        }
     },
     data() {
         return {
-            test: { body: "some test" },
-            show: []
+            show: [],
+            project: null
         };
     },
     computed: {
@@ -89,6 +109,9 @@ import { asyncDelay } from '~/utils/funcs';
       })
       asyncDelay(1500).then(() => {
           this.show.push('sidebar')
+      })
+      asyncDelay(2000).then(() => {
+          this.show.push('more-projects')
       })
     },
     methods: {

@@ -1,14 +1,8 @@
 ---
 title: Service Business Site
-description: Description
+description: Built component rich site that allows client to create unique landing, collection, and single post pages without touching a line of code.
 order: 4
 media: https://res.cloudinary.com/bmoyni3/image/upload/v1653374403/projects/srp-featured_vmmnoq.jpg
-sections: [
-    { 
-        title: "",
-        text: "",
-        media: []
-    }]
 technologies: 
     - nuxt
     - vue
@@ -19,4 +13,6 @@ technologies:
     - html
     - scss
 ---
-<project-sections :project="{ sections, technologies, title, description }"></project-sections>
+
+Frontend: Statically Generated Nuxt App (SSR)
+Backend: Strapi

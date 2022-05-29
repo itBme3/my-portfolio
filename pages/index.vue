@@ -26,7 +26,7 @@
             <SvgIcon name="github" class="mr-2 w-5 h-auto" />
             GitHub
           </a>
-          <a class="button transition-none" href="https://www.linkedin.com/in/bobby-moynihan-97263826" target="_blank" style="opacity: 0">
+          <a class="button transition-none" href="www.linkedin.com/in/bobby-moynihan" target="_blank" style="opacity: 0">
             <SvgIcon name="linkedin" class="wave mr-5 w-6 h-auto" />
             LinkedIn
           </a>

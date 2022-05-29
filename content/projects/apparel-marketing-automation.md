@@ -1,6 +1,6 @@
 ---
 title: Apparel Marketing Automation
-description: Description
+description: Web app that drastically reduces time it takes Dearborn Denim's marketing team to launch products and create marketing assets.
 order: 1
 media: https://res.cloudinary.com/bmoyni3/image/upload/v1653390628/projects/dd-fire-featured_rwx2ky.jpg
 links: {
@@ -27,4 +27,7 @@ technologies:
     - html
     - scss
 ---
-<project-sections :project="{ sections, technologies, title, description }"></project-sections>
+
+\[Before\] Took team roughly 8-10 hours to launch product (once product and photography were created)
+\[After\]: Takes team 1-2 hours to launch product
+

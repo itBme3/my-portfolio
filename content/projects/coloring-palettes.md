@@ -1,6 +1,6 @@
 ---
 title: Coloring Palettes
-description: Description
+description: Side project to aid in early color/theming stages of UI design process.
 order: 0
 media: /missing-img.svg
 sections: [
@@ -17,4 +17,6 @@ technologies:
     - js
     - scss
 ---
-<project-sections :project="{ sections, technologies, title, description }"></project-sections>
+Plus, learn more about Nuxt — as I was using it more in my professional projects.
+
+

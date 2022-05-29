@@ -1,10 +1,11 @@
 <template>
   <div class="project-sections">
 
-    <section v-for="section in projectSections"
-             :id="section.id"
-             :key="section.id"
-             class="block rounded h-auto py-12 border border-black border-opacity-40 border-l-0 border-r-0 border-t-0">
+    <section 
+      v-for="section in projectSections"
+      :id="section.id"
+      :key="section.id"
+      class="block rounded h-auto py-12 border border-black border-opacity-40 border-l-0 border-r-0 border-t-0">
       <h3 class="section-title text-2xl text-gray-100 font-display font-black relative z-0 mb-8">{{ section.title }}</h3>
       <template v-if="section.media">
         <Media 
@@ -13,8 +14,9 @@
                :src="media"
                class="rounded-md shadow-lg shadow-black/40 overflow-hidden relative z-10 mt-4 mb-8" />
       </template>
-      <div v-if="section.text && section.text.length" class="section-text font-light text-gray-300 relative z-0 mt-12" 
-        v-html="section.text" />
+      <nuxt-content 
+        class="section-text font-light text-gray-300 relative z-0 mt-12" 
+        :document="section" />
     </section>
   </div>
 
@@ -82,23 +84,32 @@ export default Vue.extend({
             media: el.querySelector('.media'),
             text: el.querySelector('.section-text'),
           }
-          this.$gsap.set(els.title, { opacity: 0, scaleX: 1.5, scaleY: 1.5, y: 100, x: '25%' });
-          this.$gsap.set([els.media], { opacity: 0, y: -100, scaleX: 1, scaleY: 1, filter: 'blur(20px) saturate(1.5) brightness(1.5)' });
-          this.$gsap.set([els.text], { y: -80, opacity: 0 });
+          if(els.title) {
+            this.$gsap.set(els.title, { opacity: 0, scaleX: 1.5, scaleY: 1.5, y: 100, x: '25%' });
+          }
+          if(els.media) {
+            this.$gsap.set([els.media], { opacity: 0, y: -100, scaleX: 1, scaleY: 1, filter: 'blur(20px) saturate(1.5) brightness(1.5)' });
+          }
+          if(els.text) {
+            this.$gsap.set([els.text], { y: -80, opacity: 0 });
+          }
           const defaults = { y: 0, x: 0, scaleY: 1, scaleX: 1, opacity: 1, ease: 'power1.inOut', duration: .3 };
 
           
-            
-            tl
-            .to(els.media, {
-              ...defaults,
-              duration: .4,
-              filter: 'blur(0) saturate(1) brightness(1)'
-            })
-            .to(els.title, {
-              ...defaults,
-              duration: .4,
-            }, '-=.2')
+            if(els.media) {
+              tl
+              .to(els.media, {
+                ...defaults,
+                duration: .4,
+                filter: 'blur(0) saturate(1) brightness(1)'
+              })
+            }
+            if(els.title) {
+              tl.to(els.title, {
+                ...defaults,
+                duration: .4,
+              }, '-=.2')
+            }
 
           if (!els.text) {
             return

@@ -1,6 +1,6 @@
 ---
 title: Nostalgia Arcade
-description: Recreated some classic games to learn more about Svelte's state management.
+description: Side project to learn more about Svelte — specifically state management.
 order: 2
 media: https://res.cloudinary.com/bmoyni3/video/upload/v1653316727/projects/videos/arcade-snake_q8zq2d.mp4
 links: {
@@ -37,4 +37,7 @@ technologies:
     - scss
     - vite
 ---
-<project-sections :project="{ sections, technologies, title, description }"></project-sections>
+
+3 classic games that each have unique use cases for handling state on arrays/maps.
+
+*No tutorials used — game logic/implementations were original solutions

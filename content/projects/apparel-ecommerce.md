@@ -17,4 +17,4 @@ technologies:
     - html
     - scss
 ---
-<project-sections :project="{ sections, technologies, title, description }"></project-sections>
+
