@@ -15,7 +15,7 @@
         <span>Work Experience</span>
     </TypeSingleLine> -->
     <h1 ref="title" class="title max-w-xl ml-0 relative z-10">Work Experience</h1>
-    <p ref="subtitle" class="max-w-xl ml-0 "><span>2009</span> <span>though</span> <span>2022</span></p>
+    <p ref="subtitle" class="max-w-xl ml-0 mb-32 "><span>2009</span> <span>though</span> <span>2022</span></p>
     <AboutCareerBlock 
       v-for="block in blocks"
       :key="block.title"
@@ -108,57 +108,31 @@
       initGsap() {
         
         asyncDelay(400).then(() => ScrollTrigger.refresh());
-        const els = {
-          title: this.$refs.title,
-          blocks: this.$gsap.utils.toArray(this.$el.querySelectorAll('.about-career-block')),
-          subtitle: this.$refs.subtitle,
-          bg: document.querySelector('.career-blocks-bg')
-        }
-        // this.$gsap.set(els.bg, {backgroundColor: this.bgColors.pop().from});
-        // els.blocks.forEach(el => el.querySelectorAll('.') this.$gsap.set(els.title, {opacity: 0, y: '-4rem'});
-        const initBlockTimelines = () => {
-          els.blocks.forEach((blockEl, i) => {
-            // let onEnter = () => {
-            //   // this.$gsap.set(blockEl, {backgroundColor: this.bgColors[i].from, opacity: 0})
-            //   this.$gsap.to(blockEl, {backgroundColor: this.bgColors[i].to, opacity: 1})
-            // }
-            // let onLeave = () => {
-            //   // this.$gsap.set(blockEl, {backgroundColor: this.bgColors[i].to})
-            //   this.$gsap.to(blockEl, {backgroundColor: this.bgColors[i].from, opacity: 0})
-            // }
-            // onEnter = onEnter.bind(this)
-            // onLeave = onLeave.bind(this)
-            // this.$gsap.to(blockEl, {backgroundColor: this.bgColors[i].from})
+        const blockEls = this.$gsap.utils.toArray(this.$el.querySelectorAll('.about-career-block'))
+        ScrollTrigger.refresh()
+          blockEls.forEach((blockEl) => {
             const blockTl = this.$gsap.timeline({
               scrollTrigger: {
                 trigger: blockEl,
                 toggleActions: "play reverse play reverse",
-                start: 'center center',
+                start: 'top 80%',
                 end: 'bottom top',
-                // markers: true,
                 scrub: false,
-                pin: true,
+                pin: false,
                 pinSpacing: false,
-                pinType: 'transform',
-                anticipatePin: 1
-                // onEnter,
-                // onEnterBack: onEnter,
-                // onLeave,
-                // onLeaveBack: onLeave,
-                // preventOverlapping: true
               }
             });
-            const blockEls = {
+            const elsInBlock = {
               title: blockEl.querySelectorAll('.career-title'),
               company: blockEl.querySelectorAll('.career-company'),
               description: blockEl.querySelectorAll('.career-description'),
               date: blockEl.querySelectorAll('.career-date'),
             }
-            this.$gsap.set(blockEls.date, {opacity: 0, y: '12rem', scaleY: 1, scaleX: 1, x: 0})
-            this.$gsap.set(blockEls.title, {opacity: 0, y: '6rem'})
-            this.$gsap.set(blockEls.company, {opacity: 0, y: '4rem'})
-            this.$gsap.set(blockEls.description, {opacity: 0, y: '2rem'})
-            blockTl.to(blockEls.date, {
+            this.$gsap.set(elsInBlock.date, {opacity: 0, y: '12rem', scaleY: 1, scaleX: 1, x: 0})
+            this.$gsap.set(elsInBlock.title, {opacity: 0, y: '6rem'})
+            this.$gsap.set(elsInBlock.company, {opacity: 0, y: '4rem'})
+            this.$gsap.set(elsInBlock.description, {opacity: 0, y: '2rem'})
+            blockTl.to(elsInBlock.date, {
                 x: 0,
                 y: 0,
                 scaleY: 1,
@@ -166,65 +140,23 @@
                 opacity: 1,
                 duration: .3,
               }, 0)
-            .to(blockEls.title, {
+            .to(elsInBlock.title, {
                 y: 0,
                 opacity: 1,
                 duration: .3,
               }, 0)
-            .to(blockEls.company, {
+            .to(elsInBlock.company, {
                 y: 0,
                 opacity: 1,
                 duration: .3,
               }, 0)
-            .to(blockEls.description, {
+            .to(elsInBlock.description, {
                 y: 0,
                 opacity: 1,
                 duration: .3,
               }, 0.3)
             })
 
-        }
-        const tl = this.$gsap.timeline({
-          scrollTrigger: {
-            trigger: els.title,
-            start: 'top 20%',
-            endTrigger: this.$el,
-            end: 'bottom top',
-            toggleActions: "play pause resume reverse",
-            pin: true,
-            pinType: 'transform',
-            anticipatePin: true,
-            pinSpacing: false
-          },
-          onEnter(e) {
-            console.log('onEnter', e)
-          }
-        });
-        tl
-        .to(els.subtitle.querySelectorAll('span'), {
-          opacity: 0,
-          y: '-3rem',
-          stagger: .1,
-          // rotate: '90deg',
-          duration: .3,
-        }).to(els.title, {
-          duration: .3,
-          keyframes: [
-            {
-              y: '-100px',
-              x: '-60%',
-              scaleY: .3,
-              scaleX: .3,
-              rotate: '0deg',
-            },
-            {
-              rotate: '90deg',
-              opacity: 1,
-              y: '100px',
-            }
-          ]
-        }, '=-.3');
-        initBlockTimelines()
         
       }
     }

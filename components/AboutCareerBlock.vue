@@ -1,5 +1,5 @@
 <template>
-  <div class="about-career-block relative opacity-100 flex flex-col content-center w-full overflow-hidden mx-auto h-screen">
+  <div class="about-career-block relative opacity-100 flex flex-col content-center w-full overflow-hidden mx-auto">
     <div class="block-content relative pl-11 xs:pl-14 sm:pl-16 md:pl-24 lg:pl-18 max-w-2xl m-auto">
       <h4
           ref="dateElem"
@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Vue from 'vue'
   export default Vue.extend({
     props: {
@@ -51,72 +50,6 @@ import Vue from 'vue'
               { from:  '#fdf58a', to: '#4de2ff'},
             ]
         };
-    },
-    // mounted() {
-    //     this.initGsapTimeline();
-    // },
-    methods: {
-        initGsapTimeline() {
-          console.log(this.tl)
-          if(this.tl?.kill) {
-            this.tl.kill()
-          }
-          ScrollTrigger.refresh()
-            const elms = {
-                title: this.$el.querySelector(".career-title"),
-                description: this.$el.querySelector(".career-description"),
-                company: this.$el.querySelector(".career-company"),
-                date: this.$el.querySelector(".career-date"),
-            };
-            const bgColor = this.bgColors[this.block.order];
-            this.$gsap.set(this.$el, { backgroundColor: bgColor.from });
-            this.$gsap.set(elms.date, { top: 400, opacity: 0 });
-            this.$gsap.set(elms.title, { top: 100, opacity: 0 });
-            this.$gsap.set(elms.description, { top: -20, opacity: 0 });
-            this.$gsap.set(elms.company, { scaleY: .5, scaleX: .5, opacity: 0 });
-            this.tl = this.$gsap.timeline({
-                smoothChildTiming: true,
-                scrollTrigger: {
-                    trigger: this.$el,
-                    start: "center center",
-                    end: "bottom top",
-                    scrub: false,
-                    toggleActions: "play pause play reverse",
-                    fastScrollEnd: true,
-                    pin: true,
-                    pinSpacing: false,
-                    pinType: 'transform',
-                    anticipatePin: 1
-                }
-            });
-            this.tl.to(this.$el, {
-              backgroundColor: bgColor.to,
-              duration: .3
-            })
-            .to(elms.date, {
-                top: 50,
-                opacity: .6,
-                duration: 1,
-            }, '-=.3')
-            .to(elms.title, {
-                top: 0,
-                opacity: 1,
-                duration: .6,
-            }, '-=.6')
-            .to(elms.company, {
-                scaleY: 1,
-                scaleX: 1,
-                opacity: 1,
-                duration: 0.2,
-            }, '-=.4')
-            .to(elms.description, {
-                top: 10,
-                opacity: 1,
-                duration: 0.4,
-            }, '-=.3')
-            .to(elms.date, { top: -20, opacity: 1, duration: 1 }, '1');
-            
-        }
     }
 })
 </script>
