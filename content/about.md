@@ -1,30 +1,9 @@
----
-    career: [
-        {
-            date: "2018-2022",
-            title: "Frontend Developer & Consultant",
-            company: "Get it Got",
-            companyLink: "https://gigfirm.com",
-            description: "Worked closely with a handful of clients to create customizable experiences that delivered results. This involved UI design & development.",
-            order: 0
-        },
-        {
-            date: "2016-2018",
-            title: "Branding & UX Consultant",
-            company: "Get it Got",
-            companyLink: "https://gigfirm.com",
-            description: "Get it Got LLC. Majority of our clients 10x while working with us.",
-            order: 1
-        },
-        {
-            date: "2009-2016",
-            title: "Chief Creative Officer",
-            company: "Tiesta Tea",
-            companyLink: "https://tiestatea.com",
-            description: "I was responsible for creating the brand & figuring out how to sell loose tea on the inter-webs… this was my first brush with making anything online. Tiesta Tea has grown to an an 8 digit company.",
-            order: 2
-        }
-    ]
----
 
-<p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod.</p>
+
+Self taught programmer — trained designer.
+
+Art school taught me how to take criticism and building off feedback. Entrepreneurship taught to be self-reliant at solving problems and implementing solutions.
+
+My most consistent and valued skill during 10+ years in web development has been proficient google searching. There have been few (if any) problems I have not been able to find/build solutions for — while staying on-budget.
+
+Forever addicted to learning — especially new/better ways of doing things.

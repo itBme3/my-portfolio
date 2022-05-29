@@ -1,5 +1,5 @@
 <template>
-  <div class="about-career-blocks flex flex-col items-center">
+  <div class="about-career-blocks flex flex-col items-center content-start max-w-xl mx-auto">
     <!-- <TypeSingleLine 
         :start="shouldStart"
         tag="h4"
@@ -14,57 +14,43 @@
         <template  v-if="doneTyping" #before><span class="relative text-gray-500 mr-px" style="top: -.5rem">// </span></template>
         <span>Work Experience</span>
     </TypeSingleLine> -->
-    <h1 ref="title" class="title max-w-xl ml-0 relative z-10">Work Experience</h1>
-    <p ref="subtitle" class="max-w-xl ml-0 mb-32 "><span>2009</span> <span>though</span> <span>2022</span></p>
+    <h1 ref="title" class="title ml-0 relative z-10 text-left w-full">Work Experience</h1>
+    <p ref="subtitle" class="ml-0 mb-24 w-full text-gray-700 italic"><span>2009</span> <span>though</span> <span>2022</span></p>
     <AboutCareerBlock 
       v-for="block in blocks"
       :key="block.title"
       :block="block"
-      class="mb-32"
+      class="pb-32"
     />
-    <Teleport to="main"><div ref="background" class="career-blocks-bg fixed inset-0 z-0" /></Teleport>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
   import { ScrollTrigger } from 'gsap/ScrollTrigger'
-  import Teleport from 'vue2-teleport'
   import {asyncDelay} from '~/utils/funcs'
   export default Vue.extend({
-    components: {
-      Teleport
-    },
     props: {
       start: {
         type: Boolean,
         default: false
-      },
-      about: {
-        type: Object,
-        default: () => { return { career: [] } }
       }
     },
     data() {
       return {
-        blocks: this.about?.career?.length ? this.about.career : [],
+        blocks: [],
         shouldStart: !!this.start,
         doneTyping: false,
-        bgColors: [
-              { from:  '#131319', to: '#fdf58a'},
-              { from:  '#fdf58a', to: '#4de2ff'},
-              { from:  '#4de2ff', to: '#ff6a8d'},
-            ]
       }
     },
     async fetch() {
       if (this.blocks?.length) {return}
-      return await this.$content('about').fetch()
+      return await this.$content('career').sortBy('start', 'desc').fetch()
         .then((res) => {
-          if(!Array.isArray(res?.career)) {
+          if(!Array.isArray(res)) {
             this.blocks = []
           } else {
-            this.blocks = res.career
+            this.blocks = res
           }
           return this.blocks
         })
@@ -74,37 +60,32 @@
         this.shouldStart = val
       },
     },
-    async mounted() {
-      try {
-        this.blocks = await this.getBlocks();
+    mounted() {
         this.initGsap();
-        return
-      } catch(err) {
-        console.error(err)
-        // alert(err)
-      }
+      // try {
+      //   // this.blocks = await this.getBlocks();
+      //   return
+      // } catch(err) {
+      //   console.error(err)
+      //   // alert(err)
+      // }
     },
     methods: {
-     getBlocks(force = false) {
-        if(!force) {
-          if (this.about?.career?.length > 0) {
-            this.blocks = this.about.career
-            return this.blocks
-          }
-          if(this.blocks?.length) {
-            return this.blocks
-          }
-        }
-        return this.$content('about').fetch()
-        .then((res) => {
-          if(!Array.isArray(res?.career)) {
-            this.blocks = []
-          } else {
-            this.blocks = res.career
-          }
-          return this.blocks
-        })
-      },
+    //  getBlocks(force = false) {
+    //     if(!force && this.blocks?.length) {
+          
+    //       return this.blocks
+    //     }
+    //     return this.$content('about').fetch()
+    //     .then((res) => {
+    //       if(!Array.isArray(res?.career)) {
+    //         this.blocks = []
+    //       } else {
+    //         this.blocks = res.career
+    //       }
+    //       return this.blocks
+    //     })
+    //   },
       initGsap() {
         
         asyncDelay(400).then(() => ScrollTrigger.refresh());

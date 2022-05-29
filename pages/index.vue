@@ -38,9 +38,9 @@
       :start="show.includes('skills')"
       :categories="['languages', 'frameworks-libraries']" />
 
-    <section class="about narrow">
+    <!-- <section class="about narrow">
       <AboutCareerBlocks class="section-content" />
-    </section>
+    </section> -->
   </div>
 </template>
 

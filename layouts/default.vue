@@ -100,10 +100,10 @@ main {
 .page {
   @apply max-w-page mx-auto;
   &.narrow {
-      @apply max-w-3xl;
+      @apply max-w-2xl;
     }
     &.narrower {
-      @apply max-w-2xl;
+      @apply max-w-xl;
     }
     &.narrowest {
       @apply max-w-md;

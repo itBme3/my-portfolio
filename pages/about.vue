@@ -3,11 +3,10 @@
     <PageTitle 
       @animationDone="showCareer">
       About Me:
-      <template v-if="page.description" #subtitle>{{ page.description }}</template>
     </PageTitle>
     <nuxt-content class="mt-6 mb-12" :document="page" />
-    <LazyAboutCareerBlocks v-if="show.includes('career')" class="mt-28" :about="page" />
     <LazySectionSkills v-if="show.includes('skills')" :animate-title="false" />
+    <LazyAboutCareerBlocks v-if="show.includes('career')" class="mt-28" />
   </div>
 </template>
 
@@ -25,17 +24,21 @@ import { asyncDelay } from '~/utils/funcs';
     }),
     methods: {
       showCareer() {
+        this.show.push('skills')
         asyncDelay(1500).then(() => {
           this.show.push('career')
-          asyncDelay(200).then(() => {
-            this.show.push('skills')
-          })
         })
       }
     }
   })
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.about.page {
+  .skills.narrow {
+    .section-content  {
+      @apply max-w-full #{!important};
+    }
+  }
+}
 </style>

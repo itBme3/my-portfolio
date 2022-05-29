@@ -1,5 +1,5 @@
 <template>
-  <div class="projects page narrower">
+  <div class="projects page narrow">
     <PageTitle>
       Projects:
     </PageTitle>

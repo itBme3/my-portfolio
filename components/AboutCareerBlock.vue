@@ -1,12 +1,13 @@
 <template>
-  <div class="about-career-block relative opacity-100 flex flex-col content-center w-full overflow-hidden mx-auto">
-    <div class="block-content relative pl-11 xs:pl-14 sm:pl-16 md:pl-24 lg:pl-18 max-w-2xl m-auto">
-      <h4
-          ref="dateElem"
-        class="career-date font-display text-orange-300 tracking-widest top-0 whitespace-nowrap left-4 font-black mb-4 text-xl">
-        {{ block.date }}
-      </h4>
-      <div class="max-w-xs">
+  <div class="about-career-block relative opacity-100 items-stretch w-full max-w-2xl overflow-visible pl-8">
+    <div class="timeline left-0">
+      <div class="line z-0 bg-gray-700 border-opacity-10 rounded absolute h-full top-0 transform right-0" />
+      <h4 
+        ref="dateElem"
+        class="timeline-date z-10 text-right font-black text-orange-300 w-full py-2 bg-gray-900 absolute block -right-1 top-1/2">{{ block.start }} to {{ block.end }}</h4>
+    </div>
+    <div class="block-content relative pl-11 xs:pl-14 sm:pl-16 md:pl-24 lg:pl-18 m-auto ml-0">
+      <div class="max-w-md">
         <h2
           ref="titleElem"
           class="career-title font-display text-3xl sm:text-4xl font-bold text-yellow-300">
@@ -16,11 +17,13 @@
           <SvgIcon name="link" class="my-auto w-4 text-blue-400" />
           <span class="ml-2 font-bold">{{ block.company }}</span>
         </a>
-        <p
+        <div 
           ref="descriptionElem"
-          class="career-description text-sm sm:text-base lg:text-md text-gray-300">
-          {{ block.description }}
-        </p>
+          class="career-description text-sm sm:text-base lg:text-md">
+          <nuxt-content
+            :document="block"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -40,23 +43,34 @@ import Vue from 'vue'
                 };
             }
         },
-    },
-    data() {
-        return {
-            tl: undefined,
-            bgColors: [
-              { from:  '#3481ff', to: '#f515d4'},
-              { from:  '#f515d4', to: '#fdf58a'},
-              { from:  '#fdf58a', to: '#4de2ff'},
-            ]
-        };
     }
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.timeline {
+  @apply  h-full absolute top-0 bottom-0 my-0;
+  width: 50px;
 
-// .career-date {
-//   transform: translateX(-50%) translateY(150%) rotate(90deg);
-// }
+  .line {
+    width: .13rem;
+    content: "";
+  }
+  .timeline-date {
+    transform: translateY(-50%);
+  }
+}
+  @media screen and (min-width: 640px) {
+    .timeline {
+      width: 120px;
+      margin-left: -100px;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+
+    .timeline {
+      width: 160px;
+      margin-left: -140px;
+    }
+  }
 </style>
