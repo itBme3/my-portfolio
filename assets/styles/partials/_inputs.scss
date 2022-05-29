@@ -5,6 +5,9 @@
 input, textarea, select {
     @apply border text-gray-200 border-gray-200 border-l-0 border-r-0 border-t-0 p-4 bg-gray-900;
     &:focus-visible {
-        @apply rounded bg-gray-700 border-transparent ring-gray-600 ring-2 ring-offset-gray-800 outline-none shadow-none #{!important};
+        @apply rounded border-transparent ring-gray-600 ring-2 ring-offset-gray-800 outline-none shadow-none #{!important};
     }
+}
+.input:-internal-autofill-selected  {
+    @apply bg-gray-800 #{!important};
 }
