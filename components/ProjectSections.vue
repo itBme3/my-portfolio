@@ -52,7 +52,8 @@ export default Vue.extend({
   },
   methods: {
     initGsap () {
-      
+      this.$gsap.set(this.$el, {opacity: 0})
+      this.$gsap.to(this.$el, {opacity: 1, delay: .3})
       const sections = this.$gsap.utils.toArray(this.$el.querySelectorAll('section'));
       /* set initial style before setting scrollTrigger — without, elements will flash because of async delay */
       sections.forEach((el) => {
@@ -73,7 +74,7 @@ export default Vue.extend({
           const tl = this.$gsap.timeline({
             scrollTrigger: {
               trigger: el,
-              start: 'top =+70%',
+              start: 'top 80%',
               end: 'bottom =-30%',
               toggleActions: 'play pause play reverse',
               // scrub: true
@@ -85,10 +86,10 @@ export default Vue.extend({
             text: el.querySelector('.section-text'),
           }
           if(els.title) {
-            this.$gsap.set(els.title, { opacity: 0, scaleX: 1.5, scaleY: 1.5, y: 100, x: '25%' });
+            this.$gsap.set(els.title, { opacity: 0, scaleX: 1, scaleY: 1, y: 20, });
           }
           if(els.media) {
-            this.$gsap.set([els.media], { opacity: 0, y: -100, scaleX: 1, scaleY: 1, filter: 'blur(20px) saturate(1.5) brightness(1.5)' });
+            this.$gsap.set([els.media], { opacity: 0, y: -100, scaleX: 1, scaleY: 1, filter: 'blur(6px) saturate(1.5) brightness(1.5)' });
           }
           if(els.text) {
             this.$gsap.set([els.text], { y: -80, opacity: 0 });
@@ -124,6 +125,7 @@ export default Vue.extend({
             ...defaults,
             ease: 'power1.inOut',
             duration: .4,
+            delay: .3
           })
         })
       })

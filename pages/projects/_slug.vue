@@ -20,42 +20,51 @@
         class="sm:w-1/3 max-w-xs my-auto rounded-md overflow-hidden sm:ml-6" 
         :src="project.media" />
     </div>
-      <transition name="down-fade">
+      <LogosList 
+        v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
+        :slugs="project.technologies"
+        toggle-actions="play none none none"
+        class="mb-12"
+      />
+      <transition name="up-fade">
         <nuxt-content 
           v-if="show.includes('content')" 
           class="w-full block"
           :document="project"
         />
       </transition>
-      <LogosList 
-        v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
-        :slugs="project.technologies"
-        toggle-actions="play none none none"
-        class="mt-12"
-      />
 
 
 
       <div 
         class="project-content mx-0 flex sm:items-start flex-col sm:flex-row transition-all duration-500">
         
-        <transition name="up-fade" :duration="1000">
+        <!-- <transition name="up-fade" :duration="1000"> -->
           <ProjectAside
             v-if="show.includes('sidebar')"
             :project="project"
             class="sm:order-last"
             @section="e => scrollToSection(e)"
           />
-        </transition>
+        <!-- </transition> -->
 
-        <ProjectSections :project="project" />
+        <ProjectSections v-if="show.includes('content')" :project="project" />
       </div>
-      <LazyProjectsCollection v-if="show.includes('more-projects')" />
+      <div 
+        v-if="show.includes('more-projects')"
+        class="more-projects w-full p-4 relative z-10"
+      >
+        <h3 key="collectionTitle" class="font-display font-black mt-16 text-xl text-gray-500">More Projects:</h3>
+        <LazyProjectsCollection
+          key="projectsCollection"
+        />
+      </div>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
   import { asyncDelay } from '~/utils/funcs';
   export default Vue.extend({
     pageTransition: 'page',
@@ -97,21 +106,26 @@
     },
     mounted() {
 
-      asyncDelay(500).then(() => {
+      // asyncDelay(500).then(() => {
         this.show.push('technologies')
+      // })
+
+      asyncDelay(500).then(() => {
+        this.show.push('content')
+        this.show.push('sidebar')
       })
 
-      asyncDelay(1000).then(() => {
-        this.show.push('content')
-        if(this.$route.hash.length) {
-          asyncDelay(1000).then(() => this.scrollToSection(this.$route.hash.replace('#', '')))
-        }
-      })
-      asyncDelay(1500).then(() => {
-          this.show.push('sidebar')
-      })
       asyncDelay(2000).then(() => {
-          this.show.push('more-projects')
+          asyncDelay(1000).then(() => {
+            this.show.push('more-projects')
+            ScrollTrigger.create({
+              trigger: this.$el.querySelector('.project-sections'),
+              start: 'bottom 80%'
+            })
+            if(this.$route.hash.length) {
+              this.scrollToSection(this.$route.hash.replace('#', ''))
+            }
+          })
       })
     },
     methods: {
@@ -123,6 +137,19 @@
 })
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.project.page {
+  .projects-collection {
+    > div {
+      @apply space-y-6 #{!important};
+    }
+    .project-card {
+      @apply bg-gray-900 hover:bg-gray-800 shadow-lg p-8;
+      max-width: 33rem;
+      .logos-list {
+        @apply hidden;
+      }
+    }
+  }
+}
 </style>

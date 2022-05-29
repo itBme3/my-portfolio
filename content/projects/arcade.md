@@ -2,7 +2,7 @@
 title: Nostalgia Arcade
 description: Side project to learn more about Svelte — specifically state management.
 order: 2
-media: https://res.cloudinary.com/bmoyni3/video/upload/v1653316727/projects/videos/arcade-snake_q8zq2d.mp4
+media: https://res.cloudinary.com/bmoyni3/image/upload/v1653842121/projects/nostalgia-arcade_kjbzqo.png
 links: {
 	github: "https://github.com/itBme3/svelte-arcade",
 	live: "https://nostalgia-arcade.netlify.com"

@@ -1,6 +1,8 @@
 <template>
+
   <aside 
     class="project-aside"
+    style="opacity: 0"
     :class="{
       'desktop': !$store.state.window.size.isMobile
     }">
@@ -38,6 +40,7 @@
         </template>
       </div>
   </aside>
+
 </template>
 
 <script>
@@ -79,7 +82,9 @@ import { asyncDelay, handleize } from '~/utils/funcs'
     mounted() {
       this.initGsap()
       this.initSectionScrollTracking()
-      this.$gsap.set('.project-aside.desktop', { minWidth: '180px' });
+      this.$gsap.set('.project-aside.desktop', { minWidth: '180px', x: -40, opacity: 0 });
+      this.$gsap.to('.project-aside.desktop', { delay: 1, opacity: 1, x: 0, duration: .3 });
+
     },
     methods: {
       initGsap() {
@@ -89,7 +94,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
               scrollTrigger: {
                 trigger: '.project-sections',
                 pin: '.project-aside.desktop',
-                end: 'bottom -20%',
+                end: 'bottom 25%',
                 pinSpacing: false,
                 pinType: 'transform',
                 anticipatePin: 2,
@@ -113,7 +118,6 @@ import { asyncDelay, handleize } from '~/utils/funcs'
           let onEnter = () => {
             onEnterBack()
             if(this.triggerRefreshed < sections.length) {
-              ScrollTrigger.refresh()
               this.triggerRefreshed = this.triggerRefreshed + 1
             }
           }

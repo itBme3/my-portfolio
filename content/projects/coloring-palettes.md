@@ -2,7 +2,7 @@
 title: Coloring Palettes
 description: Side project to aid in early color/theming stages of UI design process.
 order: 0
-media: /missing-img.svg
+media: https://res.cloudinary.com/bmoyni3/image/upload/v1653842088/projects/coloring-palettes_mzgt05.png
 sections: [
     { 
         title: "",
