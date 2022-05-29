@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <MediaPdf src="https://drive.google.com/file/d/1r1bGh9Z5WLQgWbhxuZZYDVKk3MBiVIh2/preview" />
+    <MediaPdf src="https://drive.google.com/file/d/1U5Lr5Ig1iuRUaLNsxmwORbukDkZA6im8/preview" />
     
   </div>
 </template>
