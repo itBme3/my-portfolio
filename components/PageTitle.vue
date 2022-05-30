@@ -41,6 +41,10 @@
             subtitle: ''
           }
         }
+      },
+      lookForContent: {
+        default: true,
+        type: Boolean
       }
     },
     computed: {
@@ -51,25 +55,42 @@
     },
     mounted() {
       this.$gsap.set(this.$el.querySelector('.title'), {opacity: 0, y: 40})
-      this.$gsap.set([this.$el.querySelector('.subtitle'), this.$el.parentNode.querySelector('.nuxt-content')], {opacity: 0, y: 40})
-      let onComplete = () => {this.$emit('animationDone')};
+      const content = [
+        this.$el.querySelector('.subtitle'), 
+        ...(this.lookForContent ? this.$gsap.utils.toArray(this.$el.parentNode.querySelectorAll('.nuxt-content p')) : [])
+      ];
+      this.$gsap.set(content, {opacity: 0, y: 40})
+      let onComplete = (isTitle = false) => {
+        if (!isTitle || (isTitle && !this.$el.querySelector('.subtitle') && (!this.$el.parentNode.querySelector('.nuxt-content') || !this.lookForContent))) {
+          this.$emit('animationDone')
+        }
+      };
       onComplete = onComplete.bind(this)
-      this.$gsap.to(this.$el.querySelector('.title'), {
-        duration: .6,
+      const tl = this.$gsap.timeline({
+        scrollTrigger: {
+          trigger: this.$el,
+          start: 'top 70%',
+          end: 'bottom 0%',
+          onLeave: onComplete,
+        },
+        onComplete,
+        delay: .3
+      })
+      tl.to(this.$el.querySelector('.title'), {
+        duration: .4,
         y: 0,
         opacity: 1,
-        delay: .3,
         ease: 'power3.inOut',
-        onComplete
+        // onComplete: onComplete(true)
       })
-      this.$gsap.to([this.$el.querySelector('.subtitle'), this.$el.parentNode.querySelector('.nuxt-content')], {
+      .to(content, {
         duration: .8,
-         y: 0,
+        y: 0,
         opacity: 1,
-        delay: .3,
         ease: 'power3.inOut',
-        onComplete
-      })
+        // onComplete,
+        stagger: .1
+      }, '-=.4')
     }
   })
 </script>

@@ -5,9 +5,9 @@
       class="type-single-line"
       :class="{
         'typing': typedTextWidth !== 'auto',
-        'hide-text': !typedTextWidth.includes('ch') && typedTextWidth !== 'auto'
+        'hide-text': !typedTextWidth.includes('ch') && typedTextWidth !== 'auto' && !animationDone
       }"
-      :style="{width: typedTextWidth}">
+      :style="{width: animationDone ? 'auto' : typedTextWidth}">
       <slot />
       <span
         v-if="!animationDone && !beforeTyping" 
@@ -24,6 +24,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {asyncDelay} from '~/utils/funcs'
   export default Vue.extend({
     props: {
@@ -33,7 +34,7 @@ import {asyncDelay} from '~/utils/funcs'
       },
       delay: {
         type: Number,
-        default: 100
+        default: 200
       },
       start: {
         type: Boolean,
@@ -54,22 +55,39 @@ import {asyncDelay} from '~/utils/funcs'
         if(val) {
             this.typeOutText();
         }
+      },
+      animationDone(val) {
+        if(val) {
+          this.typedTextWidth = 'auto'
+          this.$emit('animationDone', true)
+        }
       }
     },
     mounted() {
       if(this.start) {
+        this.initGsap();
         this.typeOutText();
       }
     },
     methods: {
+      initGsap() {
+        let onLeave = () => {
+          this.animationDone = true
+        };
+        onLeave = onLeave.bind(this)
+        ScrollTrigger.create({
+          trigger: this.$el,
+          end: 'bottom -10%',
+          onLeave
+        })
+      },
       async typeOutText() {
         this.beforeTyping = false
-        await asyncDelay(400);
+        // await asyncDelay(400);
         await asyncDelay(this.delay);
         const text:string | undefined = this.$slots.default?.map(vnode => vnode.elm?.textContent).join('').trim()
         if(!text || !text?.length) {
-          this.typedTextWidth = 'auto'
-          this.$emit('animationDone', true)
+          this.animationDone = true
           return;
         }
         this.typedTextWidth = `3px`;
@@ -77,7 +95,7 @@ import {asyncDelay} from '~/utils/funcs'
         this.$emit('animationStarted', true);
         this.startedTyping = true
         await asyncDelay(300);
-        for (let i = 0; i < text.length; i++) {
+        for (let i = 0; i < text.length && !this.animationDone; i++) {
           await (async() => {
             this.cursorBlinking = false;
             this.typedTextWidth = `${i + (text[i] === ',' ? 2 : 1)}ch`;
@@ -95,7 +113,6 @@ import {asyncDelay} from '~/utils/funcs'
           })();
         }
         this.animationDone = true
-        this.$emit('animationDone', true)
 
       }
     }

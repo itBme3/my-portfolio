@@ -7,14 +7,17 @@
     {
         "title": "Frameworks, Libraries",
         "color": [
-            "blue",
+            "purple",
             "pink"
         ],
         "slug": "frameworks-libraries"
     },
     {
-        "title": "APIs",
-        "color": "purple",
+        "title": "APIs, Tools",
+        "color": [
+            "blue",
+            "cyan"
+        ],
         "slug": "apis"
     }
 ]

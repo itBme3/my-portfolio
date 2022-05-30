@@ -1,5 +1,5 @@
 <template>
-  <div class="project page mx-auto narrow">
+  <div class="project page mx-auto">
     <div 
       v-if="project"
       class="project-heading py-12 flex flex-wrap md:flex-nowrap"
@@ -9,6 +9,13 @@
         class="flex flex-col content-center !mt-0 sm:mt-0"
         :class="{
           'sm:w-2/3': showHeroMedia
+        }"
+        @animationDone="() => {
+          show.push('technologies')
+          asyncDelay(500).then(() => {
+            show.push('content')
+            show.push('sidebar')
+          })
         }">
         {{project.title}}
         <template #subtitle>
@@ -17,45 +24,43 @@
       </PageTitle>
       <Media 
         v-if="showHeroMedia"
-        class="sm:w-1/3 max-w-xs my-auto rounded-md overflow-hidden sm:ml-6" 
-        :src="project.media" />
+        class="sm:w-1/3 max-w-xs m-auto ml-0 sm:pl-6 sm:ml-auto sm:mr-0 rounded-md overflow-hidden" 
+        :src="project.media"
+        :class="{ [mediaClass]: true }" />
     </div>
-      <LogosList 
-        v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
-        :slugs="project.technologies"
-        toggle-actions="play none none none"
-        class="mb-12"
-      />
-      <transition name="up-fade">
-        <nuxt-content 
-          v-if="show.includes('content')" 
-          class="w-full block"
-          :document="project"
-        />
-      </transition>
+    <LogosList 
+      v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
+      :slugs="project.technologies"
+      toggle-actions="play none none none"
+      class="mb-12 "
+      
+    />
+    <nuxt-content 
+      v-if="show.includes('content')" 
+      class="w-full block max-w-lg"
+      :document="project"
+    />
+
+
 
 
 
       <div 
         class="project-content mx-0 flex sm:items-start flex-col sm:flex-row transition-all duration-500">
         
-        <!-- <transition name="up-fade" :duration="1000"> -->
           <ProjectAside
             v-if="show.includes('sidebar')"
             :project="project"
             class="sm:order-last"
             @section="e => scrollToSection(e)"
           />
-        <!-- </transition> -->
-
-        <ProjectSections v-if="show.includes('content')" :project="project" />
+          <ProjectSections v-if="show.includes('content')" :project="project" />
       </div>
       <div 
         v-if="show.includes('more-projects')"
         class="more-projects w-full p-4 relative z-10"
       >
-        <h3 key="collectionTitle" class="font-display font-black mt-16 text-xl text-gray-500">More Projects:</h3>
-        <LazyProjectsCollection
+        <LazySectionProjects
           key="projectsCollection"
         />
       </div>
@@ -67,7 +72,6 @@
   import { ScrollTrigger } from 'gsap/ScrollTrigger'
   import { asyncDelay } from '~/utils/funcs';
   export default Vue.extend({
-    pageTransition: 'page',
     async asyncData({ $content, route }) {
         const responses = await Promise.all([
           $content(`projects`).where({slug: {$eq: route.params.slug}})
@@ -86,6 +90,7 @@
     data() {
         return {
             show: [],
+            asyncDelay,
             project: null
         };
     },
@@ -95,6 +100,9 @@
           && !this.project.sections.reduce((acc, section) => {
             return [...acc, ...section.media]
           }, []).includes(this.project.media)
+      },
+      mediaClass() {
+        return this.project?.classes?.media || ''
       }
     },
     watch: {
@@ -106,14 +114,6 @@
     },
     mounted() {
 
-      // asyncDelay(500).then(() => {
-        this.show.push('technologies')
-      // })
-
-      asyncDelay(500).then(() => {
-        this.show.push('content')
-        this.show.push('sidebar')
-      })
 
       asyncDelay(2000).then(() => {
           asyncDelay(1000).then(() => {
@@ -139,12 +139,19 @@
 
 <style lang="scss">
 .project.page {
-  .projects-collection {
+  max-width: 52rem;
+  .media {
+    &.icon {
+      max-width: 160px;
+    }
+  }
+  .section-projects {
+    @apply content-start;
     > div {
-      @apply space-y-6 #{!important};
+      @apply space-y-6 ml-0 #{!important};
     }
     .project-card {
-      @apply bg-gray-900 hover:bg-gray-800 shadow-lg p-8;
+      @apply bg-gray-900 hover:bg-gray-800 shadow-lg p-8 ml-0;
       max-width: 33rem;
       .logos-list {
         @apply hidden;

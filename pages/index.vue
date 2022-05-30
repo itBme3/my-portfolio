@@ -2,19 +2,25 @@
   <div class="page index">
     <section class="hero narrow pb-0">
       <div class="section-content content-center !max-w-xs text-left !pb-4">
-        <h1 class="hero-title font-display font-black tracking-normal text-5xl xs:text-6xl lg:text-7xl mb-6 mt-auto relative">
+        <h1
+          class="hero-title font-display font-black tracking-normal text-5xl xs:text-6xl lg:text-7xl mb-6 mt-auto relative"
+          @click="initGsap"
+        >
           <span 
-            class="wave relative sm:absolute -left-3 sm:-left-20 top-0 transform w-10 xs:w-12 sm:w-14 h-auto inline-block"
+            class="wave relative z-10 sm:absolute -left-3 sm:-left-20 top-0 transform w-10 xs:w-12 sm:w-14 h-auto inline-block"
             style="opacity: 0">
             <SvgIcon class="w-full h-auto" name="wave" />
           </span>
-          <span class="text text-gray-600">Hi,<br>I'm Bobby</span>
+          <span class="text text-gray-600">
+            <span class="hi inline-block">Hi,</span><br>
+            <span class="name inline-block">I'm Bobby</span>
+          </span>
         </h1>
         <TypeSingleLine 
           v-if="show.includes('subtitle')"
           tag="h4"
           class="hero-subtitle text-green-400 base text-left"
-          :delay="100"
+          :delay="0"
           @animationDone="revealHeroLinks"
           >
           <template #before><span class="relative -mr-px" style="top: -.6rem">"</span></template>
@@ -37,7 +43,8 @@
     <SectionSkills 
       :start="show.includes('skills')"
       :categories="['languages', 'frameworks-libraries']" />
-
+    
+    <SectionProjects class="mt-0 mx-auto" style="max-width: 600px" />
     <!-- <section class="about narrow">
       <AboutCareerBlocks class="section-content" />
     </section> -->
@@ -46,69 +53,80 @@
 
 <script>
 import Vue from 'vue'
+import { asyncDelay } from '~/utils/funcs';
+import PageTitle from '~/components/PageTitle.vue';
 export default Vue.extend({
     name: "IndexPage",
     data() {
         return {
             show: []
         };
-  },
-  watch: {
-    '$store.state.window.scroll.y'(val) {
-      if(val > (this.$store.state.window.size.height * .5) && !this.show.includes('skills')) {
-        this.revealHeroLinks()
-      }
-    }
-  },
+    },
+    watch: {
+        "$store.state.window.scroll.y"(val) {
+            if (val > (this.$store.state.window.size.height * 0.5) && !this.show.includes("skills")) {
+                this.revealHeroLinks();
+            }
+        }
+    },
     mounted() {
-      this.initGsap()
+        this.initGsap();
     },
     methods: {
-      initGsap() {
-        this.$gsap.set('.hero-links .button', { opacity: 0, marginTop: '-20px' });
-        this.$gsap.set('.hero-title', { opacity: 0 })
-        this.$gsap.set('.hero-title .wave', { opacity: 0, scaleY: 0, scaleX: 0 });
-        const onComplete = () => {
-          if(this.show.includes('subtitle')){ return }
-          this.show.push('subtitle');
+        initGsap() {
+            const els = {
+                title: this.$el.querySelector(".hero-title"),
+                wave: this.$el.querySelector(".hero-title .wave"),
+                hi: this.$el.querySelector(".hero-title .hi"),
+                name: this.$el.querySelector(".hero-title .name"),
+                heroButtons: this.$el.querySelectorAll(".hero-links .button")
+            };
+            this.$gsap.set(els.heroButtons, { opacity: 0, marginTop: "-20px" });
+            this.$gsap.set(els.hi, { opacity: 0, x: -100 });
+            this.$gsap.set(els.name, { opacity: 0, y: -60 });
+            this.$gsap.set(els.wave, { opacity: 0, scaleY: 1, scaleX: 1 });
+            const onComplete = () => {
+                if (this.show.includes("subtitle")) {
+                    return;
+                }
+                asyncDelay(300).then(() => this.show.push("subtitle"));
+            };
+            const tl = this.$gsap.timeline({
+                onComplete: onComplete.bind(this)
+            });
+            tl
+                .to(els.wave, { keyframes: [
+                    { rotation: 0 },
+                    { rotation: -7 },
+                    { rotation: 0, x: "100%", opacity: 1, scaleY: 4, scaleX: 4 },
+                    { rotation: 10 },
+                    { rotation: 0 },
+                    { rotation: -7 },
+                    { rotation: 0, scaleY: 1, scaleX: 1, x: 0 },
+                ], delay: 0.2, duration: 1.5, ease: "power3.out" })
+                .to(els.hi, { opacity: 1, x: 0, duration: 0.6, ease: "power3.inOut" }, "-=.9")
+                .to(els.name, { opacity: 1, y: 0, duration: 0.4, ease: "power3.inOut" }, "-=.55");
+        },
+        revealHeroLinks() {
+            this.$gsap.to(".hero-links .button", { opacity: 1, marginTop: "0", duration: 0.2, ease: "none", stagger: 0.1, delay: 0.05 });
+            this.$gsap.to("section.skills", {
+                scrollTrigger: {
+                    trigger: "section.skills",
+                    onEnter: () => this.show.push("skills")
+                }
+            });
+            this.continuePastHero();
+        },
+        continuePastHero() {
+            setTimeout(() => {
+                // this.show.push('skills');
+                if (window.scrollY < 50) {
+                    this.$gsap.to(window, { duration: 0.3, scrollTo: { y: ".hero-subtitle", offsetY: 150 } });
+                }
+            }, 1000);
         }
-        const tl = this.$gsap.timeline({
-          onComplete: onComplete.bind(this)
-        });
-        tl.to('.hero-title', { opacity: 1, duration: .3 })
-        tl.to('.hero-title .wave', { opacity: 1, duration: .1, scaleY: 1, scaleX: 1, ease: 'power3.inOut', delay: .2 });
-        tl.to('.hero-title .wave', { keyframes: [
-          {rotation: -7},
-          {rotation: 0},
-          {rotation: 10},
-          {rotation: 0},
-          {rotation: -7},
-          {rotation: 0},
-        ], duration: .75, ease: 'power3.inOut', delay: .6 });
-      },
-      revealHeroLinks() {
-        this.$gsap.to('.hero-links .button', { opacity: 1, marginTop: '0', duration: .2, ease: 'none', stagger: .1, delay: .05 })
-        this.$gsap.to('section.skills', {
-          scrollTrigger: {
-            trigger: 'section.skills',
-            onEnter: () => {
-              setTimeout(() => {
-                this.show.push('skills')
-              }, 800);
-            }
-          }
-        });
-        this.continuePastHero()
-      },
-      continuePastHero() {
-        setTimeout(() => {
-            // this.show.push('skills');
-            if(window.scrollY < 50) {
-              this.$gsap.to(window, {duration: .3, scrollTo: { y: '.hero-subtitle', offsetY: 150 }})
-            }
-        }, 1500)
-      }
-    }
+    },
+    components: { PageTitle }
 })
 </script>
 <style lang="scss" scoped>

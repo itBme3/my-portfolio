@@ -36,6 +36,9 @@ technologies:
     - html
     - scss
     - vite
+classes: { 
+    media: 'icon'
+ }
 ---
 
 3 classic games that each have unique use cases for handling state on arrays/maps.

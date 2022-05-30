@@ -76,14 +76,16 @@ import { asyncDelay, handleize } from '~/utils/funcs'
         }
         if (!val) {
           this.initGsap()
+        } else {
+          this.$gsap.set('.project-aside', { x: 0, y: 0, opacity: 0 })
         }
       }
     },
     mounted() {
       this.initGsap()
       this.initSectionScrollTracking()
-      this.$gsap.set('.project-aside.desktop', { minWidth: '180px', x: -40, opacity: 0 });
-      this.$gsap.to('.project-aside.desktop', { delay: 1, opacity: 1, x: 0, duration: .3 });
+      this.$gsap.set('.project-aside', { minWidth: '180px', x: -40, opacity: 0 });
+      this.$gsap.to('.project-aside', { delay: 1, opacity: 1, x: 0, duration: .3 });
 
     },
     methods: {
@@ -150,10 +152,6 @@ import { asyncDelay, handleize } from '~/utils/funcs'
 <style scoped>
 .project-aside {
   @apply mb-auto ml-auto mr-0 mt-0 w-32 block;
-  @media screen and (min-width: 1080px) {
-    margin-right: -50px !important;
-    margin-left: 20px !important;
-  }
   &:not(.desktop) {
     @apply ml-0 w-full mt-6 border-transparent p-0;
     max-width: 320px;

@@ -1,25 +1,12 @@
 <template>
   <div class="about-career-blocks flex flex-col items-center content-start max-w-xl mx-auto">
-    <!-- <TypeSingleLine 
-        :start="shouldStart"
-        tag="h4"
-        class="mb-16 base text-left relative -left-2 font-semibold"
-        :class="{
-          'italic text-gray-500': doneTyping,
-          'text-gray-300': !doneTyping,
-        }"
-        :delay="0"
-        @animationDone="() => doneTyping = true"
-        >
-        <template  v-if="doneTyping" #before><span class="relative text-gray-500 mr-px" style="top: -.5rem">// </span></template>
-        <span>Work Experience</span>
-    </TypeSingleLine> -->
     <h1 ref="title" class="title ml-0 relative z-10 text-left w-full">Work Experience</h1>
-    <p ref="subtitle" class="ml-0 mb-24 w-full text-gray-700 italic"><span>2009</span> <span>though</span> <span>2022</span></p>
+    <p ref="subtitle" class="ml-0 mb-24 w-full text-gray-400 italic">2009 — 2022</p>
     <AboutCareerBlock 
-      v-for="block in blocks"
+      v-for="(block, i) in blocks"
       :key="block.title"
       :block="block"
+      :block-index="i"
       class="pb-32"
     />
   </div>

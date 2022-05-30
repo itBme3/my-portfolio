@@ -1,5 +1,6 @@
 <template>
-  <div v-if="projects.length > 0" class="projects-collection">
+  <section v-if="projects.length > 0" class="section-projects">
+    <PageTitle class="ml-0 w-full" :classes="{title: 'text-left'}">{{title}}</PageTitle>
     <div 
       class="flex flex-col space-y-10 py-8">
       <template v-for="project in projects">
@@ -11,7 +12,7 @@
         />
       </template>
     </div>
-  </div>
+  </section>
 </template>
 
 <script >
@@ -20,6 +21,12 @@
 import { asyncDelay } from '~/utils/funcs'
 
   export default Vue.extend({
+    props: {
+      title: {
+        type: String,
+        default: 'Projects:'
+      }
+    },
     data() {
       return {timelines: [], show: []}
     },

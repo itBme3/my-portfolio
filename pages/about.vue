@@ -5,8 +5,8 @@
       About Me:
     </PageTitle>
     <nuxt-content class="mt-6 mb-12" :document="page" />
-    <LazySectionSkills v-if="show.includes('skills')" :animate-title="false" />
     <LazyAboutCareerBlocks v-if="show.includes('career')" class="mt-28" />
+    <LazySectionSkills v-if="show.includes('skills')" :animate-title="false" />
   </div>
 </template>
 
@@ -24,9 +24,9 @@ import { asyncDelay } from '~/utils/funcs';
     }),
     methods: {
       showCareer() {
-        this.show.push('skills')
+        this.show.push('career')
         asyncDelay(1500).then(() => {
-          this.show.push('career')
+          this.show.push('skills')
         })
       }
     }
@@ -35,7 +35,7 @@ import { asyncDelay } from '~/utils/funcs';
 
 <style lang="scss">
 .about.page {
-  .skills.narrow {
+  .skills {
     .section-content  {
       @apply max-w-full #{!important};
     }

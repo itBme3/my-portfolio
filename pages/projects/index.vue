@@ -1,9 +1,7 @@
 <template>
   <div class="projects page narrow">
-    <PageTitle>
-      Projects:
-    </PageTitle>
-    <ProjectsCollection />
+    
+    <SectionProjects />
   </div>
 </template>
 

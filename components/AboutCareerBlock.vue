@@ -1,15 +1,12 @@
 <template>
-  <div class="about-career-block relative opacity-100 items-stretch w-full max-w-2xl overflow-visible pl-8">
-    <div class="timeline left-0">
-      <div class="line z-0 bg-gray-700 border-opacity-10 rounded absolute h-full top-0 transform right-0" />
-      <h4 
-        ref="dateElem"
-        class="timeline-date z-10 text-right font-black text-orange-300 w-full py-2 bg-gray-900 absolute block -right-1 top-1/2">{{ block.start }} to {{ block.end }}</h4>
+  <div class="about-career-block relative opacity-100 flex flex-nowrap content-start items-stretch w-full max-w-2xl overflow-visible pl-0 xs:pl-8">
+    <div class="timeline right-0 w-16 relative z-10 mr-0">
+      <h4 class="timeline-date z-10 text-right font-black text-orange-300 w-full py-2 bg-gray-900 absolute block -right-1">{{ block.start }} to {{ block.end }}</h4>
     </div>
-    <div class="block-content relative pl-11 xs:pl-14 sm:pl-16 md:pl-24 lg:pl-18 m-auto ml-0">
+    <div class="block-content relative pl-16 m-auto ml-0 border border-t-0 border-b-0 border-r-0 border-gray-700">
+      <!-- <div class="timeline-line z-0 bg-gray-700 border-opacity-10 rounded absolute h-full top-0 transform right-0" /> -->
       <div class="max-w-md">
         <h2
-          ref="titleElem"
           class="career-title font-display text-3xl sm:text-4xl font-bold text-yellow-300">
           {{ block.title }}
         </h2>
@@ -18,7 +15,6 @@
           <span class="ml-2 font-bold">{{ block.company }}</span>
         </a>
         <div 
-          ref="descriptionElem"
           class="career-description text-sm sm:text-base lg:text-md">
           <nuxt-content
             :document="block"
@@ -31,6 +27,7 @@
 
 <script>
 import Vue from 'vue'
+
   export default Vue.extend({
     props: {
         block: {
@@ -43,34 +40,52 @@ import Vue from 'vue'
                 };
             }
         },
+        blockIndex: {
+          type: Number,
+          default: 0
+        }
+    },
+    mounted() {
+      this.initGsap()
+    },
+    methods: {
+      initGsap() {
+        const els = {
+          timeline: this.$el.querySelector('.timeline'),
+          date: this.$el.querySelector('.timeline-date'),
+        }
+        const defaultScrollTrigger = {
+          trigger: els.timeline,
+          toggleActions: "play reverse play reverse",
+          start: 'top 80px',
+          end: 'bottom -80px',
+        }
+        this.$gsap.set(els.date, { color: '#3e3e4d' })
+        this.$gsap.to(els.date, {
+          scrollTrigger: {
+            ...defaultScrollTrigger,
+            pinnedContainer: els.date,
+            scrub: false,
+            pin: true,
+            pinType: 'transform',
+            pinSpacing: false,
+          },
+          color: '#ffb280',
+          duration: .3
+        })
+      }
     }
 })
 </script>
 
 <style lang="scss">
-.timeline {
-  @apply  h-full absolute top-0 bottom-0 my-0;
-  width: 50px;
-
-  .line {
-    width: .13rem;
-    content: "";
-  }
-  .timeline-date {
-    transform: translateY(-50%);
-  }
-}
-  @media screen and (min-width: 640px) {
-    .timeline {
-      width: 120px;
-      margin-left: -100px;
-    }
-  }
-  @media screen and (min-width: 1200px) {
-
-    .timeline {
-      width: 160px;
-      margin-left: -140px;
-    }
-  }
+// .timeline {
+//   width: 70px;
+//   @media screen and (min-width: 640px) {
+//     width: 120px;
+//   }
+//   @media screen and (min-width: 1200px) {
+//     width: 160px;
+//   }
+// }
 </style>

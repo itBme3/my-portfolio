@@ -63,7 +63,7 @@ body {
 
 
 main {
-  @apply pt-10 sm:pt-20 md:pt-24 h-auto min-h-screen;
+  @apply pt-12 sm:pt-20 md:pt-24 h-auto min-h-screen;
   > div {
     &:nth-child(1) {
       position: relative;

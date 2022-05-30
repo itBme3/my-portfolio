@@ -201,7 +201,7 @@ export default Vue.extend({
     methods: {
       typeTitle() {
         let onEnter = () => {
-          asyncDelay(1000).then(() => (this.startTyping = true))
+          asyncDelay(750).then(() => (this.startTyping = true))
         }
         onEnter = onEnter.bind(this)
         if(!this.$refs.titleElem) {return}

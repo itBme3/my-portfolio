@@ -2,7 +2,6 @@
 <section class="skills narrow">
   <div class="section-content flex flex-col space-y-16 mt-0 pt-10">
         
-    <!-- <template v-for="(category, i) in categories"> -->
       <LogosList 
         v-for="(category, i) in categories"
         :key="category"
@@ -13,7 +12,6 @@
         :animate-title="animateTitle"
         :start="i === 0 ? start : doneTyping.includes(i - 1)"
         @doneTyping="() => doneTyping.push(i)" />
-    <!-- </template> -->
 
   </div>
 </section>
@@ -58,6 +56,10 @@
       }
     },
     mounted() {
+      if(!this.animateTitle) {
+        this.$gsap.set(this.$el.querySelector('.list-title'), { opacity: 0, y: 40 })
+        this.$gsap.to(this.$el.querySelector('.list-title'), { opacity: 1, y: 0, duration: .2, delay: .3 })
+      }
       setTimeout(() => {
         this.trackEnteredSkills()
       }, 500)

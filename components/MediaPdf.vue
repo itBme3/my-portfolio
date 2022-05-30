@@ -70,7 +70,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .media-pdf {
   @apply relative max-w-3xl mx-auto;
-  width: calc(100% - 2rem);
   padding: 80% 0;
   @media screen and (min-width: 768px) {
     padding: 630px 0;
