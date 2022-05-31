@@ -1,11 +1,11 @@
 <template>
-  <div class="project-sections">
+  <div class="project-sections pr-0 sm:pr-8 sm:p-8 pl-0 sm:pl-0">
 
     <section 
       v-for="section in projectSections"
       :id="section.id"
       :key="section.id"
-      class="block rounded h-auto py-12 border border-black border-opacity-40 border-l-0 border-r-0 border-t-0">
+      class="block rounded-lg h-auto p-8 bg-gray-800 bg-opacity-50 mb-4 ml-0 mr-auto">
       <h3 class="section-title text-2xl text-gray-100 font-display font-black relative z-0 mb-8">{{ section.title }}</h3>
       <template v-if="section.media">
         <Media 
@@ -24,7 +24,6 @@
 
 <script>
 import Vue from 'vue'
-
 
 import { handleize, asyncDelay } from '~/utils/funcs'
 
@@ -62,22 +61,21 @@ export default Vue.extend({
           media: el.querySelector('.media'),
           text: el.querySelector('.section-text'),
         }
-        this.$gsap.set(els.media, { opacity: 0, scaleX: .7, scaleY: .7 });
+        this.$gsap.set(el, { opacity: 0, scaleY: 0 });
+        this.$gsap.set(els.media, { opacity: 0, scaleX: .2, scaleY: .8 });
         this.$gsap.set(els.title, { opacity: 0, y: -100, });
       })
 
       asyncDelay(300).then(() => {
 
-
         const sections = this.$gsap.utils.toArray(this.$el.querySelectorAll('section'));
-        sections.forEach((el) => {
+        sections.forEach((el, i) => {
           const tl = this.$gsap.timeline({
             scrollTrigger: {
               trigger: el,
-              start: 'top 80%',
-              end: 'bottom =-30%',
-              toggleActions: 'play pause play reverse',
-              // scrub: true
+              start: `top ${i === 0 ? '120%' : '100%'}`,
+              end: 'bottom -20%',
+              toggleActions: 'play pause play pause'
             },
           });
           const els = {
@@ -85,24 +83,26 @@ export default Vue.extend({
             media: el.querySelector('.media'),
             text: el.querySelector('.section-text'),
           }
+          this.$gsap.set(el, { opacity: 0, scaleY: 0 });
           if(els.title) {
             this.$gsap.set(els.title, { opacity: 0, scaleX: 1, scaleY: 1, y: 20, });
           }
           if(els.media) {
-            this.$gsap.set([els.media], { opacity: 0, y: -100, scaleX: 1, scaleY: 1, filter: 'blur(6px) saturate(1.5) brightness(1.5)' });
+            this.$gsap.set([els.media], { opacity: 0, scaleX: .2, scaleY: .2 });
           }
           if(els.text) {
             this.$gsap.set([els.text], { y: -80, opacity: 0 });
           }
+          // asyncDelay(1000).then(() => ScrollTrigger.refresh())
           const defaults = { y: 0, x: 0, scaleY: 1, scaleX: 1, opacity: 1, ease: 'power1.inOut', duration: .3 };
 
-          
+            tl.to(el, {opacity: 1, scaleY: 1, duration: .6, ease: 'power1.inOut'})
+
             if(els.media) {
               tl
               .to(els.media, {
                 ...defaults,
                 duration: .4,
-                filter: 'blur(0) saturate(1) brightness(1)'
               })
             }
             if(els.title) {
@@ -119,13 +119,12 @@ export default Vue.extend({
             scrollTrigger: {
               trigger: els.text,
               start: 'top 90%',
-              duration: 1,
               toggleActions: 'play pause play reverse',
             },
             ...defaults,
             ease: 'power1.inOut',
             duration: .4,
-            delay: .3
+            delay: .6
           })
         })
       })

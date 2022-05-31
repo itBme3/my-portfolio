@@ -74,10 +74,11 @@ import { asyncDelay, handleize } from '~/utils/funcs'
         if (this.pinScrolling && this.pinScrolling.kill) {
           this.pinScrolling.kill()
         }
+        console.log({val})
         if (!val) {
           this.initGsap()
         } else {
-          this.$gsap.set('.project-aside', { x: 0, y: 0, opacity: 0 })
+          this.$gsap.to('.project-aside', { x: 0, y: 0, opacity: 1 })
         }
       }
     },
@@ -153,7 +154,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
 .project-aside {
   @apply mb-auto ml-auto mr-0 mt-0 w-32 block;
   &:not(.desktop) {
-    @apply ml-0 w-full mt-6 border-transparent p-0;
+    @apply ml-0 w-full my-6 border-transparent p-0;
     max-width: 320px;
   }
   .section-links {

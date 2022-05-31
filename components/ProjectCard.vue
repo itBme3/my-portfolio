@@ -55,11 +55,8 @@ import { asyncDelay } from '~/utils/funcs'
     @apply flex space-x-4 w-full;
   }
   .card-media {
-    @apply w-5/12 h-full mt-0 rounded-md overflow-hidden shadow-lg;
-    &.icon {
-      @apply sm:mr-4;
-      max-width: 80px;
-    }
+    @apply w-5/12 h-full sm:mr-4 mt-0 rounded-md overflow-hidden shadow-lg;
+    max-width: 80px;
   }
   .card-content {
      @apply w-full my-auto sm:pl-2;

@@ -2,7 +2,7 @@
 title: This Portfolio
 description: This is a statically generated Nuxt app that leverages SSR.
 order: 6
-media: /missing-img.svg
+media: https://res.cloudinary.com/bmoyni3/image/upload/v1653996554/projects/portfolio-icon_bhs6ls.png
 links: {
     github: 'https://github.com/itBme3/my-portfolio',
 }
@@ -13,8 +13,8 @@ sections: [
         media: []
     }]
 technologies: 
-    - nuxt
     - vue
+    - nuxt
     - tailwind
     - vite
     - ts

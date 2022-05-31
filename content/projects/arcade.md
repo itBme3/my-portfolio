@@ -2,7 +2,7 @@
 title: Nostalgia Arcade
 description: Side project to learn more about Svelte — specifically state management.
 order: 2
-media: https://res.cloudinary.com/bmoyni3/image/upload/v1653842121/projects/nostalgia-arcade_kjbzqo.png
+media: https://res.cloudinary.com/bmoyni3/image/upload/v1653996554/projects/arcade-favicon_tgffgn.png
 links: {
 	github: "https://github.com/itBme3/svelte-arcade",
 	live: "https://nostalgia-arcade.netlify.com"
@@ -43,4 +43,4 @@ classes: {
 
 3 classic games that each have unique use cases for handling state on arrays/maps.
 
-*No tutorials used — game logic/implementations were original solutions
+***No tutorials used — games' logic/implementation were original solutions

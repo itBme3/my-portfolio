@@ -13,7 +13,8 @@
       :is="subtitleTag"
       class="subtitle"
       :class="{
-        [classes.subtitle]: true
+        [classes.subtitle]: true,
+        'hidden': !$slots.subtitle
       }">
       <slot name="subtitle" />
     </component>
@@ -69,26 +70,26 @@
       const tl = this.$gsap.timeline({
         scrollTrigger: {
           trigger: this.$el,
-          start: 'top 70%',
+          start: 'top 90%',
           end: 'bottom 0%',
           onLeave: onComplete,
         },
         onComplete,
-        delay: .3
+        delay: .1
       })
       tl.to(this.$el.querySelector('.title'), {
         duration: .4,
         y: 0,
         opacity: 1,
         ease: 'power3.inOut',
-        // onComplete: onComplete(true)
+        onComplete: onComplete(true)
       })
       .to(content, {
         duration: .8,
         y: 0,
         opacity: 1,
         ease: 'power3.inOut',
-        // onComplete,
+        onComplete,
         stagger: .1
       }, '-=.4')
     }
@@ -96,7 +97,4 @@
 </script>
 
 <style scoped>
-.page-title {
-  margin-top: 3rem;
-}
 </style>
