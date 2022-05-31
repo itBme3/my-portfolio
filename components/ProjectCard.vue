@@ -16,6 +16,7 @@
 
 <script>
   import Vue from 'vue'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { asyncDelay } from '~/utils/funcs'
 
   export default Vue.extend({
@@ -40,7 +41,10 @@ import { asyncDelay } from '~/utils/funcs'
       }
     },
     mounted() {
-      asyncDelay(400).then(() => this.show.push('technologies'))
+      asyncDelay(400).then(() => {
+        this.show.push('technologies');
+        asyncDelay(1000).then(() => ScrollTrigger.refresh())
+      })
     }
   })
 </script>

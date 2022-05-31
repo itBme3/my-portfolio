@@ -15,7 +15,8 @@ interface State {
                   logos: StateTechLogo[];
                   categories: StateTechCategory[]
             },
-            projects: StateProject[]
+            projects: StateProject[],
+            navLinks: { title: string; path: string; color: string}[]
       }
 }
 
@@ -25,7 +26,29 @@ export const state: State = {
                   categories: [],
                   logos: []
             },
-            projects: []
+            projects: [],
+            navLinks: [
+                  {
+                        title: 'Projects',
+                        path: '/projects',
+                        color: 'cyan'
+                  },
+                  {
+                        title: 'About Me',
+                        path: '/about',
+                        color: 'purple'
+                  },
+                  {
+                        title: 'Resume',
+                        path: '/resume',
+                        color: 'pink'
+                  },
+                  {
+                        title: 'Get in Touch',
+                        path: '/contact',
+                        color: 'green'
+                  },
+            ]
       }
 }
 

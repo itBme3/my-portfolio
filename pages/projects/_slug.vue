@@ -53,7 +53,7 @@
         class="project-content mx-0 flex sm:items-start flex-col sm:flex-row transition-all duration-500">
           <ProjectAside
             v-if="show.includes('sidebar')"
-            class="order-first xs:order-last"
+            class="order-first sm:order-last"
             :project="project"
             @section="e => scrollToSection(e)"
           />

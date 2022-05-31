@@ -4,15 +4,12 @@
 
     <SiteHeader />
 
-    <main
-      class="w-screen transform mx-auto px-2 z-1 bg-gray-900 relative"
-      style="display: block"
-    >
+    <main>
       <Nuxt :key="$route.fullPath" />
     </main>
 
-    <!-- <SiteFooter /> -->
-      
+    <SiteFooter />
+    <TailwindSafelistFallback />
   </div>
 </template>
 
@@ -63,7 +60,8 @@ body {
 
 
 main {
-  @apply pt-20 sm:pt-20 md:pt-24 h-auto min-h-screen;
+  @apply pt-20 sm:pt-20 md:pt-24 h-auto min-h-screen w-screen transform mx-auto px-2 bg-gray-900 relative block;
+  z-index: 1;
   > div {
     &:nth-child(1) {
       position: relative;
@@ -117,7 +115,6 @@ main {
 }
 section, .page-section {
     @apply flex flex-col items-center content-center w-full;
-    height: 60vh;
     min-height: 40px;
     &.narrow {
       .section-content {

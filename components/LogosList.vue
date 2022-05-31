@@ -215,7 +215,7 @@ export default Vue.extend({
         })
       },
       initItemsReveal() {
-        // this.$gsap.to(window, { scrollTo: window.scrollY + (this.$store.state.window.size.height * .01) })
+        asyncDelay(500).then(() => this.$emit('animationDone', true))
         let onLeave = () => {
           this.isEntered = false
         };
