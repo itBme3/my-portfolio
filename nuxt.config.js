@@ -64,29 +64,17 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/axios'
   ],
 
   axios: {
-    baseURL: apiUrl,
-    proxy: true,
-    proxyHeaders: false,
+    proxy: false,
     headers: {
       common: {
         Accept: 'application/json, text/plain, */*'
       },
     },
   },
-
-  proxy: {
-    '/api': {
-      target: apiUrl,
-      pathRewrite: { '^/api': '' },
-      // changeOrigin: false 
-    },
-  },
-
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
 

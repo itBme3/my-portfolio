@@ -75,7 +75,7 @@
       submitForm() {
         this.formState = 'sending'
         console.log(this.formData)
-        this.$axios.$post('/api/contact', this.formData)
+        this.$axios.$post('https://us-central1-frontend-dev-portfolio.cloudfunctions.net/api/contact', this.formData)
           .then(res => {
             console.log({ res })
             if(res.errors) {
