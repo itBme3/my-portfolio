@@ -6,12 +6,6 @@ media: https://res.cloudinary.com/bmoyni3/image/upload/v1653996554/projects/port
 links: {
     github: 'https://github.com/itBme3/my-portfolio',
 }
-sections: [
-    { 
-        title: "",
-        text: "",
-        media: []
-    }]
 technologies: 
     - vue
     - nuxt

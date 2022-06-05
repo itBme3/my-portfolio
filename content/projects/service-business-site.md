@@ -12,6 +12,10 @@ technologies:
     - js
     - html
     - scss
+links: {
+    live: 'https://srpco.netlify.app',
+    github: 'https://github.com/itBme3/srpco-frontend'
+}
 ---
 
 Frontend: Statically Generated Nuxt App (SSR)

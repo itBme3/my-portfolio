@@ -4,15 +4,8 @@ description: SMS campaign builder that connects to clients store & email user da
 order: 5
 media: https://res.cloudinary.com/bmoyni3/image/upload/v1653996554/projects/sms-campaign-builder-icon_vebmap.png
 links: {
-    github: 'https://github.com/itBme3/dd-fire',
     live: 'private'
 }
-sections: [
-    { 
-        title: "",
-        text: "",
-        media: []
-    }]
 technologies: 
     - angular
     - firebase
