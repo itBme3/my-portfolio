@@ -1,4 +1,4 @@
-const apiUrl = 'https://us-central1-frontend-dev-portfolio.cloudfunctions.net/'
+const apiUrl = 'https://us-central1-frontend-dev-portfolio.cloudfunctions.net'
 // const apiUrl = 'http://localhost:5001/frontend-dev-portfolio/us-central1/'
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -80,10 +80,10 @@ export default {
   },
 
   proxy: {
-    '/api/': {
+    '/api': {
       target: apiUrl,
-      pathRewrite: { '^/api/': '' },
-      changeOrigin: true 
+      pathRewrite: { '^/api': '' },
+      // changeOrigin: false 
     },
   },
 
