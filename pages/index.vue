@@ -54,12 +54,16 @@
 <script>
 import Vue from 'vue'
 import { asyncDelay } from '~/utils/funcs';
+import { seoHead } from '~/utils/seo';
 export default Vue.extend({
     name: "IndexPage",
     data() {
         return {
             show: []
         };
+    },
+    head () {
+      return seoHead({})
     },
     watch: {
         "$store.state.window.scroll.y"(val) {

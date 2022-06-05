@@ -54,6 +54,7 @@
 
 <script>
   import Vue from 'vue'
+  import { seoHead } from '~/utils/seo';
   export default Vue.extend({
     data: () => ({
       formState: 'ready',
@@ -63,6 +64,11 @@
         message: ''
       }
     }),
+    head () {
+      return seoHead({
+        title: 'Contact'
+      })
+    },
     methods: {
       resetForm() {
         this.formData = {
@@ -74,10 +80,8 @@
       },
       submitForm() {
         this.formState = 'sending'
-        console.log(this.formData)
         this.$axios.$post('https://us-central1-frontend-dev-portfolio.cloudfunctions.net/api/contact', this.formData)
           .then(res => {
-            console.log({ res })
             if(res.errors) {
               this.formState = 'error'
               console.error(res.errors)

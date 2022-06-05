@@ -7,10 +7,13 @@
 
 <script>
   import Vue from 'vue'
-  // import { asyncDelay } from '~/utils/funcs';
+  import { seoHead } from '~/utils/seo';
   export default Vue.extend({
     data() {
       return {timelines: [], show: []}
+    },
+    head () {
+      return seoHead({title: 'Projects'})
     },
     // mounted() {
     //  this.initGsap()

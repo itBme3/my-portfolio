@@ -10,11 +10,13 @@
 
 <script lang="ts">
   import Vue from 'vue'
-import PageTitle from '~/components/PageTitle.vue'
-
+  import { seoHead } from '~/utils/seo';
   export default Vue.extend({
-    transition: "page",
-    components: { PageTitle }
+    head () {
+      return seoHead({
+        title: 'Resume'
+      })
+    },
 })
 </script>
 

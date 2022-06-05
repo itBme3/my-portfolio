@@ -66,11 +66,11 @@ Portfolio website for a frontend developer — Bobby Moynihan (me)
 
 To get a local copy up and running follow these simple example steps.
 
-### **Prerequisites:**
+### Prerequisites:
 
     Node version >= 14
 
-### **Installation:**
+### Installation:
 
 1. Clone the repo
    ```sh

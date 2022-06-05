@@ -13,6 +13,7 @@
 <script>
   import Vue from 'vue'
 import { asyncDelay } from '~/utils/funcs';
+import { seoHead } from '~/utils/seo';
   export default Vue.extend({
     async asyncData({$content}) {
       const page = await $content('about').fetch()
@@ -22,6 +23,9 @@ import { asyncDelay } from '~/utils/funcs';
     data: () => ({
       show: []
     }),
+    head () {
+      return seoHead({})
+    },
     methods: {
       showCareer() {
         this.show.push('career')

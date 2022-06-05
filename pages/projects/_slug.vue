@@ -74,6 +74,7 @@
   import Vue from 'vue'
   import { ScrollTrigger } from 'gsap/ScrollTrigger'
   import { asyncDelay } from '~/utils/funcs';
+  import { seoHead } from '~/utils/seo';
   export default Vue.extend({
     async asyncData({ $content, route }) {
         const responses = await Promise.all([
@@ -96,6 +97,13 @@
             asyncDelay,
             project: null
         };
+    },
+    head () {
+      return seoHead({
+        title: this.project.title,
+        description: this.project.description,
+        image: this.project.media
+      })
     },
     computed: {
       showHeroMedia() {
