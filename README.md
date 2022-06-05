@@ -1,69 +1,122 @@
-# my-portfolio
+<div id="top"></div>
 
-## Build Setup
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/itBme3/my-portfolio">
+    <img src="https://res.cloudinary.com/bmoyni3/image/upload/v1653996554/projects/portfolio-icon_bhs6ls.png" alt="Logo" width="80" height="80">
+  </a>
 
-```bash
-# install dependencies
-$ yarn install
+<h3 align="center">Frontend Developer Portfolio</h3>
 
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
-
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+  <p align="center">
+    <br />
+    <a href="https://b3dev.work">Live</a> &nbsp; | &nbsp; <a href="https://github.com/itBme3/my-portfolio">Files</a>
+  </p>
+</div>
 
 
-### `pages`
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
 
-### `plugins`
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+<!-- ABOUT THE PROJECT -->
+## About The Project
+Portfolio website for a frontend developer — Bobby Moynihan (me)
+<br><br>
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+![Screenshot][screenshot]
 
-### `static`
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+### Built With
 
-### `store`
+* [Vue.js](https://vuejs.org/)
+* [Nuxt.js](https://nuxtjs.org/)
+* [Tailwind CSS](https://tailwindcss.com/)
+* [Vite](https://vitejs.dev/)
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### **Prerequisites:**
+
+    Node version >= 14
+
+### **Installation:**
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/itBme3/my-portfolio
+   ```
+2. Install packages
+   ```sh
+   yarn install
+   ```
+3. Generate content
+   ```sh
+   yarn run generate
+   ```
+4. Serve Locally
+      ```sh
+      yarn run start
+      ```
+   Or Development (hot reloading using Vite)
+      ```sh
+      yarn run dev
+      ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Bobby Moynihan: 
+
+b.3.moynihan@gmail.com
+
+[LinkedIn][linkedin-profile]
+
+[Github][github-profile]
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+
+
+
+<!-- VARIABLES -->
+[linkedin-profile]: https://www.linkedin.com/in/bobby-moynihan
+[github-profile]: https://github.com/itBme3
+[screenshot]: https://res.cloudinary.com/bmoyni3/image/upload/v1654405077/projects/my-prtfolio-homepage_x1qzda.jpg

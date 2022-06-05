@@ -7,14 +7,6 @@ links: {
 	github: "https://github.com/itBme3/dd-nuxt-fire",
 	live: "private"
 }
-sections: [
-    { 
-        title: "Dark/Light Mode",
-        text: "...",
-        media: [
-            "https://res.cloudinary.com/bmoyni3/video/upload/v1653390065/projects/videos/dd-fire-dark-light-sequence_oraxfi.mp4"
-        ]
-    }]
 technologies: 
     - vue
     - nuxt
