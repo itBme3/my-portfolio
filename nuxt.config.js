@@ -22,6 +22,10 @@ export default {
   },
   ssr: process.env.NODE_ENV === 'production',
 
+  generate: {
+    fallback: true
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/styles/tailwind.css',
