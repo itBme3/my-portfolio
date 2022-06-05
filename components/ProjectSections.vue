@@ -5,18 +5,30 @@
       v-for="section in projectSections"
       :id="section.id"
       :key="section.id"
-      class="block rounded-lg h-auto p-8 bg-gray-800 bg-opacity-50 mb-4 ml-0 mr-auto">
-      <h3 class="section-title text-2xl text-gray-100 font-display font-black relative z-0 mb-8">{{ section.title }}</h3>
+      class="block rounded-lg h-auto p-8 bg-gray-800 bg-opacity-20 mb-4 ml-0 mr-auto">
+      <h3 class="section-title text-2xl text-gray-100 font-display font-black relative z-0 mb-8 px-1">
+        {{ section.title }}
+      </h3>
+      
       <template v-if="section.media">
         <Media 
-          v-for="media in section.media"
-               :key="media"
-               :src="media"
-               class="rounded-md shadow-lg shadow-black/40 overflow-hidden relative z-10 mt-4 mb-8" />
+          :src="typeof section.media === 'string' ? section.media : section.media[0]"
+          class="rounded-md shadow-lg shadow-black/40 overflow-hidden relative z-10 mt-4 mb-8" />
       </template>
+      
       <nuxt-content 
-        class="section-text font-light text-gray-300 relative z-0 mt-12" 
+        class="section-text font-light text-gray-300 relative z-0 mt-12 px-1" 
         :document="section" />
+      
+      <div class="more-media pt-4" v-if="Array.isArray(section.media) && section.media.length > 1">
+        <template v-for="(media, i) in section.media">
+          <Media 
+            v-if="i > 0"
+            :key="media"
+            :src="media"
+            class="rounded-md shadow-lg shadow-black/40 overflow-hidden relative z-10 mt-4 mb-8" />
+        </template>
+      </div>
     </section>
   </div>
 
@@ -45,6 +57,9 @@ export default Vue.extend({
         })
         : null
     },
+    sectionMedia() {
+      return Array.isArray(this.section?.media) ? this.section.media : typeof this.section?.media === 'string' ? [this.section.media] : []
+    }
   },
   mounted () {
     this.initGsap()
@@ -93,7 +108,6 @@ export default Vue.extend({
           if(els.text) {
             this.$gsap.set([els.text], { y: -80, opacity: 0 });
           }
-          // asyncDelay(1000).then(() => ScrollTrigger.refresh())
           const defaults = { y: 0, x: 0, scaleY: 1, scaleX: 1, opacity: 1, ease: 'power1.inOut', duration: .3 };
 
             tl.to(el, {opacity: 1, scaleY: 1, duration: .6, ease: 'power1.inOut'})

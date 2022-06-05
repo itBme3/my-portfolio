@@ -34,7 +34,7 @@ export const state: State = {
                         color: 'cyan'
                   },
                   {
-                        title: 'About Me',
+                        title: 'About',
                         path: '/about',
                         color: 'purple'
                   },

@@ -2,11 +2,14 @@
   <div class="about page narrow">
     <PageTitle 
       @animationDone="showCareer">
-      About Me:
+      About:
     </PageTitle>
     <nuxt-content class="mt-6 mb-12" :document="page" />
     <LazyAboutCareerBlocks v-if="show.includes('career')" class="mt-28" />
-    <LazySectionSkills v-if="show.includes('skills')" :animate-title="false" />
+    <LazySectionSkills 
+      v-if="show.includes('skills')" 
+      :animate-title="false"
+      class="pt-32" />
   </div>
 </template>
 

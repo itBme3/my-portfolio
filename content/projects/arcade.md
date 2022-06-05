@@ -17,4 +17,4 @@ technologies:
 
 3 classic games that each have unique use cases for handling state on arrays/maps.
 
-***No tutorials used — games' logic/implementation were original solutions
+\*\* No tutorials — aside from Svelte documentation

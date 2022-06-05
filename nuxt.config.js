@@ -49,6 +49,7 @@ export default {
     [
       '@nuxtjs/google-fonts',
       {
+        display: 'swap',
         families: {
           'Red+Hat+Mono': {
             wght: [300, 400, 600, 700],

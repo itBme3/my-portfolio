@@ -92,6 +92,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
     methods: {
       initGsap() {
         asyncDelay(500).then(() => {
+          ScrollTrigger.refresh()
           this.$gsap.set('.project-aside.desktop', { minWidth: '180px' });
             this.pinScrolling = this.$gsap.to('.project-aside.desktop', {
               scrollTrigger: {
@@ -104,7 +105,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
               },
               marginTop: '70px'
             });
-          ScrollTrigger.refresh()
+          
         })
       },
       initSectionScrollTracking() {

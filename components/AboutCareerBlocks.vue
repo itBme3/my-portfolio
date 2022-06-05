@@ -1,7 +1,7 @@
 <template>
   <div class="about-career-blocks flex flex-col items-center content-start max-w-xl mx-auto">
-    <h1 ref="title" class="title ml-0 relative z-10 text-left w-full">Work Experience</h1>
-    <p ref="subtitle" class="ml-0 mb-24 w-full text-gray-400 italic">2009 — 2022</p>
+    <h1 ref="title" class="title ml-0 relative z-10 text-left w-full">Work Experience:</h1>
+    <p ref="subtitle" class="ml-0 mb-24 w-full text-gray-200 italic">2009—2022</p>
     <AboutCareerBlock 
       v-for="(block, i) in blocks"
       :key="block.title"
@@ -14,8 +14,6 @@
 
 <script>
   import Vue from 'vue'
-  import { ScrollTrigger } from 'gsap/ScrollTrigger'
-  import {asyncDelay} from '~/utils/funcs'
   export default Vue.extend({
     props: {
       start: {
@@ -49,82 +47,28 @@
     },
     mounted() {
         this.initGsap();
-      // try {
-      //   // this.blocks = await this.getBlocks();
-      //   return
-      // } catch(err) {
-      //   console.error(err)
-      //   // alert(err)
-      // }
     },
     methods: {
-    //  getBlocks(force = false) {
-    //     if(!force && this.blocks?.length) {
-          
-    //       return this.blocks
-    //     }
-    //     return this.$content('about').fetch()
-    //     .then((res) => {
-    //       if(!Array.isArray(res?.career)) {
-    //         this.blocks = []
-    //       } else {
-    //         this.blocks = res.career
-    //       }
-    //       return this.blocks
-    //     })
-    //   },
       initGsap() {
-        
-        asyncDelay(400).then(() => ScrollTrigger.refresh());
-        const blockEls = this.$gsap.utils.toArray(this.$el.querySelectorAll('.about-career-block'))
-        ScrollTrigger.refresh()
-          blockEls.forEach((blockEl) => {
-            const blockTl = this.$gsap.timeline({
-              scrollTrigger: {
-                trigger: blockEl,
-                toggleActions: "play reverse play reverse",
-                start: 'top 80%',
-                end: 'bottom top',
-                scrub: false,
-                pin: false,
-                pinSpacing: false,
-              }
-            });
-            const elsInBlock = {
-              title: blockEl.querySelectorAll('.career-title'),
-              company: blockEl.querySelectorAll('.career-company'),
-              description: blockEl.querySelectorAll('.career-description'),
-              date: blockEl.querySelectorAll('.career-date'),
-            }
-            this.$gsap.set(elsInBlock.date, {opacity: 0, y: '12rem', scaleY: 1, scaleX: 1, x: 0})
-            this.$gsap.set(elsInBlock.title, {opacity: 0, y: '6rem'})
-            this.$gsap.set(elsInBlock.company, {opacity: 0, y: '4rem'})
-            this.$gsap.set(elsInBlock.description, {opacity: 0, y: '2rem'})
-            blockTl.to(elsInBlock.date, {
-                x: 0,
-                y: 0,
-                scaleY: 1,
-                scaleX: 1,
-                opacity: 1,
-                duration: .3,
-              }, 0)
-            .to(elsInBlock.title, {
-                y: 0,
-                opacity: 1,
-                duration: .3,
-              }, 0)
-            .to(elsInBlock.company, {
-                y: 0,
-                opacity: 1,
-                duration: .3,
-              }, 0)
-            .to(elsInBlock.description, {
-                y: 0,
-                opacity: 1,
-                duration: .3,
-              }, 0.3)
-            })
-
+        const els = {
+          title: this.$refs.title,
+          subtitle: this.$refs.subtitle,
+        }
+        this.$gsap.set(this.$el, {y: -40, opacity: 0})
+        this.$gsap.set(els.subtitle, {y: 40, opacity: 0})
+        this.$gsap.set(els.subtitle, {y: 40, opacity: 0})
+        const tl = this.$gsap.timeline({
+          scrollTrigger: {
+            trigger: els.title,
+            start: 'top 90%',
+            end: 'bottom 0%',
+            delay: .1,
+            toggle: 'play reverse play reverse'
+          }
+        });
+        tl.to(this.$el, { y: 0, opacity: 1, ease: 'power3.in', duration: .4 })
+          .to(els.title, { y: 0, opacity: 1, ease: 'power3.in', duration: .4 }, 0)
+          .to(els.subtitle, { y: 0, opacity: 1, ease: 'power3.in', duration: .6 }, .2)
         
       }
     }

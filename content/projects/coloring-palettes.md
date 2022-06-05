@@ -10,10 +10,10 @@ technologies:
     - chroma
     - js
     - scss
- links: {
+links: {
    live: 'https://coloring-palettes.netlify.app',
    github: 'https://github.com/itBme3/stack-nuxt-coloring'
- }
+}
 ---
 Plus, learn more about Nuxt — as I was using it more in my professional projects.
 

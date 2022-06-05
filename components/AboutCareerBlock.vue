@@ -1,5 +1,5 @@
 <template>
-  <div class="about-career-block relative opacity-100 flex flex-nowrap content-start items-stretch w-full max-w-2xl overflow-visible pl-0 xs:pl-8">
+  <div class="about-career-block relative opacity-100 flex flex-nowrap content-start items-stretch w-full max-w-2xl overflow-visible pl-0">
     <div class="timeline right-0 w-16 relative z-10 mr-0">
       <h4 class="timeline-date z-10 text-right font-black text-orange-300 w-full py-2 bg-gray-900 absolute block -right-1">{{ block.start }} to {{ block.end }}</h4>
     </div>
@@ -50,20 +50,67 @@ import Vue from 'vue'
     },
     methods: {
       initGsap() {
+        this.gsapDatePinning();
+        const blockTl = this.$gsap.timeline({
+              scrollTrigger: {
+                trigger: this.$el,
+                toggleActions: "play reverse play reverse",
+                start: 'top 85%',
+                end: 'bottom 10%',
+                scrub: false,
+                pin: false,
+                pinSpacing: false,
+              }
+            });
+            const elsInBlock = {
+              title: this.$el.querySelectorAll('.career-title'),
+              company: this.$el.querySelectorAll('.career-company'),
+              description: this.$el.querySelectorAll('.career-description'),
+              date: this.$el.querySelectorAll('.career-date'),
+              timeline: this.$el.querySelector('.timeline'),
+            }
+            this.$gsap.set(elsInBlock.date, {opacity: 0, y: '12rem', scaleY: 1, scaleX: 1, x: 0})
+            this.$gsap.set(elsInBlock.title, {opacity: 0, y: '6rem'})
+            this.$gsap.set(elsInBlock.company, {opacity: 0, y: '4rem'})
+            this.$gsap.set(elsInBlock.description, {opacity: 0, y: '2rem'})
+            this.$gsap.set(elsInBlock.timeline, {opacity: 0, y: '-50%', scaleY: .0})
+            blockTl
+              .to(elsInBlock.timeline, {
+                x: 0,
+                y: 0,
+                scaleY: 1,
+                scaleX: 1,
+                opacity: 1,
+                duration: .3,
+              }, 0)
+            .to(elsInBlock.title, {
+                y: 0,
+                opacity: 1,
+                duration: .3,
+              }, 0)
+            .to(elsInBlock.company, {
+                y: 0,
+                opacity: 1,
+                duration: .3,
+              }, 0)
+            .to(elsInBlock.description, {
+                y: 0,
+                opacity: 1,
+                duration: .3,
+              }, 0.3)
+      },
+      gsapDatePinning() {
         const els = {
           timeline: this.$el.querySelector('.timeline'),
           date: this.$el.querySelector('.timeline-date'),
         }
-        const defaultScrollTrigger = {
-          trigger: els.timeline,
-          toggleActions: "play reverse play reverse",
-          start: 'top 80px',
-          end: 'bottom -80px',
-        }
         this.$gsap.set(els.date, { color: '#3e3e4d' })
         this.$gsap.to(els.date, {
           scrollTrigger: {
-            ...defaultScrollTrigger,
+            trigger: els.timeline,
+            toggleActions: "play reverse play reverse",
+            start: 'top 80px',
+            end: 'bottom 10%',
             pinnedContainer: els.date,
             scrub: false,
             pin: true,

@@ -43,7 +43,6 @@ import { asyncDelay } from '~/utils/funcs'
     mounted() {
       asyncDelay(400).then(() => {
         this.show.push('technologies');
-        asyncDelay(1000).then(() => ScrollTrigger.refresh())
       })
     }
   })

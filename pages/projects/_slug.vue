@@ -27,24 +27,6 @@
             class="mt-6 mb-2 max-w-lg"
           />
 
-
-        
-
-        <!-- <Media 
-          v-if="showHeroMedia"
-          class="w-5/12 sm:w-1/3 my-auto xs:mt-0 mx-0 pr-3 sm:pr-6 rounded-md overflow-hidden" 
-          :src="project.media"
-          :class="{ [mediaClass]: true }" />
-        <div class="heading-text">
-          <h1 class="title">{{project.title}}</h1>
-          <h4 
-            v-if="$store.state.window.size.width >= 480"
-            class="subtitle mt-6" 
-          >
-            {{project.description}}
-          </h4>
-        </div> -->
-
       </div>
 
       
@@ -128,8 +110,13 @@
     },
     methods: {
       scrollToSection(id) {
-        this.$gsap.to(window, {duration: .8, scrollTo: { y: `section#${id}`, offsetY: 70 }})
-        this.$gsap.to(window, {delay: .8, duration: .5, scrollTo: { y: `section#${id}`, offsetY: 70 }})
+        let offsetY = Math.floor(this.$store.state.window.size.height * .13);
+        console.log({ offsetY })
+        if(offsetY < 100) {
+          offsetY = 100;
+        }
+        this.$gsap.to(window, {duration: .8, scrollTo: { y: `section#${id}`, offsetY }})
+        this.$gsap.to(window, {delay: .8, duration: .5, scrollTo: { y: `section#${id}`, offsetY }})
       },
       initGsap() {
         const els = {
@@ -147,7 +134,7 @@
         let onComplete = () => {
 
           this.show.push('content');
-          asyncDelay(300).then(() => {
+          asyncDelay(200).then(() => {
             this.show.push('sidebar');
           })
           asyncDelay(500).then(() => {
@@ -186,13 +173,6 @@
       max-width: 80px;
     }
   }
-  // > div:not(.project-aside) {
-  //   &:not(.project-heading) {
-  //     @media screen and (min-width: 480px) {
-  //       width: calc(100% - 180px);
-  //     }
-  //   }
-  // }
   .more-projects {
     @apply pl-1;
     .section-projects {
