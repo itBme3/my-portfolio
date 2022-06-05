@@ -3,7 +3,7 @@
     v-if="src.length"
     class="media"
     >
-    <video v-if="isVideo" :src="src" :controls="controls" :loop="loop" :muted="muted" :autoplay="autoplay" playsinline />
+    <video v-if="isVideo" :src="src" :controls="controls" loop muted autoplay playsinline />
     <img v-else :src="src" />
   </div>
 </template>
@@ -50,7 +50,7 @@
       }
     },
     mounted() {
-      this.playPauseWhenInView()
+      // this.playPauseWhenInView()
     },
     methods: {
       playPauseWhenInView() {
