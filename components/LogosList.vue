@@ -13,7 +13,7 @@
           @animationStarted="isTyping = true"
           @animationDone="doneTyping = true">
           <template v-if="animateTitle" #before>
-              <span v-if="isTyping" class="square-bracket mr-2 inline-block" style="top: -.37rem">[</span>
+              <span v-if="isTyping" class="square-bracket mr-2 inline-block">[</span>
           </template>
           <span v-if="!animateTitle" class="square-bracket mr-2 inline-block" style="top: -.08rem">[</span>
           <span
@@ -25,7 +25,7 @@
                 }">{{word}}</span>
           </span>
           <template v-if="animateTitle" #after>
-            <span v-if="isTyping" class="square-bracket ml-2 inline-block" style="top: -.37rem"> ]</span>
+            <span v-if="isTyping" class="square-bracket ml-2 inline-block"> ]</span>
           </template>
           <span v-if="!animateTitle" class="square-bracket ml-2 inline-block" style="top: -.08rem"> ]</span>
         </component>

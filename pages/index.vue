@@ -23,9 +23,9 @@
           :delay="0"
           @animationDone="revealHeroLinks"
           >
-          <template #before><span class="relative -mr-px" style="top: -.6rem">"</span></template>
+          <template #before>"</span></template>
           <span>Frontend Developer</span>
-          <template #after><span class="relative -ml-px" style="top: -.6rem">"</span></template>
+          <template #after>"</template>
         </TypeSingleLine>
         <div class="hero-links flex space-x-2 mt-10">
           <a class="button transition-none" href="https://github.com/itBme3" target="_blank" style="opacity: 0">
@@ -48,9 +48,6 @@
     <SectionProjects
       v-if="show.includes('projects')" 
       class="mt-0 mx-auto" style="max-width: 600px" />
-    <!-- <section class="about narrow">
-      <AboutCareerBlocks class="section-content" />
-    </section> -->
   </div>
 </template>
 

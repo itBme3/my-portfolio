@@ -1,6 +1,9 @@
 <template>
   <component :is="tag">
-    <slot v-if="startedTyping" name="before" />
+    <span v-if="startedTyping" class="relative -mr-2" style="top: -.6rem">
+      <slot name="before" />
+    </span>
+
     <span
       class="type-single-line"
       :class="{
@@ -17,7 +20,10 @@
           'blinking': cursorBlinking
         }" />
     </span>
-    <slot v-if="startedTyping" name="after" />
+    
+    <span v-if="startedTyping" class="relative -ml-2" style="top: -.6rem">
+      <slot name="after" />
+    </span>
   </component>
   
 </template>
