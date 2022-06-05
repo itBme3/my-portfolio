@@ -1,5 +1,5 @@
 <template>
-  <div class="page index">
+  <div class="page index flex flex-col space-y-16">
     <section class="hero narrow pb-0">
       <div class="section-content content-center !max-w-xs text-left !pb-4">
         <h1
@@ -12,8 +12,12 @@
             <SvgIcon class="w-full h-auto" name="wave" />
           </span>
           <span class="text text-gray-600">
-            <span class="hi inline-block">Hi,</span><br>
-            <span class="name inline-block">I'm Bobby</span>
+            <span 
+              class="hi inline-block"
+              style="opacity: 0">Hi,</span><br>
+            <span 
+              class="name inline-block"
+              style="opacity: 0">I'm Bobby</span>
           </span>
         </h1>
         <TypeSingleLine 
@@ -91,29 +95,30 @@ export default Vue.extend({
             this.$gsap.set(els.hi, { opacity: 0, x: -20, scaleX: 0, scaleY: 0 });
             this.$gsap.set(els.name, { opacity: 0, y: -60 });
             this.$gsap.set(els.wave, { opacity: 0, scaleY: 1, scaleX: 1 });
-            const onComplete = () => {
-                if (this.show.includes("subtitle")) {
-                    return;
-                }
-                asyncDelay(300).then(() => this.show.push("subtitle"));
-            };
-            const tl = this.$gsap.timeline({
-                onComplete: onComplete.bind(this)
-            });
-            tl
-                // .to(els.wave, { opacity: 1, scaleY: 1, duration: .4, scaleX: 1, ease: "power3.inOut" })
-                .to(els.wave, { keyframes: [
-                    { rotation: 0 },
-                    { rotation: -7, opacity: 1, x: "125%", scaleY: 4, scaleX: 4 },
-                    { rotation: 0 },
-                    { rotation: 10 },
-                    { rotation: 0 },
-                    { rotation: -11, x: "125%", scaleY: 4, scaleX: 4  },
-                    { rotation: 0 },
-                    { rotation: 10, scaleY: 1, scaleX: 1, x: 0 },
-                ], duration: 1.5, ease: "power3.out" })
-                .to(els.hi, { opacity: 1, scaleY: 1, scaleX: 1, x: 0, duration: 0.4, ease: "power3.inOut" }, .75)
-                .to(els.name, { opacity: 1, y: 0, duration: 0.4, ease: "power3.in" });
+            asyncDelay(100).then(() => {
+              const onComplete = () => {
+                  if (this.show.includes("subtitle")) {
+                      return;
+                  }
+                  asyncDelay(300).then(() => this.show.push("subtitle"));
+              };
+              const tl = this.$gsap.timeline({
+                  onComplete: onComplete.bind(this)
+              });
+              tl
+                  .to(els.wave, { keyframes: [
+                      { rotation: 0 },
+                      { rotation: -7, opacity: 1, x: "125%", scaleY: 4, scaleX: 4 },
+                      { rotation: 0 },
+                      { rotation: 10 },
+                      { rotation: 0 },
+                      { rotation: -11, x: "125%", scaleY: 4, scaleX: 4  },
+                      { rotation: 0 },
+                      { rotation: 10, scaleY: 1, scaleX: 1, x: 0 },
+                  ], duration: 1.5, ease: "power3.out" })
+                  .to(els.hi, { opacity: 1, scaleY: 1, scaleX: 1, x: 0, duration: 0.4, ease: "power3.inOut" }, .75)
+                  .to(els.name, { opacity: 1, y: 0, duration: 0.4, ease: "power3.in" });
+            })
         },
         revealHeroLinks() {
             this.$gsap.to(".hero-links .button", { opacity: 1, marginTop: "0", duration: 0.2, ease: "none", stagger: 0.1, delay: 0.05 });
