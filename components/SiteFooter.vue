@@ -1,6 +1,7 @@
 <template>
-  <footer class="site-footer w-screen h-auto block" style="clear: both">
-    <div ref="footerLinks" class="links flex flex-col sm:flex-nowrap sm:flex-row space-y-6 sm:space-y-0 sm:space-x-4 content-center items-center max-w-sm sm:max-w-xl mx-auto my-32">
+  <footer class="site-footer w-screen h-auto block" style="clear: both;">
+    <div ref="footerLinks" class="links flex flex-col sm:flex-nowrap sm:flex-row space-y-6 sm:space-y-0 sm:space-x-4 content-center items-center max-w-sm sm:max-w-xl mx-auto my-32"
+      style="width: calc(100% - 4rem)">
       <nuxt-link 
         v-for="link in links"
         :key="link.path"
@@ -18,7 +19,6 @@
 
 <script>
   import Vue from 'vue'
-import { asyncDelay } from '~/utils/funcs';
 
   export default Vue.extend({
     computed: {

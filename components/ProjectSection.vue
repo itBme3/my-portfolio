@@ -13,7 +13,7 @@
       </template>
       
       <nuxt-content 
-        class="section-text font-light text-gray-300 relative z-0 mt-6 px-1" 
+        class="section-text font-light text-gray-200 relative z-0 mt-6 px-1" 
         :document="section" />
       
       <div 

@@ -16,7 +16,7 @@
           class="border text-left rounded-none border-l-0 border-r-0 hover:border-transparent hover:rounded border-t-0 flex flex-start p-2 -mx-2 hover:rounded border-gray-700 hover:bg-gray-800 bg-opacity-50"
           :class="{
             'text-white': sectionsInView.includes(link.id),
-            'text-gray-300 hover:text-white': !sectionsInView.includes(link.id),
+            'text-gray-200 hover:text-white': !sectionsInView.includes(link.id),
             'border-b-0': i + 1 === sectionLinks.length
           }"
           @click="setHash(link.id)">

@@ -48,7 +48,6 @@ import { asyncDelay } from '~/utils/funcs'
           media: this.$el.querySelector('.card-media'),
           title: this.$el.querySelector('.card-title'),
           description: this.$el.querySelector('.card-description'),
-          // logos: card.querySelector('.logos-list'),
         }
         this.$gsap.set(this.$el, { opacity: 0, scale: 0, y: 20, });
         this.$gsap.set(els.media, { opacity: .5, scale: 0, });
@@ -79,7 +78,7 @@ import { asyncDelay } from '~/utils/funcs'
 
 <style lang="scss">
 .project-card {
-  @apply rounded-lg space-y-6 p-6 sm:p-14 transform scale-100 hover:shadow-lg transition-all duration-300 ease-in-out border border-gray-800 hover:bg-gray-800 hover:bg-opacity-30 hover:border-transparent;
+  @apply rounded-lg space-y-6 p-6 sm:py-12 sm:px-10 transform scale-100 hover:shadow-lg transition-all duration-300 ease-in-out border border-gray-800 hover:bg-gray-800 hover:bg-opacity-30 hover:border-transparent;
   &:hover {
     transform: scale(1.05) !important;
   }
@@ -91,7 +90,7 @@ import { asyncDelay } from '~/utils/funcs'
     max-width: 80px;
   }
   .card-content {
-     @apply w-full my-auto sm:pl-2;
+     @apply w-full my-auto;
     .card-title {
       @apply font-display text-xl sm:text-2xl font-bold;
     }
