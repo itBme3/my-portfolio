@@ -126,19 +126,16 @@
           content: this.$gsap.utils.toArray(this.$el.querySelectorAll('.project-heading .nuxt-content > *')),
         }
         this.show = []
-        this.$gsap.set(els.media, {opacity: 0, scaleX: 0, scaleY: 0, y: 20})
-        this.$gsap.set(els.title, {opacity: 0, y: 30, filter: 'blur(10px)'})
+        this.$gsap.set(els.media, {opacity: 0, scaleX: 0, scaleY: 0, y: 30})
+        this.$gsap.set(els.title, {opacity: 0, y: 30})
         this.$gsap.set(els.subtitle, {opacity: 0, y: -40})
         this.$gsap.set(els.content, {opacity: 0, y: -40})
-        asyncDelay(200).then(() => this.show.push('technologies'));
         let onComplete = () => {
 
+          this.show.push('sidebar');
           this.show.push('content');
-          asyncDelay(200).then(() => {
-            this.show.push('sidebar');
-          })
+
           asyncDelay(500).then(() => {
-            
               this.show.push('more-projects')
               ScrollTrigger.create({
                 trigger: this.$el.querySelector('.project-sections'),
@@ -151,15 +148,16 @@
         }
         onComplete = onComplete.bind(this)
         const tl = this.$gsap.timeline({
-          // ease: 'power3.inOut',
           delay: .1
         });
-        tl
-          .to(els.media, { opacity: 1, scaleX: 1.2, scaleY: 1.2, y: 0, duration: .3, ease: 'power3.out' }, 0)
-          .to(els.media, { opacity: 1, scaleX: 1, scaleY: 1, y: 0, duration: .1, ease: 'power3.out' }, 0)
-          .to(els.title, { opacity: 1, x: 0, duration: .6, y: 0, filter: 'blur(0px)', ease: 'power3.inOut' }, 0)
-          .to(els.subtitle, { opacity: 1, y: 0, duration: .6, delay: .1, ease: 'power3.inOut', onComplete })
-          .to(els.content, { opacity: 1, y: 0, duration: .6, stagger: .25, ease: 'power3.inOut' }, '-=.5')
+        let showTechnologies = () => {
+          this.show.push('technologies')
+        }
+        showTechnologies = showTechnologies.bind(this)
+        tl.to(els.media, { opacity: 1, scaleX: 1, scaleY: 1, y: 0, duration: .6, ease: 'power3.out', onComplete: showTechnologies })
+          .to(els.title, { opacity: 1, duration: 1, y: 0, ease: 'power3.inOut' }, '-=.4')
+          .to(els.subtitle, { opacity: 1, y: 0, duration: .6, delay: .2, ease: 'power3.inOut', onComplete })
+          .to(els.content, { opacity: 1, y: 0, duration: .6, stagger: .25, ease: 'power3.inOut' }, '-=.15')
       }
     }
 })

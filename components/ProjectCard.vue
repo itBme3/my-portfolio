@@ -83,16 +83,16 @@ import { asyncDelay } from '~/utils/funcs'
     transform: scale(1.05) !important;
   }
   .card-inner {
-    @apply flex space-x-4 w-full;
+    @apply flex w-full;
   }
   .card-media {
-    @apply w-5/12 h-full sm:mr-4 mt-0 rounded-md overflow-hidden shadow-lg;
+    @apply w-5/12 h-full mr-6 sm:mr-8 mt-0 rounded-md overflow-hidden shadow-lg;
     max-width: 80px;
   }
   .card-content {
      @apply w-full my-auto;
     .card-title {
-      @apply font-display text-xl sm:text-2xl font-bold;
+      @apply font-display text-xl sm:text-2xl font-bold mb-2 sm:mb-0;
     }
     .card-description {
       @apply text-gray-300 text-sm;
