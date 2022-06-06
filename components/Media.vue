@@ -3,7 +3,11 @@
     v-if="src.length"
     class="media"
     >
-    <video v-if="isVideo" :src="src" :controls="controls" loop muted autoplay playsinline />
+    <video 
+      v-if="isVideo"
+      :src="src" 
+      autoplay muted playsinline loop>
+    </video>
     <img v-else :src="src" />
   </div>
 </template>
@@ -11,6 +15,9 @@
 <script>
   import Vue from 'vue'
   import { ScrollTrigger } from 'gsap/ScrollTrigger'
+  import makeVideoPlayableInline from 'iphone-inline-video';
+import { asyncDelay } from '~/utils/funcs';
+  
   export default Vue.extend({
     props: {
       src: {
@@ -50,11 +57,19 @@
       }
     },
     mounted() {
-      // this.playPauseWhenInView()
+      if(this.isVideo) {
+        this.playPauseWhenInView()
+        asyncDelay(4000).then(() => this.$el.querySelector('video').play());
+      }
     },
     methods: {
       playPauseWhenInView() {
+        if(typeof this.$el?.querySelector !== 'function') {return}
         const video = this.$el.querySelector('video');
+        console.log({makeVideoPlayableInline, video})
+        if(video) {
+          makeVideoPlayableInline(video, false)
+        }
         const onLeave = () => {
           if(!video) {
             return;
