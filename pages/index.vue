@@ -4,7 +4,6 @@
       <div class="section-content content-center !max-w-xs text-left !pb-4">
         <h1
           class="hero-title font-display font-black tracking-normal text-5xl xs:text-6xl lg:text-7xl mb-6 mt-auto relative"
-          @click="initGsap"
         >
           <span 
             class="wave relative z-10 sm:absolute -left-3 sm:-left-20 top-0 transform w-10 xs:w-12 sm:w-14 h-auto inline-block"
@@ -80,9 +79,6 @@ export default Vue.extend({
         this.initGsap();
     },
     methods: {
-      log(msg) {
-        console.log(msg)
-      },
         initGsap() {
             const els = {
                 title: this.$el.querySelector(".hero-title"),

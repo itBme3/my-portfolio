@@ -1,10 +1,9 @@
 <template>
-  <div class="about-career-block relative opacity-100 flex flex-nowrap content-start items-stretch w-full max-w-2xl overflow-visible pl-0">
-    <div class="timeline right-0 w-16 relative z-10 mr-0">
-      <h4 class="timeline-date z-10 text-right font-black text-orange-300 w-full py-2 bg-gray-900 absolute block -right-1">{{ block.start }} to {{ block.end }}</h4>
+  <div class="about-career-block relative opacity-100 flex flex-nowrap content-start items-start w-full max-w-2xl overflow-visible pl-0">
+    <div ref="timeline" class="timeline right-0 w-24 relative z-10 mr-0">
+      <h4 ref="timelineDate" class="timeline-date z-10 text-right font-black text-orange-300 w-full py-2 bg-gray-900 absolute block -right-1">{{ block.start }} to {{ block.end }}</h4>
     </div>
-    <div class="block-content relative pl-16 m-auto ml-0 border border-t-0 border-b-0 border-r-0 border-gray-700">
-      <!-- <div class="timeline-line z-0 bg-gray-700 border-opacity-10 rounded absolute h-full top-0 transform right-0" /> -->
+    <div class="block-content relative pl-12 sm:pl-16 m-auto ml-0 border border-t-0 border-b-0 border-r-0 border-gray-700">
       <div class="max-w-md">
         <h2
           class="career-title font-display text-3xl sm:text-4xl font-bold text-yellow-300">
@@ -27,7 +26,8 @@
 
 <script>
 import Vue from 'vue'
-
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { asyncDelay } from '~/utils/funcs';
   export default Vue.extend({
     props: {
         block: {
@@ -46,11 +46,11 @@ import Vue from 'vue'
         }
     },
     mounted() {
-      this.initGsap()
+      this.initGsap();
     },
     methods: {
       initGsap() {
-        this.gsapDatePinning();
+        // this.$gsap.registerPlugin(ScrollTrigger)
         const blockTl = this.$gsap.timeline({
               scrollTrigger: {
                 trigger: this.$el,
@@ -63,26 +63,14 @@ import Vue from 'vue'
               }
             });
             const elsInBlock = {
-              title: this.$el.querySelectorAll('.career-title'),
-              company: this.$el.querySelectorAll('.career-company'),
-              description: this.$el.querySelectorAll('.career-description'),
-              date: this.$el.querySelectorAll('.career-date'),
-              timeline: this.$el.querySelector('.timeline'),
+              title: this.$el.querySelector('.career-title'),
+              company: this.$el.querySelector('.career-company'),
+              description: this.$el.querySelector('.career-description'),
             }
-            this.$gsap.set(elsInBlock.date, {opacity: 0, y: '12rem', scaleY: 1, scaleX: 1, x: 0})
             this.$gsap.set(elsInBlock.title, {opacity: 0, y: '6rem'})
             this.$gsap.set(elsInBlock.company, {opacity: 0, y: '4rem'})
             this.$gsap.set(elsInBlock.description, {opacity: 0, y: '2rem'})
-            this.$gsap.set(elsInBlock.timeline, {opacity: 0, y: '-50%', scaleY: .0})
             blockTl
-              .to(elsInBlock.timeline, {
-                x: 0,
-                y: 0,
-                scaleY: 1,
-                scaleX: 1,
-                opacity: 1,
-                duration: .3,
-              }, 0)
             .to(elsInBlock.title, {
                 y: 0,
                 opacity: 1,
@@ -97,30 +85,12 @@ import Vue from 'vue'
                 y: 0,
                 opacity: 1,
                 duration: .3,
-              }, 0.3)
+                onComplete() {
+                  ScrollTrigger.refresh();
+                }
+              }, 0.3);
+          
       },
-      gsapDatePinning() {
-        const els = {
-          timeline: this.$el.querySelector('.timeline'),
-          date: this.$el.querySelector('.timeline-date'),
-        }
-        this.$gsap.set(els.date, { color: '#3e3e4d' })
-        this.$gsap.to(els.date, {
-          scrollTrigger: {
-            trigger: els.timeline,
-            toggleActions: "play reverse play reverse",
-            start: 'top 80px',
-            end: 'bottom 10%',
-            pinnedContainer: els.date,
-            scrub: false,
-            pin: true,
-            pinType: 'transform',
-            pinSpacing: false,
-          },
-          color: '#ffb280',
-          duration: .3
-        })
-      }
     }
 })
 </script>

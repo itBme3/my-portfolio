@@ -23,6 +23,7 @@
 
 <script>
   import Vue from 'vue'
+  import { asyncDelay } from '~/utils/funcs'
 
   export default Vue.extend({
     props: {
@@ -55,43 +56,50 @@
       }
     },
     mounted() {
-      this.$gsap.set(this.$el.querySelector('.title'), {opacity: 0, y: 40})
-      const content = [
-        this.$el.querySelector('.subtitle'), 
-        ...(this.lookForContent ? this.$gsap.utils.toArray(this.$el.parentNode.querySelectorAll('.nuxt-content p')) : [])
-      ];
-      this.$gsap.set(content, {opacity: 0, y: 40})
-      let onComplete = (isTitle = false) => {
-        if (!isTitle || (isTitle && !this.$el.querySelector('.subtitle') && (!this.$el.parentNode.querySelector('.nuxt-content') || !this.lookForContent))) {
-          this.$emit('animationDone')
-        }
-      };
-      onComplete = onComplete.bind(this)
-      const tl = this.$gsap.timeline({
-        scrollTrigger: {
-          trigger: this.$el,
-          start: 'top 90%',
-          end: 'bottom 0%',
-          onLeave: onComplete,
-        },
-        onComplete,
-        delay: .1
-      })
-      tl.to(this.$el.querySelector('.title'), {
-        duration: .4,
-        y: 0,
-        opacity: 1,
-        ease: 'power3.inOut',
-        onComplete: onComplete(true)
-      })
-      .to(content, {
-        duration: .8,
-        y: 0,
-        opacity: 1,
-        ease: 'power3.inOut',
-        onComplete,
-        stagger: .1
-      }, '-=.4')
+      this.initGsap()
+    },
+    methods: {
+      initGsap() {
+        this.$gsap.set(this.$el.querySelector('.title'), {opacity: 0, y: 40})
+        const content = [
+          this.$el.querySelector('.subtitle'), 
+          ...(this.lookForContent ? this.$gsap.utils.toArray(this.$el.parentNode.querySelectorAll('.nuxt-content p')) : [])
+        ];
+        this.$gsap.set(content, {opacity: 0, y: 40})
+        asyncDelay(300).then(() => {
+          let onComplete = (isTitle = false) => {
+            if (!isTitle || (isTitle && !this.$el.querySelector('.subtitle') && (!this.$el.parentNode.querySelector('.nuxt-content') || !this.lookForContent))) {
+              this.$emit('animationDone')
+            }
+          };
+          onComplete = onComplete.bind(this)
+          const tl = this.$gsap.timeline({
+            scrollTrigger: {
+              trigger: this.$el,
+              start: 'top 90%',
+              end: 'bottom 0%',
+              onLeave: onComplete,
+            },
+            onComplete,
+            delay: .1
+          })
+          tl.to(this.$el.querySelector('.title'), {
+            duration: .4,
+            y: 0,
+            opacity: 1,
+            ease: 'power3.inOut',
+            onComplete: onComplete(true)
+          })
+          .to(content, {
+            duration: .8,
+            y: 0,
+            opacity: 1,
+            ease: 'power3.inOut',
+            onComplete,
+            stagger: .1
+          }, '-=.4')
+        })
+      }
     }
   })
 </script>

@@ -35,7 +35,7 @@
               'redacted-reveal': width === 'mobile' && !navCollapsed,
             }"
             :to="link.path">
-            {{link.label}}
+            {{link.title}}
           </nuxt-link>
         </template>
       </TransitionGroup>
@@ -63,18 +63,15 @@
         resizeObserver: undefined,
         navCollapsed: true,
         mobileNavAnimation: undefined,
-        links: [
-          { label: 'About Me', path: '/about' },
-          { label: 'Projects', path: '/projects' },
-          { label: 'Resume', path: '/resume' },
-          { label: 'Get In Touch', path: '/contact' },
-        ],
         showIndex: -1
       }
     },
     computed: {
       isMobile() {
         return !!this.$store.state?.window?.size?.isMobile
+      },
+      links() {
+        return this.$store.state.content.navLinks
       }
     },
     watch: {

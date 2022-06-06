@@ -14,6 +14,8 @@
 
 <script>
   import Vue from 'vue'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+  import { asyncDelay } from '~/utils/funcs'
   export default Vue.extend({
     props: {
       start: {
@@ -46,30 +48,60 @@
       },
     },
     mounted() {
+      // this.$gsap.registerPlugin(ScrollTrigger);
         this.initGsap();
     },
     methods: {
       initGsap() {
         const els = {
-          title: this.$refs.title,
-          subtitle: this.$refs.subtitle,
+          title: this.$el.querySelector('.title'),
+          subtitle: this.$el.querySelector('.subtitle'),
         }
         this.$gsap.set(this.$el, {y: -40, opacity: 0})
+        this.$gsap.set(els.title, {y: 40, opacity: 0})
         this.$gsap.set(els.subtitle, {y: 40, opacity: 0})
-        this.$gsap.set(els.subtitle, {y: 40, opacity: 0})
-        const tl = this.$gsap.timeline({
-          scrollTrigger: {
-            trigger: els.title,
-            start: 'top 90%',
-            end: 'bottom 0%',
-            delay: .1,
-            toggle: 'play reverse play reverse'
-          }
-        });
-        tl.to(this.$el, { y: 0, opacity: 1, ease: 'power3.in', duration: .4 })
-          .to(els.title, { y: 0, opacity: 1, ease: 'power3.in', duration: .4 }, 0)
-          .to(els.subtitle, { y: 0, opacity: 1, ease: 'power3.in', duration: .6 }, .2)
-        
+        asyncDelay(300).then(() => {
+          const tl = this.$gsap.timeline({
+            scrollTrigger: {
+              trigger: els.title,
+              start: 'top 90%',
+              end: 'bottom 0%',
+              delay: .1,
+              // toggleActions: 'play reverse play reverse'
+            }
+          });
+          tl.to(this.$el, { y: 0, opacity: 1, ease: 'power3.in', duration: .4 })
+            .to(els.title, { y: 0, opacity: 1, ease: 'power3.in', duration: .4 }, 0)
+            .to(els.subtitle, { y: 0, opacity: 1, ease: 'power3.in', duration: .6 }, .2)
+          asyncDelay(2000).then(() => {
+            ScrollTrigger.refresh()
+            this.initGsapDatePinning()
+          })
+        })
+      },
+      initGsapDatePinning() {
+       const timelineEls = this.$gsap.utils.toArray(this.$el.querySelectorAll('.timeline'));
+       console.log({timelineEls})
+        timelineEls.forEach(el => {
+          this.$gsap.to(el.querySelector('.timeline-date'), {
+            scrollTrigger: {
+              trigger: el,
+              // toggleActions: "play pause play pause",
+              start: 'top 80px',
+              end: 'bottom 10%',
+              // pinnedContainer: els.date,
+              scrub: true,
+              pin: true,
+              pinType: 'transform',
+              pinSpacing: true,
+              onEnter() {
+                console.log('timeline entered')
+              }
+            },
+            color: '#ffb280',
+            duration: .3
+          })
+        })
       }
     }
   })

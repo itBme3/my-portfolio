@@ -1,11 +1,11 @@
 <template>
   <footer class="site-footer w-screen h-auto block" style="clear: both">
-    <div class="links flex flex-col space-y-6 mx-auto max-w-sm my-32">
+    <div ref="footerLinks" class="links flex flex-col sm:flex-nowrap sm:flex-row space-y-6 sm:space-y-0 sm:space-x-4 content-center items-center max-w-sm sm:max-w-xl mx-auto my-32">
       <nuxt-link 
         v-for="link in links"
         :key="link.path"
         :to="link.path"
-        class="button border rounded-lg !p-6"
+        class="button border rounded-lg p-6 whitespace-nowrap"
         :class="{
           [link.classes]: true
         }">
@@ -49,10 +49,9 @@ import { asyncDelay } from '~/utils/funcs';
       initGsap() {
         const links = this.$gsap.utils.toArray(this.$el.querySelectorAll('.links > *'))
         this.$gsap.set(links, { y: 40, opacity: 0, scaleX: .7, scaleY: .7 })
-        asyncDelay(500).then(() => {
-          this.$gsap.to(links, {
+        this.$gsap.to(links, {
             scrollTrigger: {
-              trigger: 'footer .links',
+              trigger: this.$refs.footerLinks,
               start: 'top 80%',
               toggle: 'play reverse play reverse',
               onEnter() {
@@ -74,7 +73,6 @@ import { asyncDelay } from '~/utils/funcs';
             stagger: .05,
             ease: 'power2.inOut'
           })
-        })
       }
     }
   })
@@ -83,7 +81,13 @@ import { asyncDelay } from '~/utils/funcs';
 <style lang="scss">
 .links {
   .button {
-    @apply p-6 #{!important};
+    @apply p-6 sm:p-4 w-full text-center #{!important};
+    &:nth-child(1) {
+      @apply ml-auto;
+    }
+    &:nth-last-child(1) {
+      @apply mr-auto;
+    }
     &:hover {
       transform: scale(1.05) !important;
     }

@@ -4,11 +4,19 @@
 
     <SiteHeader />
 
-    <main>
+    <main 
+    class="mx-auto"
+    :class="{
+      [`max-w-${$store.state.styling.page.maxWidth}`]: true
+    }">
       <Nuxt :key="$route.fullPath" />
     </main>
 
-    <SiteFooter />
+    <SiteFooter 
+      class="mx-auto"
+      :class="{
+        [`max-w-${$store.state.styling.page.maxWidth}`]: true
+      }"/>
     <TailwindSafelistFallback />
   </div>
 </template>
@@ -19,16 +27,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { gsap } from 'gsap'
 import { asyncDelay } from '~/utils/funcs'
-// if (process.client) {
-//     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-// }
+
 export default Vue.extend({
-  // async asyncData({store}) {
-  //   return await Promise.all([
-  //     $store.dispatch('getTechLogos'),
-  //     $store.dispatch('getTechCategories'),
-  //   ])
-  // },
   watch: {
     '$route.path'() {
       if(window !== undefined) {
@@ -41,9 +41,9 @@ export default Vue.extend({
       }
     }
   },
-  mounted() {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-  }
+  // mounted() {
+    // this.$gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  // }
 })
 </script>
 

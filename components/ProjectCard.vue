@@ -16,7 +16,6 @@
 
 <script>
   import Vue from 'vue'
-  import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { asyncDelay } from '~/utils/funcs'
 
   export default Vue.extend({
@@ -41,9 +40,39 @@ import { asyncDelay } from '~/utils/funcs'
       }
     },
     mounted() {
-      asyncDelay(400).then(() => {
-        this.show.push('technologies');
-      })
+      this.initGsap()
+    },
+    methods: {
+      initGsap() {
+        const els = {
+          media: this.$el.querySelector('.card-media'),
+          title: this.$el.querySelector('.card-title'),
+          description: this.$el.querySelector('.card-description'),
+          // logos: card.querySelector('.logos-list'),
+        }
+        this.$gsap.set(this.$el, { opacity: 0, scale: 0, y: 20, });
+        this.$gsap.set(els.media, { opacity: .5, scale: 0, });
+        this.$gsap.set(els.title, { opacity: 0, x: -50, });
+        this.$gsap.set(els.description, { opacity: 0, y: -10, });
+        let onEnter = () => {
+          asyncDelay(300).then(() => this.show.push('technologies'))
+        }
+        onEnter = onEnter.bind(this)
+        const tl = this.$gsap.timeline({
+          smoothChildTiming: true,
+          scrollTrigger: {
+            trigger: this.$el,
+            start: 'top bottom+=10%',
+            scrub: false,
+            toggleActions: 'play pause play pause',
+            onEnter
+          }
+        });
+        tl.to(this.$el, { opacity: 1, scale: 1, y: 0, ease: 'none', duration: .3 })
+          .to(els.media, { opacity: 1, scale: 1, duration: .3 }, '-=.1')
+          .to(els.title, { opacity: 1, x: 0, duration: .3 })
+          .to(els.description, { opacity: 1, y: 1, duration: .3 }, '-=.1')
+      }
     }
   })
 </script>
