@@ -18,6 +18,10 @@ technologies:
     - js
     - html
     - scss
+related:
+    - apparel-marketing-automation
+    - apparel-ecommerce
+    - coloring-palettes
 ---
 
 

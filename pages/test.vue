@@ -1,9 +1,9 @@
 <template>
 <div>
-
-  <div style="height: 50vh"></div>
+  <ProjectHighlights slug="arcade" />
+  <!-- <div style="height: 50vh"></div>
   <AboutCareerBlocks :start="true" />
-  <div class="h-screen" />
+  <div class="h-screen" /> -->
 </div>
 <!-- <div class="w-[320px] mx-auto flex flex-col space-y-2 p-8">
   <div 
@@ -42,9 +42,7 @@
 <script>
 import Vue from 'vue'
 export default Vue.extend({
-    data: () => ({
-        
-    })
+    data: () => ({}),
 })
     
 </script>

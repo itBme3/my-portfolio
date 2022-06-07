@@ -16,6 +16,10 @@ links: {
     live: 'https://srpco.netlify.app',
     github: 'https://github.com/itBme3/srpco-frontend'
 }
+related:
+    - apparel-ecommerce
+    - this-portfolio
+    - coloring-palettes
 ---
 
 Frontend: Statically Generated Nuxt App (SSR)

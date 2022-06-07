@@ -34,6 +34,7 @@
             v-if="project.links[linkType] && project.links[linkType] !== 'private'"
             :key="linkType"
             :href="project.links[linkType]"
+            target="_blank"
             class="inline-flex button items-center text-xs py-1 px-2 bg-gray-800 hover:bg-gray-800 bg-opacity-50 hover:bg-opacity-100">
             <SvgIcon :name="linkType" class="mr-2 w-4 h-auto" /> <span>{{ linkType }}</span>
           </a>

@@ -13,6 +13,10 @@ technologies:
     - html
     - scss
     - vite
+related: 
+    - coloring-palettes
+    - this-portfolio
+    - sms-campaign-builder
 ---
 
 3 classic games that each have unique use cases for handling state on arrays/maps.

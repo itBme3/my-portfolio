@@ -15,4 +15,8 @@ technologies:
     - js
     - html
     - scss
+related:
+    - coloring-palettes
+    - apparel-marketing-automation
+    - arcade
 ---

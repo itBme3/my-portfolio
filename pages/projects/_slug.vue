@@ -45,7 +45,7 @@
         v-if="show.includes('more-projects')"
         class="more-projects w-full py-6 relative z-10"
       >
-        <LazySectionProjects title="More Projects:" />
+        <LazySectionProjects title="More Projects:" :slugs="project.related" />
       </div>
     </div>
     

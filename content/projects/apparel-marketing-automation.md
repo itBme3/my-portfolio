@@ -18,6 +18,10 @@ technologies:
     - js
     - html
     - scss
+related:
+    - apparel-ecommerce
+    - sms-campaign-builder
+    - coloring-palettes
 ---
 
 <strong>Before:</strong> Took marketing team roughly 8-10 hours to a new launch product<br><br>

@@ -1,9 +1,9 @@
 <template>
-  <section v-if="projects.length > 0" class="section-projects">
+  <section v-if="filteredProjects.length > 0" class="section-projects">
     <PageTitle class="ml-0 w-full" :classes="{title: 'text-left'}">{{title}}</PageTitle>
     <div 
       class="flex flex-col space-y-10 py-8">
-      <template v-for="project in projects">
+      <template v-for="project in filteredProjects">
         <ProjectCard 
           v-if="project.slug !== $route.params.slug"
           :key="project.slug" 
@@ -18,13 +18,16 @@
 <script >
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
-import { asyncDelay } from '~/utils/funcs'
 
   export default Vue.extend({
     props: {
       title: {
         type: String,
         default: 'Projects:'
+      },
+      slugs: {
+        type: Array,
+        default: () => []
       }
     },
     data() {
@@ -36,7 +39,15 @@ import { asyncDelay } from '~/utils/funcs'
     computed: {
       ...mapGetters({
         projects: 'projects'
-      })
+      }),
+      filteredProjects() {
+        if (Array.isArray(this.slugs) && this.slugs.length)  {
+          return this.slugs.map(slug => this.projects
+            .filter(p => p.slug === slug)[0])
+            .filter(p => !!p)
+        }
+        return this.projects
+      }
     },
     // mounted() {
     // //  this.initGsap()
