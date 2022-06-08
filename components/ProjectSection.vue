@@ -4,7 +4,7 @@
       class="block border border-gray-800 border-opacity-50 border-l-0 border-r-0 border-t-0 pr-6 sm:pr-8 py-10 sm:py-16 h-auto my-0 sm:mr-8 sm:my-8 ml-0 mr-auto"
       style="opacity: 0">
       <h3 
-        class="section-title text-2xl text-gray-100 font-display font-black relative z-0 mb-4 px-1"
+        class="section-title text-2xl text-gray-400 font-display font-black relative z-0 mb-4"
         :class="{ [classes.title]: true }">
         {{ section.title }}
       </h3>
@@ -62,7 +62,7 @@ import { asyncDelay } from '~/utils/funcs'
       asyncDelay(300).then(() => {
         const els = {
           title: this.$el.querySelector('.section-title'),
-          media: this.$el.querySelector('.media'),
+          media: this.$el.querySelectorAll('.media'),
           text: this.$el.querySelector('.section-text'),
         }
         this.$gsap.set(this.$el, { opacity: 0, scaleY: 0 });
@@ -74,7 +74,7 @@ import { asyncDelay } from '~/utils/funcs'
             scrollTrigger: {
               trigger: this.$el,
               start: `top 120%`,
-              end: 'bottom -20%',
+              end: 'bottom 0%',
               toggleActions: 'play pause play pause',
               fastScrollPast: true
             },
@@ -86,7 +86,7 @@ import { asyncDelay } from '~/utils/funcs'
             this.$gsap.set([els.media], { opacity: 0, scaleX: .2, scaleY: .2 });
           }
           if(els.text) {
-            this.$gsap.set([els.text], { y: -80, opacity: 0 });
+            this.$gsap.set([els.text], { y: -40, opacity: 0 });
           }
           const defaults = { y: 0, x: 0, scaleY: 1, scaleX: 1, opacity: 1, ease: 'power1.inOut', duration: .3 };
 
@@ -113,7 +113,8 @@ import { asyncDelay } from '~/utils/funcs'
             scrollTrigger: {
               trigger: els.text,
               start: 'top 90%',
-              toggleActions: 'play pause play pause',
+              end: 'bottom 0%',
+              toggleActions: 'play reverse play reverse',
               fastScrollPast: true
             },
             ...defaults,

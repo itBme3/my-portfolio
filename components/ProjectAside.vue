@@ -27,6 +27,7 @@
       <div 
         v-if="project.links"
         class="project-links flex flex-col space-y-1 mt-3">
+        <small class="text-sm font-display font-semibold tracking-wider block mb-1 text-gray-400">Links:</small>
         <template
             v-for="linkType in ['live', 'github']" 
         >
@@ -73,13 +74,14 @@ import { asyncDelay, handleize } from '~/utils/funcs'
     watch: {
       '$store.state.window.size.isMobile'(val) {
         if (this.pinScrolling && this.pinScrolling.kill) {
-          this.pinScrolling.kill()
+          this.pinScrolling.kill();
         }
         console.log({val})
         if (!val) {
-          this.initGsap()
+          this.initGsap();
         } else {
           this.$gsap.to('.project-aside', { x: 0, y: 0, opacity: 1 })
+          this.initGsap();
         }
       }
     },

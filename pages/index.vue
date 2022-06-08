@@ -45,20 +45,24 @@
 
     <SectionSkills 
       :start="show.includes('skills')"
-      :categories="['languages', 'frameworks-libraries']"
+      :categories="['languages', 'frameworks-libraries', 'apis']"
       @animationDone="() => show.push('projects')" />
     
-    <SectionProjects
+    <!-- <SectionProjects
       v-if="show.includes('projects')" 
-      class="mt-0 mx-auto" style="max-width: 600px" />
-      <!-- <div class="projects-highlights flex flex-col space-y-20">
+      class="mt-0 mx-auto" style="max-width: 600px" /> -->
+      <div class="projects-highlights flex flex-col max-w-xl mx-auto">
+        <h4 class="section-title italic ml-0 text-left mb-6 w-full">project highlights:</h4>
         <section 
-          v-for="slug in ['arcade', 'coloring-palettes', 'apparel-ecommerce', 'sms-campaign-builder']"
+          v-for="(slug, i) in ['arcade', 'coloring-palettes', 'apparel-ecommerce', 'sms-campaign-builder']"
           :key="slug"
-          class="project-highlights-section p-6 rounded-md hover:border-gray-800 border-transparent border">
+          class="project-highlights-section overflow-x-hidden"
+          :class="{
+            'mt-20': i !== 0
+          }">
           <ProjectHighlights :slug="slug" />
         </section>
-      </div> -->
+      </div>
 
   </div>
 </template>
@@ -123,7 +127,22 @@ export default Vue.extend({
                   ], duration: 1.5, ease: "power3.out" })
                   .to(els.hi, { opacity: 1, scaleY: 1, scaleX: 1, x: 0, duration: 0.4, ease: "power3.inOut" }, .75)
                   .to(els.name, { opacity: 1, y: 0, duration: 0.4, ease: "power3.in" });
-            })
+            });
+
+            // project highlights
+            this.$gsap.from(this.$el.querySelector('.projects-highlights > .section-title'), { 
+              scrollTrigger: {
+                trigger: this.$el.querySelector('.project-highlights-section'),
+                start: 'top 80%',
+                toggleActions: 'play reverse play reverse'
+              },
+              y: '2rem',
+              x: '-20%',
+              opacity: 0,
+              delay: .3,
+              scaleX: '.5',
+              scaleY: '.5',
+             })
         },
         revealHeroLinks() {
             this.$gsap.to(".hero-links .button", { opacity: 1, marginTop: "0", duration: 0.2, ease: "none", stagger: 0.1, delay: 0.05 });

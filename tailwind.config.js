@@ -53,7 +53,9 @@ module.exports = {
   },
   variants: {
     extend: {
-      rounded: ['hover']
+      rounded: ['hover'],
+      translateX: ['group-hover'],
+      transform: ['group-hover'],
     }
   },
   plugins: [],

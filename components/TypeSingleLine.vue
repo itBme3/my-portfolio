@@ -1,6 +1,6 @@
 <template>
   <component :is="tag">
-    <span v-if="startedTyping" class="relative -mr-2" style="top: -.6rem">
+    <span v-if="startedTyping" class="relative -mr-2" style="top: -.5rem">
       <slot name="before" />
     </span>
 
@@ -21,7 +21,7 @@
         }" />
     </span>
     
-    <span v-if="startedTyping" class="relative -ml-2" style="top: -.6rem">
+    <span v-if="startedTyping" class="relative -ml-2" style="top: -.5rem">
       <slot name="after" />
     </span>
   </component>

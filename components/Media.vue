@@ -6,7 +6,7 @@
     <video 
       v-if="isVideo"
       :src="src" 
-      autoplay muted playsinline>
+      autoplay muted playsinline loop>
     </video>
     <img v-else :src="src" />
   </div>
@@ -56,10 +56,10 @@
       }
     },
     mounted() {
-      if(this.isVideo) {
-        this.playPauseWhenInView()
+      // if(this.isVideo) {
+        // this.playPauseWhenInView()
         // asyncDelay(4000).then(() => this.$el.querySelector('video').play());
-      }
+      // }
     },
     methods: {
       playPauseWhenInView() {

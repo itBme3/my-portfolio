@@ -118,12 +118,12 @@ section, .page-section {
     min-height: 40px;
     &.narrow {
       .section-content {
-        @apply max-w-md;
+        @apply max-w-lg;
       }
     }
     &.narrowest {
       .section-content {
-        @apply max-w-sm;
+        @apply max-w-md;
       }
     }
     &.hero {

@@ -129,12 +129,14 @@
         this.$gsap.set(els.media, {opacity: 0, scaleX: 0, scaleY: 0, y: 30})
         this.$gsap.set(els.title, {opacity: 0, y: 30})
         this.$gsap.set(els.subtitle, {opacity: 0, y: -40})
-        this.$gsap.set(els.content, {opacity: 0, y: -40})
-        let onComplete = () => {
+        this.$gsap.set(els.content, {opacity: 0, y: -30})
+        let onStart = () => {
 
-            this.show.push('sidebar');
-            this.show.push('content');
+          asyncDelay(200).then(() => {
+            this.show.push(this.$store.state.window.size.isMobile ? 'sidebar' : 'content');
+          })
           asyncDelay(500).then(() => {
+              this.show.push(this.$store.state.window.size.isMobile ? 'content' : 'sidebar');
               this.show.push('more-projects')
               ScrollTrigger.create({
                 trigger: this.$el.querySelector('.project-sections'),
@@ -145,16 +147,16 @@
               }
           })
         }
-        onComplete = onComplete.bind(this)
+        onStart = onStart.bind(this)
         const tl = this.$gsap.timeline({
           delay: .1
         });
         // asyncDelay(200).then(() => this.show.push('technologies'))
         tl
-          .to(els.title, { opacity: 1, duration: 1, y: 0, ease: 'power3.inOut', onComplete })
+          .to(els.title, { opacity: 1, duration: 1, y: 0, ease: 'power3.inOut', onStart })
           .to(els.media, { opacity: 1, scaleX: '1', scaleY: '1', y: 0, duration: .6, ease: 'power3.out' }, '-=.6')
-          .to(els.subtitle, { opacity: 1, y: 0, duration: .6, ease: 'power3.inOut' })
-          .to(els.content, { opacity: 1, y: 0, duration: .6, stagger: .25, ease: 'power3.inOut' }, '-=.4')
+          .to(els.subtitle, { opacity: 1, y: 0, duration: .6, ease: 'power3.inOut' }, '-=.1')
+          .to(els.content, { opacity: 1, y: 0, duration: .7, stagger: .25, ease: 'power3.inOut' }, '-=.4')
       }
     }
 })
