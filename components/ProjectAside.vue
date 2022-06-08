@@ -31,14 +31,18 @@
         <template
             v-for="linkType in ['live', 'github']" 
         >
-          <a 
-            v-if="project.links[linkType] && project.links[linkType] !== 'private'"
+          <component 
+            :is="project.links[linkType] !== 'private' ? 'a' : 'nuxt-link'"
+            v-if="project.links[linkType]"
             :key="linkType"
-            :href="project.links[linkType]"
-            target="_blank"
-            class="inline-flex button items-center text-xs py-1 px-2 bg-gray-800 hover:bg-gray-800 bg-opacity-50 hover:bg-opacity-100">
-            <SvgIcon :name="linkType" class="mr-2 w-4 h-auto" /> <span>{{ linkType }}</span>
-          </a>
+            :href="project.links[linkType] !== 'private' ? project.links[linkType] : undefined"
+            :to="project.links[linkType] === 'private' ? '/contact' : undefined"
+            :target="project.links[linkType] !== 'private' ? '_blank' : undefined"
+            class="inline-flex cursor-pointer button items-center text-xs py-1 px-2 bg-gray-800 hover:bg-gray-800 bg-opacity-50 hover:bg-opacity-100">
+            <SvgIcon :name="linkType" class="mr-2 w-4 h-auto" />
+            <span v-if="project.links[linkType] !== 'private'">{{ linkType }}</span>
+            <span v-else>Contact me for demo</span>
+          </component>
         </template>
       </div>
   </aside>

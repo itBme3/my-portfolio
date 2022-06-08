@@ -78,9 +78,6 @@ import { asyncDelay } from '~/utils/funcs'
               end: 'bottom 0%',
               toggleActions: 'play pause play pause'
             },
-            onComplete() {
-              asyncDelay(2000).then(() => ScrollTrigger.refresh())
-            }
           });
           if(els.title) {
             this.$gsap.set(els.title, { opacity: 0, scaleX: 1, scaleY: 1, y: 20, });
