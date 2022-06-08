@@ -1,5 +1,5 @@
 <template>
-  <div class="project-sections pr-0 sm:pr-8 sm:p-8 pl-0 sm:pl-0">
+  <div class="project-sections pr-0 sm:pr-8 sm:p-8 pl-0 sm:pl-0 -mt-8">
 
     <ProjectSection 
       v-for="section in projectSections"

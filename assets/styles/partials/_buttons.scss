@@ -7,13 +7,14 @@ button, .button {
         @apply hover:bg-opacity-50 hover:bg-gray-800;
     }
 }
-.nuxt-content-container {
+.nuxt-content {
     .button {
+        @apply transform scale-100 hover:scale-105 hover:shadow-lg font-semibold inline-block;
         &:not([class*="bg-"]) {
-            @apply bg-gray-800 bg-opacity-30;
+            @apply bg-gray-800 bg-opacity-70;
         }
         &:not([class*="hover:bg-"]) {
-            @apply hover:bg-opacity-50;
+            @apply hover:bg-opacity-100;
         }
     }
 }

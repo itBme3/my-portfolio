@@ -5,7 +5,7 @@ interface State {
 }
 export const state: State = {
       page: {
-            maxWidth: '2xl'
+            maxWidth: '3xl'
       }
 };
 

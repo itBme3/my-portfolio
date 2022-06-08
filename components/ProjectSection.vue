@@ -1,31 +1,37 @@
 <template>
   <section 
       :id="section.id"
-      class="block rounded-lg h-auto py-6 px-4 bg-gray-800 bg-opacity-20 mb-4 ml-0 mr-auto">
-      <h3 class="section-title text-2xl text-gray-100 font-display font-black relative z-0 mb-4 px-1">
+      class="block border border-gray-800 border-opacity-50 border-l-0 border-r-0 border-t-0 pr-6 sm:pr-8 py-10 sm:py-16 h-auto my-0 sm:mr-8 sm:my-8 ml-0 mr-auto"
+      style="opacity: 0">
+      <h3 
+        class="section-title text-2xl text-gray-100 font-display font-black relative z-0 mb-4 px-1"
+        :class="{ [classes.title]: true }">
         {{ section.title }}
       </h3>
       
       <template v-if="section.media">
         <Media 
           :src="typeof section.media === 'string' ? section.media : section.media[0]"
-          class="rounded-md shadow-lg shadow-black/40 overflow-hidden relative z-10 mt-2 mb-2" />
+          class="rounded-md shadow-lg shadow-gray-100/40 overflow-hidden relative z-10 mb-8"
+          :class="{ [classes.media]: true }" />
       </template>
       
       <nuxt-content 
-        class="section-text font-light text-gray-200 relative z-0 mt-6 px-1" 
+        class="section-text font-light text-gray-200 relative z-0 px-1"
+        :class="{ [classes.content]: true }"
         :document="section" />
       
       <div 
         v-if="Array.isArray(section.media) && section.media.length > 1"
-        class="more-media pt-4"
+        class="more-media mt-8"
         >
         <template v-for="(media, i) in section.media">
           <Media 
             v-if="i > 0"
             :key="media"
             :src="media"
-            class="rounded-md shadow-lg shadow-black/40 overflow-hidden relative z-10 mt-4 mb-8" />
+            class="rounded-md shadow-lg mt-6 p-2 border border-gray-800 shadow-gray-400 overflow-hidden relative z-10"
+            :class="{ [classes.media]: true }" />
         </template>
       </div>
 
@@ -42,13 +48,17 @@ import { asyncDelay } from '~/utils/funcs'
         default: () => {return {}}
       }
     },
+    computed: {
+      classes() {
+        const { media = '', title = '', content = '' } = this.section?.classes || {}
+        return { media, title, content }
+      }
+    },
     mounted () {
       this.initGsap()
     },
     methods: {
       initGsap () {
-      this.$gsap.set(this.$el, {opacity: 0})
-      this.$gsap.to(this.$el, {opacity: 1, delay: .3})
       asyncDelay(300).then(() => {
         const els = {
           title: this.$el.querySelector('.section-title'),
@@ -63,12 +73,12 @@ import { asyncDelay } from '~/utils/funcs'
         const tl = this.$gsap.timeline({
             scrollTrigger: {
               trigger: this.$el,
-              start: `top ${`${this.section.slug}` === `0` ? '120%' : '100%'}`,
+              start: `top 120%`,
               end: 'bottom -20%',
-              toggleActions: 'play pause play pause'
+              toggleActions: 'play pause play pause',
+              fastScrollPast: true
             },
           });
-          this.$gsap.set(this.$el, { opacity: 0, scaleY: 0 });
           if(els.title) {
             this.$gsap.set(els.title, { opacity: 0, scaleX: 1, scaleY: 1, y: 20, });
           }
@@ -103,7 +113,8 @@ import { asyncDelay } from '~/utils/funcs'
             scrollTrigger: {
               trigger: els.text,
               start: 'top 90%',
-              toggleActions: 'play pause play reverse',
+              toggleActions: 'play pause play pause',
+              fastScrollPast: true
             },
             ...defaults,
             ease: 'power1.inOut',

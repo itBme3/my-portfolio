@@ -1,5 +1,5 @@
 <template>
-  <div class="project page mx-auto max-w-lg flex flex-wrap">
+  <div class="project page mx-auto max-w-3xl w-full flex flex-wrap">
     
       <div 
         v-if="project"
@@ -13,18 +13,18 @@
             :class="{ [mediaClass]: true }" />
           <h1 class="title max-w-prose -ml-1">{{project.title}}</h1>
           <LogosList 
-            v-if="project && project.technologies && project.technologies.length && show.includes('technologies')"
+            v-if="project && project.technologies && project.technologies.length"
             :slugs="project.technologies"
             toggle-actions="play none none none"
             class="mt-4 mb-10 max-w-prose -ml-1"
           />
-          <h4 class="subtitle mt-6 max-w-lg">
+          <h4 class="subtitle mt-6 max-w-prose">
               {{project.description}}
               
           </h4>
           <nuxt-content 
             :document="project"
-            class="mt-6 mb-2 max-w-lg"
+            class="mt-6 mb-2 max-w-prose"
           />
 
       </div>
@@ -43,9 +43,10 @@
       </div>
       <div 
         v-if="show.includes('more-projects')"
-        class="more-projects w-full py-6 relative z-10"
+        style="box-shadow: 0 -10 20px rgb(19, 19, 25)"
+        class="more-projects w-full py-6 relative z-10 my-6 bg-gray-900"
       >
-        <LazySectionProjects title="More Projects:" :slugs="project.related" />
+        <SectionProjects title="More Projects:" :slugs="project.related" />
       </div>
     </div>
     
@@ -110,8 +111,7 @@
     },
     methods: {
       scrollToSection(id) {
-        let offsetY = Math.floor(this.$store.state.window.size.height * .13);
-        console.log({ offsetY })
+        let offsetY = Math.floor(this.$store.state.window.size.height * .1);
         if(offsetY < 100) {
           offsetY = 100;
         }
@@ -132,9 +132,8 @@
         this.$gsap.set(els.content, {opacity: 0, y: -40})
         let onComplete = () => {
 
-          this.show.push('sidebar');
-          this.show.push('content');
-
+            this.show.push('sidebar');
+            this.show.push('content');
           asyncDelay(500).then(() => {
               this.show.push('more-projects')
               ScrollTrigger.create({
@@ -150,14 +149,12 @@
         const tl = this.$gsap.timeline({
           delay: .1
         });
-        let showTechnologies = () => {
-          this.show.push('technologies')
-        }
-        showTechnologies = showTechnologies.bind(this)
-        tl.to(els.media, { opacity: 1, scaleX: 1, scaleY: 1, y: 0, duration: .6, ease: 'power3.out', onComplete: showTechnologies })
-          .to(els.title, { opacity: 1, duration: 1, y: 0, ease: 'power3.inOut' }, '-=.4')
-          .to(els.subtitle, { opacity: 1, y: 0, duration: .6, delay: .2, ease: 'power3.inOut', onComplete })
-          .to(els.content, { opacity: 1, y: 0, duration: .6, stagger: .25, ease: 'power3.inOut' }, '-=.15')
+        // asyncDelay(200).then(() => this.show.push('technologies'))
+        tl
+          .to(els.title, { opacity: 1, duration: 1, y: 0, ease: 'power3.inOut', onComplete })
+          .to(els.media, { opacity: 1, scaleX: '1', scaleY: '1', y: 0, duration: .6, ease: 'power3.out' }, '-=.6')
+          .to(els.subtitle, { opacity: 1, y: 0, duration: .6, ease: 'power3.inOut' })
+          .to(els.content, { opacity: 1, y: 0, duration: .6, stagger: .25, ease: 'power3.inOut' }, '-=.4')
       }
     }
 })

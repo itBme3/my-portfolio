@@ -6,7 +6,7 @@
     <video 
       v-if="isVideo"
       :src="src" 
-      autoplay muted playsinline loop>
+      autoplay muted playsinline>
     </video>
     <img v-else :src="src" />
   </div>
@@ -16,7 +16,6 @@
   import Vue from 'vue'
   import { ScrollTrigger } from 'gsap/ScrollTrigger'
   import makeVideoPlayableInline from 'iphone-inline-video';
-import { asyncDelay } from '~/utils/funcs';
   
   export default Vue.extend({
     props: {
@@ -59,14 +58,13 @@ import { asyncDelay } from '~/utils/funcs';
     mounted() {
       if(this.isVideo) {
         this.playPauseWhenInView()
-        asyncDelay(4000).then(() => this.$el.querySelector('video').play());
+        // asyncDelay(4000).then(() => this.$el.querySelector('video').play());
       }
     },
     methods: {
       playPauseWhenInView() {
         if(typeof this.$el?.querySelector !== 'function') {return}
         const video = this.$el.querySelector('video');
-        console.log({makeVideoPlayableInline, video})
         if(video) {
           makeVideoPlayableInline(video, false)
         }
@@ -84,8 +82,8 @@ import { asyncDelay } from '~/utils/funcs';
         }
         ScrollTrigger.create({
           trigger: this.$el,
-          start: 'top bottom',
-          end: 'bottom top-=10%',
+          start: 'top 100%',
+          end: 'bottom 0%',
           onLeave,
           onEnter,
           onEnterBack: onEnter,

@@ -48,17 +48,17 @@
       :categories="['languages', 'frameworks-libraries']"
       @animationDone="() => show.push('projects')" />
     
-    <!-- <SectionProjects
+    <SectionProjects
       v-if="show.includes('projects')" 
-      class="mt-0 mx-auto" style="max-width: 600px" /> -->
-      <div class="projects-highlights flex flex-col space-y-20">
+      class="mt-0 mx-auto" style="max-width: 600px" />
+      <!-- <div class="projects-highlights flex flex-col space-y-20">
         <section 
           v-for="slug in ['arcade', 'coloring-palettes', 'apparel-ecommerce', 'sms-campaign-builder']"
           :key="slug"
           class="project-highlights-section p-6 rounded-md hover:border-gray-800 border-transparent border">
           <ProjectHighlights :slug="slug" />
         </section>
-      </div>
+      </div> -->
 
   </div>
 </template>
