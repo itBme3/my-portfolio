@@ -95,25 +95,26 @@ import { asyncDelay, handleize } from '~/utils/funcs'
     methods: {
       initGsap() {
         asyncDelay(500).then(() => {
-          ScrollTrigger.refresh()
-          this.$gsap.set('.project-aside.desktop', { minWidth: '180px' });
-            this.pinScrolling = this.$gsap.to('.project-aside.desktop', {
-              scrollTrigger: {
-                trigger: '.project-sections',
-                pin: '.project-aside.desktop',
-                end: 'bottom 25%',
-                pinSpacing: false,
-                pinType: 'transform',
-                anticipatePin: 2,
-              },
-              marginTop: '70px'
-            });
           
+          this.$gsap.set('.project-aside.desktop', { minWidth: '180px' });
+          this.pinScrolling = this.$gsap.to('.project-aside.desktop', {
+            scrollTrigger: {
+              trigger: '.project-sections',
+              pin: '.project-aside.desktop',
+              end: 'bottom 25%',
+              pinSpacing: false,
+              pinType: 'transform',
+              anticipatePin: 2,
+            },
+            marginTop: '70px'
+          });
+          ScrollTrigger.refresh()
         })
       },
       initSectionScrollTracking() {
         const sections = this.$gsap.utils.toArray(this.$el.parentNode.parentNode.querySelectorAll('section'));
         const triggers = [];
+        
         sections.forEach((el) => {
           const sectionId = el.getAttribute('id');
           let onEnterBack = () => {
@@ -123,8 +124,9 @@ import { asyncDelay, handleize } from '~/utils/funcs'
             this.sectionsInView.push(sectionId)
           }
           let onEnter = () => {
-            onEnterBack()
+            onEnterBack();
             if(this.triggerRefreshed < sections.length) {
+              // asyncDelay(1000).then(() => ScrollTrigger.refresh())
               this.triggerRefreshed = this.triggerRefreshed + 1
             }
           }
@@ -137,8 +139,9 @@ import { asyncDelay, handleize } from '~/utils/funcs'
           triggers.push(this.$gsap.to(el, {
             scrollTrigger: {
               trigger: el,
-              start: 'top 60%',
+              start: 'top 70%',
               end: 'bottom 20%',
+              endTrigger: el,
               onEnter, onEnterBack,
               onLeave, onLeaveBack: onLeave,
             },

@@ -112,6 +112,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
                 arrow: this.$el.querySelector(".arrow"),
                 sections: this.$gsap.utils.toArray(this.$el.querySelectorAll(".project-section")),
             };
+            this.$gsap.set(this.$el, { scaleX: ".8", scaleY: ".8", opacity: 0 });
             this.$gsap.set(els.media, { scaleX: "0", scaleY: "0", opacity: 0 });
             this.$gsap.set(els.title, { x: "-2rem", opacity: 0 });
             this.$gsap.set(els.description, { y: "-1rem", opacity: 0 });
@@ -128,6 +129,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
                 }
             });
             tl
+              .to(this.$el, { scaleX: "1", scaleY: "1", opacity: 1 })
               .to(els.media, { scaleX: "1", scaleY: "1", opacity: 1, duration: 0.4 })
                 .to(els.title, { x: "0rem", opacity: 1, duration: 0.4 }, 0.3)
                 .to(els.arrow, { scaleY: "1", scaleX: "1", x: "0", duration: .4 }, .4)

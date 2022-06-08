@@ -8,3 +8,7 @@ export const handleize = (strng:string) => {
 		return null
 	}
 }
+
+export const diffBetweenNums = (no1:number, no2:number): number => {
+	return Math.abs(no1 - no2);
+}

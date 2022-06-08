@@ -1,7 +1,7 @@
 <template>
   <section 
       :id="section.id"
-      class="block border border-gray-800 border-opacity-50 border-l-0 border-r-0 border-t-0 pr-6 sm:pr-8 py-10 sm:py-16 h-auto my-0 sm:mr-8 sm:my-8 ml-0 mr-auto"
+      class="block border border-gray-800 border-opacity-50 border-l-0 border-r-0 border-t-0 pr-6 sm:pr-14 pb-10 sm:pb-14 h-auto my-0 ml-0 mr-auto"
       style="opacity: 0">
       <h3 
         class="section-title text-2xl text-gray-400 font-display font-black relative z-0 mb-4"
@@ -40,6 +40,7 @@
 
 <script>
   import Vue from 'vue'
+  import {ScrollTrigger} from 'gsap/ScrollTrigger'
 import { asyncDelay } from '~/utils/funcs'
   export default Vue.extend({
     props: {
@@ -72,12 +73,14 @@ import { asyncDelay } from '~/utils/funcs'
 
         const tl = this.$gsap.timeline({
             scrollTrigger: {
-              trigger: this.$el,
-              start: `top 120%`,
+              trigger: els.title,
+              start: `top 100%`,
               end: 'bottom 0%',
-              toggleActions: 'play pause play pause',
-              fastScrollPast: true
+              toggleActions: 'play pause play pause'
             },
+            onComplete() {
+              asyncDelay(2000).then(() => ScrollTrigger.refresh())
+            }
           });
           if(els.title) {
             this.$gsap.set(els.title, { opacity: 0, scaleX: 1, scaleY: 1, y: 20, });
@@ -90,7 +93,7 @@ import { asyncDelay } from '~/utils/funcs'
           }
           const defaults = { y: 0, x: 0, scaleY: 1, scaleX: 1, opacity: 1, ease: 'power1.inOut', duration: .3 };
 
-            tl.to(this.$el, {opacity: 1, scaleY: 1, duration: .6, ease: 'power1.inOut'})
+          tl.to(this.$el, {opacity: 1, scaleY: 1, duration: .6, ease: 'power1.inOut'})
 
             if(els.media) {
               tl

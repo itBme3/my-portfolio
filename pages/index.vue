@@ -46,7 +46,7 @@
     <SectionSkills 
       :start="show.includes('skills')"
       :categories="['languages', 'frameworks-libraries', 'apis']"
-      @animationDone="() => show.push('projects')" />
+      @animationDone="(i) => i === 2 ? revealProjectHighlights() : scrollToNext(i)" />
     
     <!-- <SectionProjects
       v-if="show.includes('projects')" 
@@ -54,7 +54,7 @@
       <div class="projects-highlights flex flex-col max-w-xl mx-auto">
         <h4 class="section-title italic ml-0 text-left mb-6 w-full">project highlights:</h4>
         <section 
-          v-for="(slug, i) in ['arcade', 'coloring-palettes', 'apparel-ecommerce', 'sms-campaign-builder']"
+          v-for="(slug, i) in ['apparel-ecommerce', 'coloring-palettes', 'sms-campaign-builder', 'arcade']"
           :key="slug"
           class="project-highlights-section overflow-x-hidden"
           :class="{
@@ -69,37 +69,50 @@
 
 <script>
 import Vue from 'vue'
-import { asyncDelay } from '~/utils/funcs';
+import {ScrollTrigger} from 'gsap/ScrollTrigger'
+import { asyncDelay, diffBetweenNums } from '~/utils/funcs';
 import { seoHead } from '~/utils/seo';
 export default Vue.extend({
     name: "IndexPage",
     data() {
         return {
-            show: []
+            show: [],
+            lastScroll: 0
         };
     },
     head () {
       return seoHead({})
-    },
-    watch: {
-        "$store.state.window.scroll.y"(val) {
-            if (val > (this.$store.state.window.size.height * 0.5) && !this.show.includes("skills")) {
-                this.revealHeroLinks();
-            }
-        }
     },
     mounted() {
         this.initGsap();
     },
     methods: {
         initGsap() {
+
+
             const els = {
                 title: this.$el.querySelector(".hero-title"),
                 wave: this.$el.querySelector(".hero-title .wave"),
                 hi: this.$el.querySelector(".hero-title .hi"),
                 name: this.$el.querySelector(".hero-title .name"),
-                heroButtons: this.$el.querySelectorAll(".hero-links .button")
+                heroButtons: this.$el.querySelectorAll(".hero-links .button"),
+                projectHighlightSectionTitle: this.$el.querySelectorAll('.projects-highlights .section-title'),
+
             };
+            this.$gsap.set(els.projectHighlightSectionTitle, {
+              y: '2rem',
+              x: '-20%',
+              opacity: 0,
+              delay: .3,
+              scaleX: '.5',
+              scaleY: '.5',
+            })
+            this.$gsap.set(els.projectHighlightSections, {
+              opacity: 0,
+              scaleX: '.8',
+              scaleY: '.8',
+              y: '10rem'
+            })
             this.$gsap.set(els.heroButtons, { opacity: 0, marginTop: "-20px" });
             this.$gsap.set(els.hi, { opacity: 0, x: -20, scaleX: 0, scaleY: 0 });
             this.$gsap.set(els.name, { opacity: 0, y: -60 });
@@ -129,20 +142,15 @@ export default Vue.extend({
                   .to(els.name, { opacity: 1, y: 0, duration: 0.4, ease: "power3.in" });
             });
 
-            // project highlights
-            this.$gsap.from(this.$el.querySelector('.projects-highlights > .section-title'), { 
-              scrollTrigger: {
-                trigger: this.$el.querySelector('.project-highlights-section'),
-                start: 'top 80%',
-                toggleActions: 'play reverse play reverse'
-              },
-              y: '2rem',
-              x: '-20%',
-              opacity: 0,
-              delay: .3,
-              scaleX: '.5',
-              scaleY: '.5',
-             })
+            const onLeave = () => {
+              this.revealProjectHighlights()
+            }
+
+            ScrollTrigger.create({
+              trigger: "section.skills .section-content .logos-list:nth-last-child(1)",
+              start: 'bottom 150px',
+              onLeave: onLeave.bind(this)
+            })
         },
         revealHeroLinks() {
             this.$gsap.to(".hero-links .button", { opacity: 1, marginTop: "0", duration: 0.2, ease: "none", stagger: 0.1, delay: 0.05 });
@@ -154,13 +162,62 @@ export default Vue.extend({
             });
             this.continuePastHero();
         },
+        scrollToNext(i) {
+          console.log({i, lastScroll: this.lastScroll, windowScrollY: window.scrollY})
+          asyncDelay(500).then(() => {
+            const onComplete = () => {
+              this.lastScroll = window.scrollY
+              if(i === 2) {
+                asyncDelay(1000).then(() => this.show.push('projects'))
+              }
+            }
+            console.log({i, lastScroll: this.lastScroll, windowScrollY: window.scrollY, diffBetweenNums: diffBetweenNums(window.scrollY, this.lastScroll)})
+            if(diffBetweenNums(window.scrollY, this.lastScroll) < 20) {
+              this.$gsap.to(window, {
+                duration: 0.3,
+                scrollTo: { y: ".hero-subtitle", offsetY: 0 - (150 * i) },
+                onComplete: onComplete.bind(this)
+              })
+            }
+          })
+        },
+        revealProjectHighlights() {
+          // project highlights
+            
+
+            const tl = this.$gsap.timeline({ 
+              scrollTrigger: {
+                trigger: this.$el.querySelector('.project-highlights-section'),
+                start: 'top 80%',
+                toggleActions: 'play pause play pause'
+              },
+              
+            });
+            tl.to(this.$el.querySelector('.projects-highlights > .section-title'), {
+              y: '0',
+              x: '0',
+              opacity: 1,
+              delay: .3,
+              scaleX: '1',
+              scaleY: '1',
+            })
+
+        },
         continuePastHero() {
-            setTimeout(() => {
-                // this.show.push('skills');
-                if (window.scrollY < 50) {
-                    this.$gsap.to(window, { duration: 0.3, scrollTo: { y: ".hero-subtitle", offsetY: 150 } });
+          asyncDelay(1000)
+            .then(() => {
+              console.log({diffBetweenNums : diffBetweenNums(window.scrollY, 0)})
+              if (diffBetweenNums(window.scrollY, 0) < 50) {
+                const onComplete = () => {
+                  this.lastScroll = window.scrollY
                 }
-            }, 1000);
+                this.$gsap.to(window, {
+                  duration: 0.3,
+                  scrollTo: { y: ".hero-subtitle", offsetY: 150 },
+                  onComplete: onComplete.bind(this)
+                });
+              }
+            });
         }
     }
 })

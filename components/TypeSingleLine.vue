@@ -83,7 +83,7 @@ import {asyncDelay} from '~/utils/funcs'
         onLeave = onLeave.bind(this)
         ScrollTrigger.create({
           trigger: this.$el,
-          end: 'bottom -10%',
+          end: 'top 15%',
           onLeave
         })
       },

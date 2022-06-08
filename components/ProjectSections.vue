@@ -1,10 +1,13 @@
 <template>
-  <div class="project-sections pr-0 sm:pr-8 sm:p-8 pl-0 sm:pl-0 sm:-mt-20">
+  <div class="project-sections pr-0 sm:mr-8 sm:p-8 pl-0 sm:pl-0 sm:mt-0">
 
     <ProjectSection 
-      v-for="section in projectSections"
+      v-for="(section, i) in projectSections"
       :key="section.id"
       :section="section"
+      :class="{
+        'mt-10 sm:mt-14': i !== 0
+      }"
        />
 
   </div>

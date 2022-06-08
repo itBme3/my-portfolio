@@ -11,7 +11,7 @@
           v-if="startTyping || !animateTitle"
           tag="span" 
           @animationStarted="isTyping = true"
-          @animationDone="doneTyping = true">
+          @animationDone="() => doneTyping = true">
           <template v-if="animateTitle" #before>
               <span v-if="isTyping" class="square-bracket mr-2 inline-block">[</span>
           </template>
@@ -215,7 +215,7 @@ export default Vue.extend({
         })
       },
       initItemsReveal() {
-        asyncDelay(500).then(() => this.$emit('animationDone', true))
+        asyncDelay(300).then(() => this.$emit('animationDone', true))
         let onLeave = () => {
           this.isEntered = false
         };

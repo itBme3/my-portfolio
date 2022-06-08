@@ -12,7 +12,7 @@
         :animate-title="animateTitle"
         :start="i === 0 ? start : doneTyping.includes(i - 1)"
         @doneTyping="() => doneTyping.push(i)"
-        @animationDone="() => i === categories.length - 1 ? $emit('animationDone', true) : ''" />
+        @animationDone="() => $emit('animationDone', i)" />
 
   </div>
 </section>
