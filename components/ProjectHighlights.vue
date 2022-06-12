@@ -40,7 +40,7 @@
         ref="section"
         :to="`/projects/${project.slug}#${section.handle}`"
         class="project-section max-w-md bg-gray-800 hover:scale-105 bg-opacity-30 rounded-lg p-6 block transform scale-100 hover:shadow-lg transition-all duration-200 hover:bg-opacity-50 hover:bg-gray-800">
-        <h4 class="section-title text-gray-300 font-display font-bold text-xl mb-2 px-1">{{section.title}}</h4>
+        <h4 class="project-section-title text-gray-300 font-display font-bold text-xl mb-2 px-1" style="opacity: 1">{{section.title}}</h4>
         <Media 
           :src="section.media[0]"
           class="section-media rounded-md overflow-hidden shadow-lg mb-6"
@@ -114,7 +114,8 @@ import { asyncDelay, handleize } from '~/utils/funcs'
             };
             this.$gsap.set(this.$el, { scaleX: ".8", scaleY: ".8", opacity: 0 });
             this.$gsap.set(els.media, { scaleX: "0", scaleY: "0", opacity: 0 });
-            this.$gsap.set(els.title, { x: "-2rem", opacity: 0 });
+            
+            this.$gsap.set(els.description, { x: "2rem", opacity: '0' });
             this.$gsap.set(els.description, { y: "-1rem", opacity: 0 });
             this.$gsap.set(els.arrow, { scaleY: "0", scaleX: "0.5", x: "-1rem" });
             this.$gsap.set(els.sections, { scaleY: "0", scaleX: "0.5", y: "-1rem", opacity: 0 });
