@@ -94,63 +94,92 @@
     {
         "title": "Firebase",
         "slug": "firebase",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653292221/logos/firebase_xkacuk.png",
         "color": "#FCCA3F"
     },
     {
         "title": "Algolia",
         "slug": "algolia",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/algolia_j0hpwf.png",
         "color": "#5468FA"
     },
     {
         "title": "Google Cloud Storage",
         "slug": "gcs",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/google-cloud-storage_wq4oyh.png",
         "color": "#4387FA"
     },
     {
         "title": "Strapi",
         "slug": "strapi",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/strapi_p5qfsz.png",
         "color": "#8E75FA"
     },
     {
         "title": "Sendgrid",
         "slug": "sendgrid",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/sendgrid_h5serk.png",
         "color": "#00B2E3"
     },
     {
         "title": "Twilio",
         "slug": "twilio",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/twilio_jhpisa.png",
         "color": "#E31E26"
     },
     {
         "title": "Shopify",
         "slug": "shopify",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/shopify_butqbf.png",
         "color": "#95BF47"
     },
     {
         "title": "Wordpress",
         "slug": "wordpress",
-        "category": "apis",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651436565/logos/wordpress_b3sznv.png",
         "color": "#76706E"
     },
     {
         "title": "Vite",
         "slug": "vite",
+        "category": "apis-tools",
         "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1653360763/logos/vite_dmatsn.png",
         "color": "#A159FF"
+    },
+    {
+        "title": "Figma",
+        "slug": "figma",
+        "category": "apis-tools",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1655021447/logos/figma_wpd3ok.png",
+        "color": "#A159FF"
+    },
+    {
+        "title": "Adobe XD",
+        "slug": "adobe-xd",
+        "category": "apis-tools",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/adobe-xd_bgupaf.png",
+        "color": "#FC61F6"
+    },
+    {
+        "title": "Adobe Illustrator",
+        "slug": "adobe-illustrator",
+        "category": "apis-tools",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/adobe-illustrator_fbtopu.png",
+        "color": "#FD9A00"
+    },
+    {
+        "title": "Adobe Photoshop",
+        "slug": "adobe-photoshop",
+        "category": "apis-tools",
+        "image": "https://res.cloudinary.com/bmoyni3/image/upload/v1651407478/logos/adobe-photoshop_pfnso5.png",
+        "color": "#31A8FF"
     }
 ]

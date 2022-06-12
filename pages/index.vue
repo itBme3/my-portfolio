@@ -45,7 +45,7 @@
 
     <SectionSkills 
       :start="show.includes('skills')"
-      :categories="['languages', 'frameworks-libraries', 'apis']"
+      :categories="['languages', 'frameworks-libraries', 'apis-tools']"
       @animationDone="(i) => i === 2 ? revealProjectHighlights() : scrollToNext(i)" />
     
     <!-- <SectionProjects
@@ -115,7 +115,7 @@ export default Vue.extend({
             })
             this.$gsap.set(els.heroButtons, { opacity: 0, marginTop: "-20px" });
             this.$gsap.set(els.hi, { opacity: 0, x: -20, scaleX: 0, scaleY: 0 });
-            this.$gsap.set(els.name, { opacity: 0, y: -60 });
+            this.$gsap.set(els.name, { opacity: 0, y: '-2.25rem' });
             this.$gsap.set(els.wave, { opacity: 0, scaleY: 1, scaleX: 1 });
             asyncDelay(100).then(() => {
               const onComplete = () => {
@@ -139,7 +139,7 @@ export default Vue.extend({
                       { rotation: 10, scaleY: 1, scaleX: 1, x: 0 },
                   ], duration: 1.5, ease: "power3.out" })
                   .to(els.hi, { opacity: 1, scaleY: 1, scaleX: 1, x: 0, duration: 0.4, ease: "power3.inOut" }, .75)
-                  .to(els.name, { opacity: 1, y: 0, duration: 0.4, ease: "power3.in" });
+                  .to(els.name, { opacity: 1, y: 0, duration: 0.4, ease: "power3.in" }, 1.2);
             });
 
             const onLeave = () => {

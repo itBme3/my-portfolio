@@ -28,7 +28,7 @@
         default: () => [
             "languages",
             "frameworks-libraries",
-            "apis"
+            "apis-tools"
         ]
       },
       animateTitle: {

@@ -29,9 +29,9 @@
       <LogosList :slugs="project.technologies" class="mt-6 ml-6" />
     <div 
       v-if="sections"
-      class="project-sections grid gap-4 pt-4 py-8"
+      class="project-sections grid gap-4 pt-4 py-8 grid-cols-1"
       :class="{
-        [`grid-cols-${sections.length <= 1 ? '1' : '2'}`]: true
+        ['sm:grid-cols-2']: sections.length > 1
       }"
       @click="initGsap">
       <nuxt-link 
@@ -131,7 +131,7 @@ import { asyncDelay, handleize } from '~/utils/funcs'
             tl
               .to(this.$el, { scaleX: "1", scaleY: "1", opacity: 1 })
               .to(els.media, { scaleX: "1", scaleY: "1", opacity: 1, duration: 0.4 })
-                .to(els.title, { x: "0rem", opacity: 1, duration: 0.4 }, 0.3)
+                .to(els.title, { x: "0rem", opacity: '1', duration: 0.4 }, 0.3)
                 .to(els.arrow, { scaleY: "1", scaleX: "1", x: "0", duration: .4 }, .4)
                 .to(els.subtitle, { y: '0rem', opacity: 1, duration: .6 }, .4)
                 .to(els.sections, {
