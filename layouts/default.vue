@@ -71,7 +71,7 @@ main {
 }
 
 .page {
-  @apply px-6 xs:px-8;
+  @apply px-2 xs:px-8;
 }
 
 .title {
