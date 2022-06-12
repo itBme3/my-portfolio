@@ -24,5 +24,5 @@ related:
     - coloring-palettes
 ---
 
-<strong>Before:</strong> Took marketing team roughly 8-10 hours to a new launch product<br><br>
-<strong>After:</strong> Takes team 1-2 hours to launch product
+<strong>Before:</strong> Took marketing team roughly 10 hours to a new launch product<br><br>
+<strong>After:</strong> Takes team 1 hour to launch product
